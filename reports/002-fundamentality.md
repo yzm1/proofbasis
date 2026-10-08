@@ -8,9 +8,9 @@
 | **Status** | Review requested. Nothing here is FORMALIZED; no checker was run. Every argument of my own is labelled INFERENCE (informal argument) or CONJECTURE. Source statuses use `docs/RESEARCH_PROTOCOL.md` vocabulary. |
 | **Evidence log** | [`reports/002-source-notes/`](002-source-notes/README.md) |
 
-**Disclosure.** This report was written in the same session, by the same model, that wrote PR #2 (report 001 and its self-review). That limits its independence from PR #2. PR #1 (Codex) and the Stage-0 synthesis were read in full. Their conclusions are treated as claims to check, not as results.
+**Disclosure.** This report was written in the same session, by the same model, that wrote PR #2 (report 001 and its self-review). PR #1 (Codex), PR #2 and its self-review, and the Stage-0 synthesis were read in full; their conclusions are treated as claims to check, not results.
 
-**Inputs read in full.** AGENTS.md, the charter, the definitions document, the falsification plan, `docs/STAGE_0_SYNTHESIS.md`, PR #1's report, PR #2's report, PR #2's self-review (`reports/001-review.md`) and the source notes of both PRs.
+**Revision history.** A first draft of this report was attacked by a separate agent with fresh context; its critique is `002-source-notes/fresh-critique.md`. The attack **broke the draft's central claim**. §12 lists exactly what was withdrawn and why.
 
 ---
 
@@ -18,292 +18,374 @@
 
 **Recommendation: NARROW.** Do not proceed to any algebra or implementation, and do not stop on the evidence gathered here.
 
-1. **A precise anti-vacuity definition exists, and it is independently motivated.**
-   - **The property.** A representation must be a *homomorphism of the source's substitution structure*. Instantiating schematic variables, and substituting derivations for hypotheses, must be carried out by the target's own substitution (definition SN/HN, §2.3).
-   - **What it rules out.** For finitely schematic sources (§2.1), this property forces each source rule to be sent to one fixed *derived rule* of the target (Lemmas 1–2, §3). This excludes every universal-interpreter construction examined:
+1. **Two kinds of "universality" must be separated.**
+   - **(U-inst) Universality that inspects instances.** A fixed mechanism decides acceptance by examining the instantiated formulas or a coding of them. Examples:
      - Mossakowski–Diaconescu–Tarlecki (MDT) flattening;
-     - the Clavel–Meseguer universal theory;
-     - EF + reflection;
      - Jeřábek's ubiquitous conservative translations;
-     - a Turing-machine step checker;
-     - a Dedukti conversion checker.
+     - the Clavel–Meseguer universal theory on ground codes;
+     - extended Frege plus reflection with a bit encoding;
+     - a Turing machine running on serialized tapes.
      
-     Interpreters inspect *instances*. A homomorphism can only act on *schemas* (§5).
-   - **Why it is not tailored to the interpreter.** The same property is, under different names:
-     - Łoś–Suszko structurality in algebraic logic;
-     - Harper–Honsell–Plotkin's (HHP) compositional adequacy;
-     - Cook–Reckhow's substitution-closed Frege rules;
-     - Fiore–Plotkin–Turi and Fiore–Mahmoud morphisms of syntax with binding;
-     - the "structurality" whose general formulation MDT left open.
-2. **The property must be stated in its strong form.**
-   - The weak, existential form ("for every substitution σ there is some σ\* with t(σφ) ≡ σ\*(tφ)") is satisfied by both MDT's flattening and Jeřábek's translations, so it excludes nothing (INFERENCE, §3.3).
-   - Even the strong form has one documented loophole that I judge benign (§5, L-a), and it over-excludes in two documented ways (§5, L-f, L-g).
-3. **Anti-vacuity is not fidelity.** A homomorphic encoding of multiplicative linear logic that uses unrestricted hypotheses passes the anti-vacuity property and still derives p ⊢ p⊗p, which linear logic does not prove (§6.2). Resource discipline needs *reflection of derivability* as a separate clause.
-4. **"Fundamental operation" cannot be an invariant property of individual operations.**
-   - The Boolean clone has the disjoint bases {nand} and {∧, ¬}, so no operation belongs to every basis (Böhler et al. Ex. 1.3).
-   - Cook–Reckhow Thm 2.3 makes all Frege bases mutually translatable, rule by rule, with linear overhead.
-   - Only *generated structures* and an *interpretability preorder* are presentation-invariant (§7). Comparing primitive counts is meaningless.
-5. **The fundamentality question splits.** I give three inequivalent definitions:
-   - **D1, relative:** rules may be declared in the environment.
-   - **D2, fixed-core:** every object rule must be *derived* in the core.
-   - **D3, generic:** logical rules are generated from structural data.
+     A strong, componentwise **substitution-naturality** condition (SN, §2.3) excludes all of them. SN is independently motivated: it is Łoś–Suszko structurality, HHP's compositional adequacy, Cook–Reckhow's substitution-closed Frege rules, and the morphisms of syntax with binding of Fiore–Plotkin–Turi and Fiore–Mahmoud. It has real force: there is no schematic conservative translation of IPC into CPC (Prop 4), although a non-schematic one exists (Jeřábek Thm 2.4).
+   - **(U-schema) Universality at the level of schemas.** These mechanisms only *instantiate schemas*, so they pass SN, homomorphism and adequacy:
+     - a fixed LF signature in which an object logic's rules are passed as data (construction B1);
+     - a checker over atom-uniform certificates (B2);
+     - inductive or impredicative definitions in a strong foundation (B5).
+     
+     **So a fixed, finite framework that adequately represents every finitely schematic calculus already exists, and in a trivial way.** "Representable in one finite framework" (definition D1) therefore cannot be what "fundamental" means. D1 only certifies an *honest* representation, together with its trust ledger.
+2. **A definition of "fundamental" that excludes both kinds is the classical notion of a *logical translation* (definition D2, §2.4).** It has four requirements:
+   - each source formula maps *componentwise* to a formula of the core's own logic;
+   - the judgment wrapper does not depend on the source;
+   - derivations map homomorphically, with every source rule becoming a *derived rule of the core*;
+   - no source-specific environment item quantifies over propositions;
    
-   For classical, intuitionistic and linear sequent calculi, D2 already has prior-art witnesses at the derivability level. One is a single extended intuitionistic linear calculus into which LK, LJ and ILL translate connective-wise and conservatively (Yamada 2021, preprint, Cor 3.18 / 3.37; Girard's LU was not accessed). So "a finite common basis exists" is **not novel** at levels R1–R2.
-6. **The PR #2 vacuity–identity dilemma is not exhaustive, and its lemma stays retracted.**
-   - Generic frameworks are a genuine third route: logical rules and β/η are generated, and per-logic data are structural (Licata–Shulman–Riley (LSR) 2017; Shulman 2023).
-   - Their faithfulness on proof identity is still open. LSR's own Conjecture 8.5 has not been proved in the literature I could search (2017–2026).
-   - Its unary analogue *has* been proved: Clarke–Scherer–Zeilberger 2026, Thm 1.17 (preprint).
-   - Environment-supplied equivalence rules are not automatically vacuous. Preservation then holds by declaration, but reflection is a real theorem (§4.4).
+   plus reflection of derivability.
+   
+   Every interpreter-like construction found fails D2, because formulas become data or the translation is not componentwise (Table §5). The definition is not tailored to interpreters: it is the "schematic translation" of Prawitz–Malmnäs and Pelletier–Urquhart, and the "logical morphism" thm[x] ↦ thm′[k[x]] of Rabe. **Cost:** LF and deep embeddings are *not* fundamental cores under D2. They remain legitimate representation media under D1. That is a deliberate distinction, and §5 argues it is principled rather than a decree.
+3. **At the level of derivability, a finite cross-foundation core is prior art, assembled here from cited parts (CONJECTURE until checked).** Composing three known translations gives D2 translations of NJ, LK and S4(□) into one adjoint logic whose modes carry σ(m) ⊆ {W, C}, alongside native ILL:
+   - **Kolmogorov, LK → NJ.** MDT Ex 2.4 records it as conservative. Proof-level homomorphism needs a "stable sort" repair: INFERENCE.
+   - **Girard, NJ → ILL.** Faithful for provability: Girard 1987 p. 81 [S0].
+   - **Judgmental S4(□) in adjoint logic.** Pruiksma thesis, Example 4.
+   
+   So the question "does a finite fundamental basis exist?" has a known positive answer at R1–R2 for this benchmark. It is not a novel target.
+4. **Anti-vacuity is not fidelity.** An LF encoding of multiplicative linear logic that uses unrestricted hypotheses passes SN and homomorphism, but derives p ⊢ p⊗p, which linear logic does not prove (§6.2). Reflection of derivability is a separate, necessary clause.
+5. **Individual operations are never invariantly "fundamental".**
+   - The Boolean clone has the disjoint bases {nand} and {∧, ¬}.
+   - All Frege systems over the same connectives simulate each other rule by rule (Cook–Reckhow Thm 2.3, under its hypotheses).
+   - Only the generated structure, and the preorder of D2-interpretability, are invariant (§7).
+6. **PR #2's vacuity–identity dilemma is not exhaustive (§9).** Its lemma stays retracted. Its "horn (ii)" (environment equations make R3 vacuous) is false for schematic and generic equations. Its case split also missed the distinction that actually matters here: instance-level versus schema-level universality.
 
-**Strongest remaining mathematical uncertainty.**
+**Strongest remaining mathematical uncertainty.** The D2 core above preserves and reflects *theorems*. It is not known whether it preserves *proofs* in the following sense.
 
-> Is there an independently motivated, *restricted* class of admissible environment data under which a fixed framework is generative (D2/D3) for a cross-foundation class, without the environment becoming a universal rewriting layer?
+> **Is there a single finite core A, with one fixed proof equality, that admits D2 translations of an intuitionistic, a classical and a linear calculus which are all *full*?**
+>
+> *Full* means: every A-derivation of a translated sequent is equal, in A, to the translation of some source derivation.
 
-- **Without a restriction, the problem just moves into the environment.**
-  - The structural layer of generic frameworks can encode undecidable behaviour: KKNS Thm 8; Buszkowski's theorem as restated by KKS Thm 10; Clarke–Scherer–Zeilberger Thm 3.27.
-  - Rule-shape restrictions such as bipoles do not prevent this (§8).
-- **With a fixed menu, it is unknown which foundations are covered.** Pruiksma's adjoint-logic menu σ(m) ⊆ {W, C} is one such menu. Classical multi-conclusion non-linear logic (LK) is the known boundary. No generic type-theoretic framework found covers it natively.
+Fullness is what separates "A proves the same theorems" from "A's operations generate exactly the source's proofs". The pairwise evidence is mixed:
+- Girard's translation from STLC into linear λ is fully complete (Hasegawa 2000).
+- Linear CPS is full for the computational λ-calculus (Hasegawa 2002, Thm 1).
+- The ordinary CPS translation into STLC is "not full" (Hasegawa 2002, §1.3).
 
-The single next test is in §10.
+No *joint* result was found. This question touches proof identity (Task 003); see the coordination note in §10. The single next test is in §10.4.
 
 ---
 
 ## 1. Scope and method
 
-**Source agents.** Three source-extraction agents ran under a written protocol (`002-source-notes/00-extraction-protocol.md`), covering:
-- structurality and translations between logics;
-- the algebra of binding and derived/admissible rules;
-- generic-framework follow-ups.
-
-**My own spot checks.** I re-located decisive passages in the downloaded texts myself (listed in `002-source-notes/own.md`, O3). I also extracted two sources directly: Holliday–Hoshi–Icard on Public Announcement Logic (PAL), and Yamada.
-
-**Reuse of earlier logs.** Stage-0 and review logs from PR #2 are reused where cited, marked [S0] or [R].
-
-**Access limits.**
-- **Primary texts not read:** Sheffer 1913, Post 1941, Łoś–Suszko 1958 (SEP used), Feitosa–D'Ottaviano 2001 (definition via Jeřábek and MDT), Wójcicki 1970/1988, Prawitz–Malmnäs, Zolin 2000, Girard's LU, Buszkowski 1982 (via KKS), Chvalovský–Horčík 2016, Iemhoff, Humberstone, Schürmann's thesis, Fiore LICS 2008.
-- **Not found:** the LSR dependent-type sequel, which is unpublished.
-- **Citation search:** Semantic Scholar only, about 60 citing papers of LSR screened. No Google Scholar sweep.
-- **Versions:** most texts are author preprints, so page numbers refer to those.
+- **Source agents.** Three source agents ran under a written protocol (`002-source-notes/00-extraction-protocol.md`), covering:
+  - structurality and translations between logics (`str`);
+  - binding algebra and derived/admissible rules (`bnd`);
+  - generic-framework follow-ups (`gfu`).
+- **Own extractions and spot checks.** I re-checked decisive passages myself (`own.md`, O3) and extracted Holliday–Hoshi–Icard (Public Announcement Logic, PAL) and Yamada directly. Pruiksma's Example 4 and MDT Ex 2.4 were also re-read directly.
+- **Adversarial attack.** A fresh-context agent attacked the first draft (`fresh-critique.md`). Its findings are incorporated, with credit, throughout.
+- **Reused logs.** Stage-0 logs [S0] and PR #2 review logs [R] are reused where cited.
+- **Access limits:**
+  - **Not accessed:** Sheffer 1913, Post 1941, Łoś–Suszko 1958 (SEP used), Feitosa–D'Ottaviano 2001 (via Jeřábek and MDT), Wójcicki, Prawitz–Malmnäs (cited via Pelletier–Urquhart), Zolin 2000, Girard's LU, Buszkowski 1982 (via KKS), Chvalovský–Horčík 2016, Iemhoff, Humberstone, Schürmann, Hofmann–Streicher, Berdine–O'Hearn–Reddy–Thielecke.
+  - **Not found:** the LSR dependent sequel, which is unpublished.
+  - **Literature search:** about 60 citing papers of LSR were screened via Semantic Scholar. No Google Scholar sweep was done.
+  - **Page numbers** refer to the versions read, mostly preprints.
 
 ---
 
-## 2. Exact definitions
+## 2. Definitions
 
-### 2.1 Source side: finitely schematic calculi
+### 2.1 Source class: finitely schematic calculi
 
 A **finitely schematic calculus** S = (Σ, 𝒥, ℛ) consists of:
-- a finite *sorted second-order signature* Σ for object syntax (sorts, and operators with binding arities);
-- a finite set 𝒥 of judgment forms over Σ;
-- a finite set ℛ of rule schemas.
+- a finite *sorted second-order signature* Σ for object syntax;
+- a finite set 𝒥 of judgment forms;
+- finitely many rule schemas ℛ.
 
-Each rule r ∈ ℛ has:
-- sorted metavariables X⃗ (with binding arities);
-- premises, each possibly *hypothetical* (local hypotheses u:J′) and *parametric* (local eigen-parameters);
+Each rule r has:
+- sorted formula metavariables, possibly with binding arities;
+- premises, which may be *hypothetical* or *parametric*;
 - a conclusion.
 
-There are no side conditions beyond what sorts and binding express.
+There are **no side conditions** beyond what sorts and binding express. Consequently, calculi with a computational side condition, such as a conversion rule "A ≡ B", are *outside* the class unless they are re-presented declaratively (with an explicit conversion judgment).
 
-Derivations are terms over ℛ. **Schematic (open) derivations** may contain free metavariables, hypothesis variables and parameters. Derivations are closed under:
-- *metasubstitution* θ (sort-respecting);
-- *proof substitution* d[d′/u], including the second-order case for hypothetical premises.
+**Schematic derivations** may contain:
+- formula metavariables;
+- hypothesis and parameter variables;
+- **derivation metavariables**: open premise holes, of every judgment form.
 
-This generalizes Łoś–Suszko structurality: a consequence relation is structural if "Γ ⊢ ϕ then σ[Γ] ⊢ σ(ϕ)" (SEP, Jansana, SECONDARY_ONLY).
+They are closed under three operations:
+- sort-respecting metasubstitution;
+- proof substitution, including the second-order case;
+- *grafting* into derivation metavariables.
 
-**Sorting is essential: PAL.** Public Announcement Logic is "not closed under uniform substitution". The instance ⟨p⟩K_i p ↔ (p ∧ K_i p) of its reduction axiom (i), ⟨ϕ⟩p ↔ (ϕ ∧ p), is invalid (Holliday–Hoshi–Icard 2011, §§1.1–1.2, VERIFIED_SOURCE). PAL *is* finitely schematic once atoms are a separate sort, because axiom (i) is schematic in an atom-sorted metavariable. So structurality must always be read relative to the declared sorts.
+**Why sorting matters.** PAL is "not closed under uniform substitution". Its reduction axiom (i) ⟨ϕ⟩p ↔ (ϕ ∧ p) has the invalid instance ⟨p⟩K_i p ↔ (p ∧ K_i p) (Holliday–Hoshi–Icard 2011 §§1.1–1.2, VERIFIED_SOURCE). PAL is finitely schematic once atoms form their own sort.
 
-**Finiteness is essential.** Caleiro–Gonçalves note that if every formula is redeclared as an atom, any map becomes "uniform" (C–G p. 7, VERIFIED_SOURCE). Requiring Σ and ℛ to be finite blocks this "sort-splitting" attack.
+**Why finiteness matters.** If every formula is re-declared as an atom, every map becomes "uniform" (Caleiro–Gonçalves p. 7, VERIFIED_SOURCE). Finiteness of Σ and ℛ blocks this sort-splitting attack.
 
-### 2.2 Target side: frameworks and environments
+### 2.2 Targets, environments and the trust ledger
 
-A **framework** A has:
+**Framework conditions.** A framework A has:
 - fixed typing rules;
-- a substitution operation;
-- a definitional equality ≡_A that is *stable under substitution*. This holds for LF, LLF, CLF, λΠ-modulo with substitution-stable rewriting, rewriting logic, and focused LL in proof-search form.
+- substitution;
+- a definitional equality ≡_A, with typing and ≡_A stable under substitution.
 
-An **environment** E_S is a finite list of items. Each item is classified by its *logical role*, not by its syntactic form, following PR #1 F03 ("count constants by logical role"). The roles form the **trust ledger**:
+For λΠ-modulo this requires, beyond rewriting being stable under substitution, subject reduction (well-typed rules) and product compatibility (Dedukti manuscript Lemma 4 and Thm 8 [S0]). These conditions are part of the hypothesis.
 
-| Role | Item | Trust consequence |
-|---|---|---|
-| (a) | Syntax declaration (sorts, constructors) | None for derivability; affects adequacy of syntax |
-| (b) | Non-logical axiom / assumption: a closed inhabitant of a judgment type | Trusted as a hypothesis; provenance recorded |
-| (c) | Primitive inference rule: a rule-typed item whose removal is non-conservative | Trusted object-logic content (F03) |
-| (c′) | Structural datum: a mode, a 1-cell/2-cell, a subexponential signature, a polarity assignment | Trusted structural content (rule-like; see §8) |
-| (d) | Definitional or derived item: eliminable, a term of A over the other items | No added trust |
-| (e) | Extension of ≡_A: rewrite rules or equations | Trusted computation; needs confluence, subject reduction and conservativity obligations ([S0] Dedukti §3.1; Lambdapi manual) |
-| (f) | External procedure: totality, coverage or confluence checker | Trusted tool (Twelf: mode/world/termination/coverage checkers, `%block` declarations, no `%trustme`; bnd notes S8) |
+**The ledger is descriptive, not definitional.** The first draft classified environment items *one at a time* by "logical role". The fresh critique showed this is ill-defined (critique §D1):
+- `raa : ΠA.((A→⊥)→⊥)→A` is at once an axiom (role b) and a rule (role c);
+- removal tests are not item-wise: redundant rules, mutually redundant pairs, and admissible primitives such as Cut do not fit;
+- "structural datum" was defined only by examples.
 
-### 2.3 Representations and their properties
+The ledger is therefore kept **only as a descriptive report**. Each representation lists:
+- declared syntax;
+- declared rule-typed items;
+- declared axioms;
+- structural data;
+- extensions of ≡_A (rewrite rules or equations);
+- external procedures (confluence, termination and totality checks).
 
-A representation of S in A is a triple (E_S, ⌜·⌝, F):
-- ⌜·⌝ maps Σ-syntax to A-terms, sending object variables to A-variables;
-- each judgment J goes to an A-type ⌜J⌝. A fixed *judgment-level wrapper* is allowed, as LF's `pf`/`true` or the outer ∀x of the standard modal → FOL translation;
-- each derivation d of J goes to an A-term F(d) : ⌜J⌝ in the context of its metavariables, parameters and hypotheses.
+Admissible primitives (for example, Cut declared in an encoding of LK) get a separate slot.
 
-The properties below are labelled with fixed names so later sections can refer to them.
+**One well-defined, syntactic test is used *definitionally* (in D2):**
+
+> An environment item is **logical** iff its type quantifies over formulas: over the sort or type that interprets source formulas, or over the core's propositions.
+
+- So `raa`, every schematic axiom, and every rule constant are logical.
+- Atoms, function symbols, and axioms about specific atoms are not.
+- This fixes the b/c ambiguity. Declaring all of a Hilbert logic as schematic axioms makes every one of them logical, so it is excluded.
+
+### 2.3 Representation properties
+
+A representation (E_S, ⌜·⌝, F) maps:
+- syntax to A-terms, with variables going to variables;
+- judgments to A-types through a *judgment wrapper* W;
+- derivations to A-terms.
 
 | Name | Statement |
 |---|---|
-| **SN** (strong substitution naturality) | F is defined on *all* schematic derivations, and F(d[θ]) ≡_A F(d)[⌜θ⌝] for every metasubstitution θ, where ⌜θ⌝ is the *componentwise* translation of θ |
-| **WN** (weak naturality, for contrast) | ∀θ ∃θ\* with F(d[θ]) ≡ F(d)[θ\*] |
-| **HN** (hypothetical naturality) | F(d[d′/u]) ≡_A F(d)[F(d′)/u], including the second-order case, for the hypotheses of S's declared discipline. Hypotheses are realized as A-variables of the matching structural kind (intuitionistic, linear, …) |
-| **HOM** (homomorphism) | For each r ∈ ℛ there is a fixed template M_r with F(r(d⃗)) ≡_A M_r[⌜θ⌝][λu⃗.F(dᵢ)] |
-| **ADQ1** | S ⊢ J iff ⌜J⌝ is inhabited over E_S (derivability preserved and reflected) |
-| **ADQ2** | F is a bijection between S-derivations (modulo α) and canonical inhabitants (modulo ≡_A) |
-| **ADQ3** | Quotient version for a declared congruence ~_S. Deferred to Task 003 |
+| **SN** (strong naturality) | F is defined on all schematic derivations, and F(d[θ]) ≡_A F(d)[⌜θ⌝] for every metasubstitution θ, with ⌜θ⌝ the *componentwise* image of θ. This covers formula metavariables **and** derivation metavariables (grafting) |
+| **WN** (weak; for contrast) | ∀θ ∃θ\* with F(d[θ]) ≡ F(d)[θ\*] |
+| **HN** (hypothetical) | F(d[d′/u]) ≡_A F(d)[F(d′)/u] (with the second-order case), where S's hypotheses are realised as A-variables of the matching structural kind |
+| **HOM** | Each rule r has a fixed template M_r with F(r(d⃗)) ≡_A M_r[⌜θ⌝][λu⃗.F(dᵢ)] |
+| **ADQ1** | S ⊢ J ⇔ W(⌜J⌝) is inhabited over E_S |
+| **ADQ2** | F is a bijection from S-derivations modulo α onto the canonical (β-normal, η-long) inhabitants |
+| **FULL** | Every A-inhabitant of a translated judgment is ≡_A to some F(d). The choice of ≡_A is the identity question of Task 003 |
 
-**Sources for these notions** (all VERIFIED_SOURCE unless marked):
-- HHP define "compositional" as "substitution commutes with encoding; in particular substitution in the logical system is encoded as substitution in LF" (HHP typescript p. 2). Their Thm 4.1 states SN and HN for first-order natural deduction (FOL ND).
-- Pfenning's handbook Thm 3.2(3) states SN and HN, including proposition substitution ⌜[C/p]D⌝ = [⌜C⌝/p]⌜D⌝ [S0].
-- For syntax alone, SN is the definition of a morphism of Σ-monoids (Fiore–Plotkin–Turi, Thm 4.1: "T I … is an initial F-monoid"). It is also Fiore–Mahmoud's notion of syntactic translation (arXiv:1308.5409, Lemma 5.1: a syntactic translation "commutes with substitution and metasubstitution").
-- Extending this to judgments and hypotheses as a "Σ-monoid morphism over a dependently sorted signature" is INFERENCE. No source found states it.
+**Sources for these notions.**
+- HHP define compositionality as "substitution commutes with encoding; in particular substitution in the logical system is encoded as substitution in LF" (p. 2). Their Thm 4.1 gives SN and HN for first-order natural deduction (FOL ND) [S0, bnd].
+- Pfenning Thm 3.2(3) gives SN and HN, including proposition substitution [S0].
+- For syntax alone, SN is the condition that makes a map a Σ-monoid morphism (Fiore–Plotkin–Turi, Thm 4.1 / 4.2) or a syntactic translation (Fiore–Mahmoud, arXiv:1308.5409, Lemma 5.1: syntactic translations "commute with substitution and metasubstitution") [bnd].
+- Extending this to judgments and derivations is INFERENCE. Following the bnd notes: for *homomorphic* translations, SN holds automatically. Its discriminating content is that it rules out *non-homomorphic* maps.
 
-### 2.4 Three inequivalent definitions of "fundamental"
+### 2.4 Three inequivalent definitions
 
-**D1, structural representation (relative fundamentality).** A finite framework A is a *structural basis for a class C* iff every S ∈ C has a representation with SN, HN (for S's hypotheses) and ADQ1. Environment items of any role are allowed, and the trust ledger is reported. ADQ2 is the strong variant.
+**D1, honest framework representation (not fundamentality).** SN + HOM + ADQ1, with the full trust ledger. HN is required when S's hypotheses are to be realised natively; this is an R2 choice (cost listed in §5). ADQ2 is the strong form.
 
-**D2, fixed-core generativity.** A is *generative* for C iff every S ∈ C has a D1 representation whose E_S contains only items of roles (a), (b) and (d). Every inference rule of S must therefore be *derived* in A over syntax and axioms. This is PR #1's V-B "macro-only" environment, stated by logical role.
+**D2, fixed-core logical translation (fundamentality).** A finite core logic A is **fundamental for a class C** iff every S ∈ C has a representation satisfying all of the following:
+- **(T1) Formulas.** ⌜·⌝ maps S-formulas to A-*formulas* (A's own propositions or types) componentwise. Each connective goes to a fixed A-formula context, and atoms go to atoms of the matching sort. Formula metavariables may be sent to metavariables of a designated A-sort (see the stable-sort repair, §5 L-g).
+- **(T2) Judgments.** The wrapper W is fixed by A and **independent of S** (for example Γ ⊢ Δ ↦ Γ′, ¬Δ′ ⊢ ⊥, or !Γ′ ⊢ ?Δ′).
+- **(T3) Derivations.** SN (including derivation metavariables) and HOM, with each template M_r a derivation in A itself.
+- **(T4) Environment.** E_S contains **no logical items** (§2.2).
+- **(T5) Adequacy.** ADQ1.
 
-**D3, generic generativity modulo structural data.** A is generic-generative for C relative to a fixed class 𝒦 of admissible structural data iff every S ∈ C has a D1 representation whose E_S contains only items of roles (a), (b), (d) and (c′) drawn from 𝒦. Each logical rule of S must be an instance of one of A's finitely many generic rule schemas, parameterized by structural data. Examples are the F/U rules of LSR, the shifts of adjoint logic, and the cones of Shulman's doctrines.
+*Strengthenings:* D2 + ADQ2 and D2 + FULL.
 
-**The three definitions are inequivalent (INFERENCE, using cited theorems).**
-- LF, with declared rule constants, is D1 for FOL ND (HHP Thm 4.1) but not D2.
-- STLC with ⊃ ↦ → (shallow) is D2 for NJ(⊃).
-- Adjoint logic is D3 for intuitionistic linear logic (ILL) and intuitionistic logic, with σ(U) = {W, C} and σ(L) = {} (Pruiksma thesis, gfu notes). It is D2 only if structural data are not counted as rules.
-- D2 ⇒ D3 ⇒ D1 for a fixed C. The converses fail by the examples above.
+**D3, D2 relative to a fixed family.** A family {A_K : K ∈ 𝒦} of cores indexed by structural data from a menu 𝒦 that is **fixed in advance**. Examples:
+- adjoint logics with modes carrying σ(m) ⊆ {W, C};
+- LSR mode theories in a specified class.
+
+C is D3-covered iff each S ∈ C is D2-translatable into some A_K.
+
+**Inequivalence** (INFERENCE, using cited theorems).
+
+| Example | D1 | D2 | D3 |
+|---|---|---|---|
+| LF with declared rule constants, for FOL ND (HHP Thm 4.1) | Yes | **No** (formulas become data of type `o`; rule constants are logical items) | — |
+| B1, the universal reflected signature (§5) | Yes, for *every* finitely schematic class | **No** | — |
+| Shallow STLC (⊃ ↦ →), for NJ(⊃) | — | Yes | — |
+| Kolmogorov, for LK into NJ (with stable sorts) | — | Yes | — |
+| A single adjoint logic, for {NJ, ILL, S4(□)} (Pruiksma Ex 4) | — | — | Yes |
+
+So D1 is satisfiable for every class (B1), while D2 is not (Prop 4). At the level of classes the definitions therefore differ. In particular, IPC has no D2 translation into CPC.
 
 ---
 
-## 3. Lemmas: what strong naturality forces
+## 3. Results
 
-All three are INFERENCE: elementary, informal, likely folklore. They need independent checking.
+All results in this section are **INFERENCE** (informal arguments) unless marked.
 
-**Lemma 1 (SN ∧ HN ⇒ HOM).**
-- *Claim.* Let M_r := F(r(u⃗)), the image of the one-step schematic derivation with generic metavariables and premise variables. Then r(d⃗)[θ] = r(u⃗)[θ][d⃗/u⃗], so SN and HN give F(r(d⃗)) ≡ M_r[⌜θ⌝][F(d⃗)/u⃗].
-- *Status.* This is the derivation-level form of Fiore–Plotkin–Turi initiality: a morphism out of an initial Σ-monoid is determined by its values on generators. Rule locality is therefore a *consequence* of substitution naturality, not an independent stipulation.
+**Lemma 1 (SN at derivation metavariables gives HOM).**
+- *Claim.* Let M_r := F(r(ξ⃗)), where the ξ⃗ are derivation metavariables. Grafting d⃗ into ξ⃗ gives r(d⃗), and SN at the derivation sort gives F(r(d⃗)) ≡ M_r[F(d⃗)/ξ⃗].
+- *Status.* With this hypothesis, HOM is close to a reformulation. The first draft derived it from SN at *formula* metavariables plus HN. That is false: for sources without hypotheses, the critic's counterexample (map each K/S/MP Hilbert derivation to its weak-normal combinatory form) satisfies formula-level SN and ADQ1, but not HOM. The Fiore–Plotkin–Turi analogy covers only the substitution half (critique §A2).
 
-**Lemma 2 (acceptance is schematic: no per-instance computation).**
-- *Claim.* M_r is well typed at generic metavariables. Because typing and ≡_A are stable under substitution, every instance M_r[⌜θ⌝] is well typed.
-- *Consequences.*
-  - Any computation the representation performs while accepting a step of r is carried out once, *at the schema*. M_r is a derived rule of A + E_S.
-  - A rule whose acceptance depends on inspecting the instantiated subterms cannot be represented, unless that inspection is itself stable on variables. Then it is a schematic match.
-  - Corollary: ADQ1 then fixes the accepted instance set to be exactly S's schema instances.
+**Lemma 2 (acceptance is invariant under instantiation).**
+- *Claim.* If M_r is well typed at generic formula metavariables, then every instance M_r[⌜θ⌝] is well typed, because typing and ≡_A are stable under substitution.
+- *Consequence.* The representation can neither accept nor reject a step by inspecting *which formulas* instantiate the schema.
+- *What it does not say.* It is a statement about validity, not about cost. A checker can still do unbounded work on the *derivation* (certificate) while being stable under formula substitution (critique §A3).
 
 **Lemma 3 (WN is vacuous).**
-- *Claim.* WN is satisfied by MDT Prop 2.25: take θ\*(α(φ)) := α(θφ).
-- It is also satisfied, up to CPC-equivalence, by Jeřábek's most general conservative translations: for structural L, f∘σ is again a translation, so f(σφ) ⊣⊢ τ(f(φ)) for some τ.
-- *Status.* INFERENCE by the str agent, checked by me against Jeřábek Def 2.3 and Thm 2.4. Only the *componentwise* (strong) reading SN has force.
+- *Claim.* WN is satisfied by:
+  - MDT Prop 2.25, with θ\*(α(φ)) := α(θφ);
+  - Jeřábek's most general translations, up to CPC-equivalence (Def 2.3: for structural L, f∘σ is again a translation).
+- *Status.* Credited to the str agent. Only the componentwise SN has force.
 
-**Proposition 4 (strong structurality has teeth: ubiquity fails).** There is no schematic (componentwise, finite-variable) conservative translation of IPC consequence into CPC consequence.
+**Proposition 4 (componentwise translation has teeth).** There is no schematic (componentwise, finite-variable) conservative translation of IPC consequence into CPC.
 
-*Argument (INFERENCE).*
-1. A schematic translation sends formulas in one variable p into CPC formulas over the finitely many variables of t(p).
-2. CPC is locally finite, so these images fall into finitely many equivalence classes.
+*Argument.*
+1. A schematic translation sends one-variable formulas into a finite-variable fragment of CPC.
+2. CPC is locally finite, so there are only finitely many classes there.
 3. IPC has infinitely many pairwise non-interderivable one-variable formulas (Rieger–Nishimura; UNVERIFIED-MEMORY).
-4. Conservativity for consequence (φ ⊢ ψ iff t(φ) ⊢ t(ψ)) would make two of them interderivable. Contradiction.
+4. Conservativity for consequence would identify two of them. Contradiction.
 
-Contrast: Jeřábek's Thm 2.4 gives a *non*-schematic conservative translation of every countable finitary system into CPC (VERIFIED_SOURCE). His own conclusion is that bare conservative translation "does not provide useful information … a more refined criterion is needed" (p. 14).
+By contrast, Jeřábek's Thm 2.4 (VERIFIED) gives a non-schematic conservative translation of every finitary deductive system over a countable set of formulas into CPC. His conclusion, p. 14: bare conservativity "does not provide useful information … a more refined criterion is needed".
+
+**Proposition 5 (schema-level universality is trivial).** There is a fixed finite LF signature Σ_univ (critique §B1) through which *every* finitely schematic calculus S has a representation satisfying SN, HN, HOM and ADQ1, plausibly also ADQ2, with E_S = ∅.
+
+*Construction.*
+- The signature contains:
+  - HOAS syntax `tm`;
+  - rule codes;
+  - `Prf : sig → tm → type`;
+  - relational `mem` and `inst`;
+  - one rule `use`.
+- The wrapper is ⌜⊢_S φ⌝ := Prf code_S ⌜φ⌝, so S's rules enter as the data term code_S.
+
+*Consequence.* "A fixed finite framework representing all schematic systems" is not a meaningful achievement.
+
+*Status.* Construction from the critique; checked by me in outline; ADQ2 unverified.
+
+*Effect on D2.* Under D2, Σ_univ fails twice:
+- T1: formulas become `tm` data;
+- T2: the wrapper depends on S through code_S.
+
+The critic's partial repair for D1 (an S-independent wrapper plus a declared `theSig`) only moves code_S into the ledger.
+
+**Proposition 6 (D2 excludes every construction examined).** By the table in §5, each U-inst and U-schema construction fails at least one of T1, T2 and T4.
+
+**Proposition 7 (a D2/D3 core at R1 for a cross-foundation benchmark; CONJECTURE assembled from cited components).** Let A be adjoint logic with modes V > U > L, σ(V) = σ(U) = {W, C} and σ(L) = {}. Then the following have D2 translations into A satisfying ADQ1:
+
+| Source | Translation | Evidence |
+|---|---|---|
+| **ILL** | Native, at mode L | Pruiksma's linear instance (gfu) |
+| **NJ** | Native, at mode U | (gfu) |
+| **S4(□)** | V for validity, U for truth, □A := ↓_VU ↑_VU A_U | Pruiksma thesis Example 4, VERIFIED (own check). ◇ is *not* covered ("we cannot easily model ♦A") |
+| **LK** | Kolmogorov translation into the U mode, with W(Γ ⊢ Δ) = Γᴷ, ¬Δᴷ ⊢ ⊥ | Kolmogorov K is a conservative entailment-relation morphism (MDT Ex 2.4, VERIFIED) |
+
+*Proof-level homomorphism for LK (INFERENCE).* It needs a uniform stability template for ¬¬-prefixed and ¬-prefixed images. That template exists once formula metavariables are sent to a "stable" sort (⌜X⌝ := ¬¬X′, with componentwise bodies; critique §C2 repair).
+
+*Composition.* D2 translations compose, so NJ also goes into mode L by Girard's !A ⊸ B, faithful for provability (Girard 1987 p. 81 [S0]).
+
+**Not claimed:** ADQ2 or FULL for any of these.
 
 ---
 
 ## 4. Machinery versus environment: (i) assumption, (ii) derived rule, (iii) declared rule, (iv) checker
 
-### 4.1 Stability distinguishes (ii) from admissibility
+### 4.1 Stability
 
-- **Derivability is stable.** PFPL Thm 3.1 (Stability): "If [J is derivable from] R, then [J is derivable from] R ∪ R′" (VERIFIED_SOURCE, Harper, PFPL ch. 3).
-- **Admissibility is not stable.** Harper gives an explicit counterexample.
-- **No clean biconditional.** "Derivable iff admissible in every extension" depends on which class of extensions is meant.
-  - Under the propositional reading (extensions closed under substitution), it fails: the Kreisel–Putnam rule is admissible in every intermediate logic but not derivable in IPC (UvA lecture handout Prop 8 and Thm 9; SECONDARY).
-  - So any definition of "derived rule" must name its class of extensions.
-- **In frameworks.** Derived rules are framework terms: LF "eliminates the distinction between primitive and derived rules" (HHP p. 2). Admissible rules are not. HHP p. 23 says LF "precludes the encoding of a proof of admissibility … that makes use of a principle of induction over a type of proofs", with the Hilbert deduction theorem as the example. Adding induction over the representation type destroys adequacy (Pfenning p. 47).
+- **Derivability is stable.** PFPL Thm 3.1 (Stability), VERIFIED.
+- **Admissibility is not.** Harper gives a counterexample.
+- **"Derivable iff admissible in every extension" depends on the class of extensions.** It fails under the substitution-closed propositional reading: the Kreisel–Putnam rule is admissible in every intermediate logic but not derivable in IPC (UvA handout Prop 8, Thm 9; SECONDARY).
+- **In frameworks.** Derived rules are framework terms: LF "eliminates the distinction between primitive and derived rules" (HHP p. 2). Admissible rules are not: LF "precludes the encoding of a proof of admissibility … that makes use of a principle of induction over a type of proofs" (HHP p. 23).
+- **Admissible primitives**, such as a declared Cut in LK, are a fourth status: their removal is conservative, but they are not definable. They need their own slot in the ledger.
 
 ### 4.2 The four kinds in existing frameworks
 
-| Framework | (i) Assumption | (ii) Derived rule | (iii) Declared object rule | (iv) Checker / reduction procedure |
-|---|---|---|---|---|
-| LF (HHP; Pfenning) | Context variable or base-typed constant | LF term of rule type | Signature constant of higher type: role (c) | Admissible rules via Twelf totality: role (f) |
-| Isabelle/Pure (Paulson) | Meta-hypothesis | Meta-proof | Axiom of M_L: role (c) | ≡-definitions as axioms: role (e) if computational |
-| Rewriting logic (Martí-Oliet–Meseguer; Clavel–Meseguer) | Equation or rule instance | Proof term | Rewrite rule of T: role (c) | Universal theory U with T as data. Fails SN (§5) |
-| Dedukti / λΠ-modulo (Cousineau–Dowek; Dedukti manuscript; theory U) | Constant `c : Prf φ` | λΠ term | Constant of rule type: role (c) | Rewrite rules: role (e). Confluence and termination are "out of the scope of Dedukti itself" [S0] |
-| Focused LL (Miller–Pimentel; Nigam–Miller) | Theory formula | Synthetic (bipole) derivation | Introduction clauses, plus Cut, Init, Pos/Neg: role (c) | Polarity assignment: role (c′). Cut-coherence decidable (MP Thm 22) |
-| FPC (Chihani–Miller–Renaud) | — | — | None (fixed LKF/LJF kernel) | Clerks and experts are *untrusted guards*: "soundness by erasure" [S0]. A checker is harmless when it only filters derivations of a fixed sound kernel |
-| Generic frameworks (LSR; Licata–Shulman; Shulman 2023; adjoint logic) | Context hypothesis | Generated F/U/shift rules: (ii) for *all* logical rules | None for connectives | Mode theory / doctrine: role (c′). Mode equality assumed decidable, or quotient metatheory assumed (LSR: "assume a metatheory with quotient sets/types") |
+| Framework | (i) Assumption | (ii) Derived | (iii) Declared object rule | (iv) Checker / reduction | D2 status |
+|---|---|---|---|---|---|
+| LF (HHP; Pfenning) | Context variable or base-typed constant | LF term | Constant of rule type (logical item) | Admissibility via Twelf totality: trusted mode, world, termination and coverage checkers [bnd] | Not a core: formulas are data |
+| Isabelle/Pure (Paulson) | Meta-hypothesis | Meta-proof | Axiom of M_L | ≡-definitions | Not a core: object formulas are data of type `prop` |
+| Rewriting logic | Equation / rule instance | Proof term | Rewrite rule | Universal U on ground codes | Not a core; U fails SN |
+| Dedukti / λΠ-modulo | Constant `Prf φ` | λΠ term | Constant of rule type | Rewrite rules; confluence and termination "out of the scope of Dedukti itself" [S0] | Not a core, except shallow decodings (`Prf(imp A B) ↪ Prf A → Prf B`), which pass SN/HN as D1 |
+| Focused LL (Miller–Pimentel) | Theory formula | Synthetic bipole derivation | Bipole clauses + Cut, Init, Pos/Neg (logical items) | Polarity assignment; cut-coherence decidable (Thm 22) | D1 with declared clauses |
+| FPC | — | — | None (fixed kernel) | Clerks and experts *untrusted*: "soundness by erasure" [S0] | Benign checker: only filters a fixed sound kernel |
+| Adjoint / LSR / Shulman | Context hypothesis | Generated rules | None for connectives | Mode theory (structural data); mode equality assumed decidable, or quotient metatheory assumed | D3 cores |
+| Linear-logic cores (ILL + !, LU, Yamada's ILCρ) | Hypothesis | Rule combinations | None | None | D2 cores, via Girard, Kolmogorov or Yamada translations |
 
 **The (iv) distinction (INFERENCE):**
-- A checker is **benign** when it only restricts search in a fixed sound core. FPC is the example: soundness by erasure.
-- It is **malignant** when it *generates conclusions*: an `acc` rule whose premise is "the checker accepts". SN excludes the second kind (Lemma 2), but not the first.
+- A checker is **benign** when it only filters derivations of a fixed sound core (FPC).
+- It is **generative** when a premise of the form "checker accepts" yields a conclusion (an `acc` rule). Such a checker always makes formulas data, so D2 excludes it via T1.
 
-### 4.3 What an honest machine/environment separation requires
+### 4.3 Environment-supplied equivalence rules (PR #2 horn (ii))
 
-1. Classify every environment item by logical role, not by syntax (§2.2).
-2. Report derived rules (role (d)) separately from declared ones (c).
-3. Treat (c′) structural data as rule-like trust. Licata–Shulman 2016 note that the mode layer may need "an explicit equality judgement … if we needed a mode theory where equality of morphisms or 2-morphisms were undecidable" (VERIFIED, gen/R notes).
-4. Treat (e) and (f) as trusted computation, with their metatheory obligations listed.
+The equations split into three kinds:
+- (α) equations computing on coded data;
+- (β) schematic equations between proof constructors;
+- (γ) equations generated from universal properties.
 
-### 4.4 Environment-supplied equivalence rules (problem 3; PR #2 horn (ii))
+What happens to each:
+- **(α)** is excluded by SN when the computation inspects formula instances. Recursion on *certificates* survives SN (B2), and is excluded by D2's T1.
+- **(β)** gives preservation by declaration, but *reflection* (that nothing more is identified) is a theorem that can fail:
+  - Felicissimo–Winterhalter FSCD 2024, Table 1: no conservativity proofs, and non-confluent encodings [S0];
+  - Felicissimo FSCD 2022, Thm 46: reduction preserved and reflected for functional explicitly typed PTSs [S0].
+- **(γ)** is the generic-framework route (§8).
 
-- **Splitting the cases.** Following the fresh-context critique in PR #2's review, equations in E_S split into:
-  - (α) equations computing on encoded data;
-  - (β) schematic equations between proof constructors;
-  - (γ) equations generated from universal properties.
-- **SN deals with (α).**
-  - A rule such as `valid c X ↪ …`, defined by recursion on the structure of a metavariable X, is stuck at generic X. So F is undefined on the schematic derivation, and SN fails.
-  - With non-left-linear syntactic-equality rewriting, a deep embedding of certificates can be made SN. Its acceptance is then schematic (Lemma 2). This is loophole L-a in §5.
-- **For (β), reflection is substantive.** Declaring the generators of ~_S makes *preservation* true by declaration. *Reflection* (that A + E_S identifies nothing more) is a theorem that can fail. Evidence:
-  - Felicissimo–Winterhalter FSCD 2024, Table 1: no conservativity proofs, non-confluent encodings [S0];
-  - Felicissimo FSCD 2022, Thm 46: reduction reflected for functional explicitly typed PTSs [S0].
-- **Conclusion.** PR #2's horn (ii) ("E may extend ≡ ⇒ R3 vacuous") is false for (β) and (γ). Status: **withdrawn as stated**, in agreement with PR #2's own review.
+So horn (ii), "E may extend ≡ ⇒ vacuous", is **false** as a general claim.
 
 ---
 
 ## 5. Adversarial counterconstructions
 
-Each construction is tried against SN, HN, HOM and ADQ1/2. Here "S" is the reference calculus NJ(⊃) unless stated otherwise.
+**Notation.**
+- Columns T1, T2 and T4 refer to the clauses of D2 (§2.4).
+- **D1** in the last column means: passes D1 (SN, HOM, ADQ1).
 
-| # | Construction | Source / status | SN | HN | ADQ1 | Verdict |
-|---|---|---|---|---|---|---|
-| I-H | MDT flattening: φ ↦ fresh variable α(φ); Δ = the whole consequence relation | MDT Prop 2.25, VERIFIED [S0] | **Fails**: α(φ[θ]) is unrelated to α(φ)[⌜θ⌝]. Passes WN (Lemma 3) | — | Yes | Excluded |
-| I-J | Jeřábek's most general conservative translation into CPC (γₙ ∨ pₙ ∧ δₙ, from oracle queries) | Jeřábek Thm 2.4, pp. 4–5, VERIFIED | **Fails** (non-schematic; Prop 4 shows no schematic one exists for IPC → CPC) | — | Yes | Excluded |
-| I-U | Clavel–Meseguer universal rewrite theory U with T as a data term | Thm 3.2, VERIFIED [S0]. Stated for *ground* t, t′ | **Fails**: object variables are ground codes, not U-variables | — | Yes (within hypotheses) | Excluded |
-| I-R | EF + Refl_S | Krajíček 2019 Thm 8.4.3, SECONDARY [S0] | **Fails**: bit-encoding of φ does not commute with formula substitution; size-indexed family is not a finite schema | — | p-simulation | Excluded |
-| I-S | Turing-machine step checker: `step : Πr ψ⃗ φ. Rule r → Prf ψ⃗ → Trace(run r⟨ψ⃗,φ⟩) → Prf φ` | PR #2 §6.1 (INFERENCE) | **Fails** if formulas are serialized to tapes: a metavariable cannot be serialized homomorphically. Passes only if the machine treats variables as opaque leaves, and then it is a schematic matcher (L-a) | — | — | Excluded, or degenerates to a schema |
-| I-C | Dedukti conversion checker `acc : Πc φ. IsTrue(valid c φ) → Prf φ` | PR #2 §6.1 (INFERENCE) | **Fails** when `valid` recurses on φ: it is stuck at generic metavariables | — | Yes | Excluded |
-| I-C′ | Certificate deep embedding with non-left-linear `eq x x ↪ true` and a projection `getcert` | This report (INFERENCE) | **Passes**, and HOM holds up to ≡ via `getcert`. But by Lemma 2 acceptance is a schematic match | **Fails** for ND sources (hypotheses become certificate data); vacuous for sequent/Hilbert sources | Yes | **Loophole L-a**: passes for sequent and Hilbert sources |
-| I-E | Fixed universal environment E_fix independent of S (for example, a universal Horn program over codes) | INFERENCE | **Fails** (stuck on metavariables), unless E_fix is a generic "rules-as-data" pattern instantiator | — | — | Excluded. The rules-as-data variant still needs S's patterns in E_S, which the ledger counts as role (c) |
-| I-W | Structural-looking wrapper around a checker: a template that hides an `acc` call | PR #1 §3 loophole (INFERENCE) | Same as I-C / I-C′: by Lemma 2 the hidden computation runs at the schema | — | — | Reduces to L-a |
-| I-Q | Environment-supplied equivalence (β) for R3 | §4.4 | — | — | — | Not vacuous. Reflection is a proof obligation |
-| I-K | Sort-splitting: every formula declared as its own atom or sort | Caleiro–Gonçalves p. 7 | Trivially "passes" | — | — | Excluded by the finiteness of Σ and ℛ |
+**Constructions that inspect instances (U-inst):**
 
-**Loopholes and over-exclusions, stated plainly:**
+| # | Construction | Status of source | SN | T1/T2/T4 | Verdict |
+|---|---|---|---|---|---|
+| I-H | MDT flattening: φ ↦ fresh variable α(φ); Δ = whole consequence relation | MDT Prop 2.25 V [S0] | **Fails** (passes only WN) | Fails T1 (not componentwise) | Excluded |
+| I-J | Jeřábek's most general translation into CPC (γₙ ∨ pₙ ∧ δₙ) | Jeřábek Thm 2.4, pp. 4–5, V | **Fails** | Fails T1 | Excluded |
+| I-U | Clavel–Meseguer U with T as data | Thm 3.2, for ground t, t′, V [S0] | **Fails** (object variables are ground codes) | Fails T1 | Excluded |
+| I-R | EF + Refl_S with bit encoding | Krajíček Thm 8.4.3, S [S0] | **Fails** (bit encoding is not componentwise) | Fails T1/T4 | Excluded. An atom-uniform variant survives SN: see B2 |
+| I-S | Turing-machine step checker over serialized tapes | INFERENCE | **Fails** (a metavariable cannot be serialized homomorphically) | Fails T1 | Excluded |
+| I-C | Dedukti `acc` checker recursing on φ | INFERENCE | **Fails** (stuck at generic X) | Fails T1 | Excluded |
 
-- **L-a (benign, as judged).** SN does not determine *where* schema matching is implemented: in types (LF) or in conversion (I-C′).
-  - For sources without hypothetical judgments (Hilbert, sequent calculi), a deep certificate embedding with a schematic checker passes SN and HOM. Its derivation algebra is the free term algebra of S's rules, which is isomorphic to the LF image. I classify it as legitimate.
-  - The ledger still records the checker's rewrite rules as role (e).
-- **L-b (scope, not vacuity).** E_S may contain computation that makes S's own derivability undecidable. Examples are finite axioms over a fixed calculus (Buszkowski via KKS Thm 10) and a single non-local contraction subexponential (KKNS Thm 8).
-  - ADQ1 still holds: the representation is faithful to an undecidable logic.
-  - This is not vacuity. It shows that anti-vacuity constrains the *representation*, not the *source*.
-- **L-c.** The I-S exclusion relies on SN being defined on schematic derivations. Fresh-context critique N4 of PR #2 (variant I-S′, with an auxiliary `Trace` judgment in E_S) is answered by Lemma 2: the trace premise must be supplied at the generic schema, so it is a fixed derived proof.
-- **L-d. Not resolved:** a source presented *deliberately* as an interpreter. Example: S = "certificate c ⊢ φ whenever check(c, φ)" with an arbitrary checker as a non-schematic side condition.
-  - Such an S is outside the finitely schematic class (§2.1), so the definition says nothing about it.
-  - Choosing the source class is a modelling decision. That is why the Stage-0 synthesis requires C to be fixed independently.
-- **L-e. Admissible but not derivable rules.** By HHP p. 23, these are not representable as templates. Under D1 they need role (f) (Twelf-style totality) or role (c). This is a cost, not a vacuity.
-- **L-f. Over-exclusion: foundations with conversion-by-computation** (type theories with a conversion rule; proofs by reflection in Coq/Lean).
-  - SN forces either explicit conversion derivations, or sharing A's ≡_A (role (e) or generic).
-  - The source system must be re-presented declaratively. This is a real restriction with a size cost (F09). The ≈16× slowdown reported for Felicissimo's adequate encoding is an indicator [R].
-- **L-g. Over-exclusion: top-level non-schematic translations.** MDT note that schematic preservation "rules out e.g. the standard translation of modal logic to first-order logic, which adds a quantifier at the very top" (VERIFIED).
-  - The repair here is a judgment-level wrapper: the translation is componentwise on syntax, and the outer ∀x is the wrapper on judgments.
-  - Whether every reasonable non-schematic translation admits such a repair is UNKNOWN.
+**Constructions that instantiate schemas (U-schema):**
+
+| # | Construction | Status of source | SN | T1/T2/T4 | Verdict |
+|---|---|---|---|---|---|
+| B1 | Universal reflected LF signature Σ_univ (rules as data in the wrapper) | Critique §B1, INFERENCE | **Passes** (also HN, HOM, ADQ1) | Fails T1 (formulas as `tm` data) and T2 (wrapper depends on S) | D1 yes, D2 no |
+| B2 | Checker-as-proof over atom-uniform Frege/EF certificates, with a per-rule certificate map π, `getcert` and non-left-linear `eq` | Critique §B2, INFERENCE | **Passes**, with HOM via `getcert`, for sequent and Hilbert sources | Fails T1 (formulas as data under `acc`) | D1 yes, D2 no |
+| B3 | B2 extended to natural-deduction sources with `hypcert ψ (getcert u)` leaves and higher-order patterns | Critique §B3, plausible, unchecked | Plausibly passes, with HN | Fails T1 | D1 plausibly, D2 no |
+| B4 | Fixed universal environment E_fix (universal Horn program over codes) | INFERENCE | Fails (stuck), unless it is a rules-as-data instantiator, i.e. B1 | Fails T1 | Excluded or reduces to B1 |
+| B5 | Inductive or impredicative definitional embedding in HOL/CIC: Deriv_S defined as a least fixed point (definitional, hence conservative) | INFERENCE; Smullyan-style universality | Passes for metavariables of sort `Form`; HN fails for ND (contexts are data) | Fails T1 (Deriv_S(⌜φ⌝): formulas as data) | D1 for sequent/Hilbert sources; D2 no |
+| B6 | Lemma-1 counterexample: map each K/S/MP derivation to its weak-normal combinatory form | Critique §A1, INFERENCE | Formula-level SN passes; derivation-level SN fails | — | Excluded by derivation-level SN (Lemma 1) |
+| I-K | Sort-splitting: every formula an atom | Caleiro–Gonçalves p. 7, V | Trivially passes | Infinite Σ | Excluded by finiteness |
 
 **Completion test (task requirement).**
-- The interpreter violates SN: it inspects instances, and its images are not substitution-stable.
-- SN is not tailored to the interpreter. It is:
-  - the definition of a structural consequence relation (Łoś–Suszko);
-  - HHP's definition of compositional adequacy;
-  - the substitution-closure of Frege rules that Cook–Reckhow's basis-independence proof uses ("closure under substitution", their Lemma 2.5 [S0]);
-  - the morphism notion for syntax with binding (Fiore–Plotkin–Turi; Fiore–Mahmoud);
-  - the "structurality" MDT call for.
+- **The universal interpreter violates T1 (and SN).**
+  - The instance-inspecting interpreters violate SN.
+  - All of them, together with the schema-level universal frameworks, violate T1: formulas are not mapped componentwise to the core's own formulas. Most also violate T2 or T4.
+- **T1 is not tailored to interpreters.** It is the classical definition of a translation between logics:
+  - Prawitz–Malmnäs "schematic interpretation", which Pelletier–Urquhart (Def p. 6–7, V [str]) call "essentially the same";
+  - Caleiro–Gonçalves Def 2.4 "uniform" translation (primitive connectives ↦ derived connectives), motivated by effectivity, not by interpreters;
+  - Rabe's logical morphisms l(thm[x]) = thm′[k[x]] (Def 3.35 [S0]).
   
-  None of these was motivated by excluding interpreters.
-- **Caveat.** SN over-excludes in L-f and L-g, and has the benign loophole L-a.
+  The standard positive examples of the field (Kolmogorov, Gödel–Gentzen, Girard, CPS) were designed before and independently of any anti-interpreter purpose.
+- **Caveat on how much T1 excludes.** T1 also excludes LF and every deep embedding *as cores*. They remain D1 representation media. This is a deliberate separation:
+  - under D2, the question is whether the core *generates* the source's logic;
+  - in LF, all of the source's logical content is declared.
+  
+  Reviewers should judge whether this counts as "excluding frameworks by fiat". I argue it does not, because D1 still admits them with an honest ledger.
+
+**Loopholes and over-exclusions.**
+
+- **L-a. Schema-by-conversion.** A deep certificate embedding with a schematic checker passes D1 for sequent and Hilbert sources (B2), and plausibly for ND sources (B3).
+  - The first draft called it "isomorphic to the LF image". **That claim is withdrawn**: the certificates live in a different calculus (critique §B2).
+  - It is excluded only at D2.
+- **L-b. Undecidable sources.** A finitely schematic source may itself have undecidable derivability:
+  - a single subexponential with non-local contraction (KKNS Thm 8; the computation lies in the end-sequent, i.e. undecidability of the *logic*, confirmed);
+  - finitely many non-logical axioms over the Lambek calculus (Buszkowski via KKS Thm 10; role (b); finiteness of A unverified).
+  
+  This is fidelity to an undecidable logic, not vacuity of the representation.
+- **L-c. Second-order HN.** HN's second-order case quantifies over an LF-style extension of S's derivations. This is mildly framework-shaped (critique §A4.4).
+- **L-d. Interpreter-shaped sources.** A source presented deliberately as an interpreter (for example "c ⊢ φ whenever check(c, φ)") lies outside the finitely schematic class. Choosing the source class is a modelling decision (Stage-0 synthesis, requirement (i)).
+- **L-e. Admissible but non-derivable rules.** These have no template. They need a Twelf-style external check or a declared rule (§4.1).
+- **L-f. Computational side conditions** (type theories with conversion; proofs by reflection in Coq/Lean). These are outside the source class (§2.1) unless re-presented declaratively, with explicit conversion derivations and their size cost (F09).
+  - The first draft listed this as an SN over-exclusion. **Corrected**: it is a source-class restriction (critique §A4.2).
+- **L-g. Negative translations at proof level.** In Gödel–Gentzen (and Kolmogorov) proof translations, RAA needs ¬¬φᴺ → φᴺ, built by induction on φ. There is no fixed template at generic X (critique §C2).
+  - *Repair:* send metavariables to a stable sort, as in Prop 7. INFERENCE; needs checking.
+  - Call-by-value CPS commutes with substitution only for values (UNVERIFIED-MEMORY).
+- **L-h. Top-level non-componentwise translations.** MDT note that schematic preservation "rules out e.g. the standard translation of modal logic to first-order logic, which adds a quantifier at the very top" (VERIFIED).
+  - The T2 wrapper repairs the top level, but needs second-order metavariables (ST_x as λx…).
+  - ADQ1 still fails for logics that are Kripke-incomplete or not first-order definable (critique §C3).
+- **L-i. HN excludes deep embeddings with explicit contexts:** rewriting-logic ND, Metamath, Coq/Lean/HOL embeddings with explicit contexts, de Bruijn encodings (critique §C1). These pass D1 only without HN. HN is therefore an *optional* R2 strengthening, not an anti-vacuity condition.
 
 ---
 
@@ -311,254 +393,258 @@ Each construction is tried against SN, HN, HOM and ADQ1/2. Here "S" is the refer
 
 ### 6.1 Reference calculus NJ(⊃)
 
-NJ(⊃): formulas φ ::= p | φ ⊃ φ; rules hyp, ⊃I (discharging u:φ), ⊃E; formula metavariables are of sort o.
-
-| Representation | SN | HN | HOM | ADQ1 | ADQ2 | D-level | Ledger | Verdict |
-|---|---|---|---|---|---|---|---|---|
-| LF signature {o, imp, pf, impi : ΠA B.(pf A → pf B) → pf(imp A B), impe} | Yes | Yes | Yes (templates impi, impe) | Yes | Yes (HHP Thm 4.1 for FOL ND, which includes this fragment; Pfenning Thm 3.2) | D1 | (a) o, imp; (c) impi, impe | **TRUE** |
-| Shallow encoding in STLC (⊃ ↦ →, ⊃I ↦ λ, ⊃E ↦ application) | Yes | Yes | Yes | Yes | Bijection with raw terms modulo α | **D2** (no declared rules) | (a) base types only | **TRUE** |
-| Universal machine (I-U, or I-S with tape serialization) | **No** | — | — | Yes | — | — | Universal program (e)/(c) | **FALSE** (loophole: an opaque-variable matcher degenerates to the LF row) |
+| Representation | SN (formulas + derivations) | HN | ADQ1 | ADQ2 | D1 | D2 | Notes |
+|---|---|---|---|---|---|---|---|
+| LF {o, imp, pf, impi, impe} | Yes | Yes | Yes | Yes (HHP Thm 4.1 / Pfenning Thm 3.2, of which NJ(⊃) is a fragment) | **Yes** | **No** (formulas are `o` data; impi and impe are logical items) | Honest framework encoding |
+| Shallow STLC (⊃ ↦ →) | Yes | Yes | Yes | Bijection on raw terms modulo α | — | **Yes** | Trivial core |
+| Universal machine (I-U; I-S with tapes) | **No** | — | Yes | — | **No** | **No** | — |
+| B1, universal reflected signature | Yes | Yes | Yes | Plausibly | **Yes** | **No** | Shows D1 is trivially universal |
 
 ### 6.2 Resource-sensitive negative control: MILL (⊗, ⊸)
 
-| Representation | SN | HN | ADQ1 | Verdict |
+| Representation | SN / HOM | ADQ1 | D2 into ILL | Verdict |
 |---|---|---|---|---|
-| LF with linear hypotheses as ordinary LF hypotheses, `tensI : ΠA B. pf A → pf B → pf(A⊗B)` | Yes | Yes (for the *intuitionistic* discipline) | **No.** x:pf p ⊢ tensI p p x x : pf(p⊗p), but p ⊢ p⊗p is not MILL-derivable | **FALSE**: duplication masquerading as linear inference |
-| LF with contexts as data (explicit context splitting) | Yes | **No** for MILL's linear discipline (hypotheses are data) | Expected yes (Cervesato–Pfenning p. 53: possible, but with "complex proofs" [S0]) | D1 without HN |
-| LLF with `tensI : ΠA B. pf A ⊸ pf B ⊸ pf(A⊗B)` and linear hypotheses as LLF linear variables | Yes | Yes (linear) | Expected yes. Duplication is ill-typed. LLF is conservative over LF (Thm 2.9) [S0]; no MILL adequacy theorem was extracted, so INFERENCE | **TRUE (expected)** |
+| LF with unrestricted hypotheses, `tensI : ΠA B. pf A → pf B → pf(A⊗B)` | Yes | **No**: x:pf p ⊢ tensI p p x x : pf(p⊗p), but p ⊢ p⊗p is not MILL-derivable | — | **FALSE**: duplication masquerading as linear inference |
+| LF with contexts as data | Yes (no HN) | Expected yes ([S0] Cervesato–Pfenning p. 53: "complex proofs") | — | D1 without HN |
+| LLF with `pf A ⊸ pf B ⊸ pf(A⊗B)` | Yes, with linear HN | Expected yes (INFERENCE; LLF is conservative over LF, Thm 2.9 [S0]) | — | D1 with HN |
+| Identity into ILL (or adjoint mode L) | Yes | Yes | **Yes** | Trivial D2 |
 
-**Lesson.** SN (anti-vacuity) and HN (structural form) do not catch resource violations; ADQ1 does. This matches Gardner Cor 5.1.8: "There are no adequate representations of linear and relevant logics" in ELF+, where hypotheses are framework hypotheses [S0]. **Anti-vacuity and fidelity are separate requirements, and both are needed.**
+**Lesson.** Anti-vacuity (SN, T1) and resource fidelity (ADQ1) are separate requirements, and both are needed. This matches Gardner Cor 5.1.8: "There are no adequate representations of linear and relevant logics" in ELF+ [S0, bnd].
 
-### 6.3 Trust ledger (machinery vs environment)
+### 6.3 Trust ledger (descriptive)
 
-| Representation | Fixed machine | Declared logical rules (c) | Structural data (c′) | Computation (e) | External checks (f) | Adequacy evidence |
+| Representation | Fixed machine | Declared logical items | Structural data | ≡-extensions | External checks | Adequacy evidence |
 |---|---|---|---|---|---|---|
-| LF / FOL ND | λΠ, decidable (HHP Thm 2.6) | One constant per rule | Intuitionistic contexts, fixed | none | none | Informal per-signature theorem (HHP Thm 4.1) |
-| LLF / MILL | λΠ⊸&⊤ | Per rule | Linear contexts, fixed | none | none | INFERENCE |
-| Dedukti / functional PTS (Cousineau–Dowek) | λΠ-modulo | Per-PTS constants | — | εₛ / Π̇ decoding rules | Confluence and termination external | Conservativity Thm 1 (needs termination); Assaf Thm 5.24 [S0] |
-| Theory U (Blanqui et al. 2021) | λΠ-modulo | 38 declarations, fixed once | — | 28 rules, fixed once | Confluence proved (Thm 9) | Fragment theorem only; not provability-conservative (§4) [S0] |
-| Rewriting logic, universal U | Rewriting logic | none (T as data) | — | U's rules | none | Thm 3.2 (ground terms). **Fails SN** |
-| Focused LL / LK (Miller–Pimentel) | LLF, focused | Bipole clauses + Cut/Init + Pos/Neg | Polarity | none | Cut-coherence decided (Thm 22) | Thm 6 at provability level; "full completeness of proofs" asserted, not written out [t002 gfu] |
-| Adjoint logic / ILL, NJ (Pruiksma) | Adjoint connectives + shifts | none | Modes, σ(m) ⊆ {W, C} | none | none | Cut elimination, identity (by hand) |
-| LSR / substructural-modal | F, U, cut and identity once (Thm 2.1) | none | Mode theory (1-cells, 2-cells, equations) | none | Equality of mode theory assumed | Logical adequacy proved; equational adequacy **Conj 8.5 open** |
+| LF / FOL ND | λΠ (HHP Thm 2.6) | One per rule | Intuitionistic contexts | none | none | HHP Thm 4.1 (informal, per signature) |
+| Dedukti / functional PTS | λΠ-modulo | Per-PTS constants | — | εₛ / Π̇ decodings | Confluence, termination | Cousineau–Dowek Thm 1 (needs termination); Assaf Thm 5.24 [S0] |
+| Theory U (Blanqui et al. 2021) | λΠ-modulo | 38 declarations (fixed once) | — | 28 rules (fixed once) | Confluence proved (Thm 9) | Fragment theorem; *not* provability-conservative [S0] |
+| Rewriting-logic U | Rewriting logic | none (T as data) | — | U's rules | none | Thm 3.2 on ground terms; fails SN |
+| Focused LL / LK (Miller–Pimentel) | Focused LLF | Bipole clauses + Cut/Init/Pos/Neg | Polarity | none | Cut-coherence (Thm 22) | Thm 6 (provability); "full completeness of proofs" asserted, not written out [gfu] |
+| Adjoint logic / {ILL, NJ, S4(□)} | Adjoint connectives + shifts | none | Modes, σ ⊆ {W, C} | none | none | Cut elimination and identity proved by hand (Pruiksma) |
+| LSR | F, U; cut and identity once (Thm 2.1) | none | Mode theory | none | Mode equality | Logical adequacy proved; equational adequacy Conj 8.5 open |
+| Kolmogorov LK → NJ (Prop 7) | NJ | none | — | none | none | MDT Ex 2.4 (conservativity); proof-level homomorphism is INFERENCE |
+| Yamada ILCρ | ILCρ | none | — | none | none | **Restricted:** Cor 3.37 holds only for LKρ, which carries a hereditary, non-schematic "tractable"/purity condition. Cor 3.18's target ILCι lacks cut elimination ("we cannot show that this translation T! is conservative"). Cut uses ?!R!?, forbidden in ILCρ (critique §E1, confirmed against unity.txt) |
 | FPC | LKF/LJF kernel | none | Polarization | none | Clerks/experts untrusted | Soundness by erasure; theoremhood only [S0] |
 
 ---
 
-## 7. Minimality, independence and invariant comparison (problem 5)
+## 7. Minimality and invariant comparison
 
 1. **Primitive counts are not invariant.**
-   - Böhler–Creignou–Reith–Vollmer Ex. 1.3: "[nand] = BF". BF also has the base {and, not}.
-   - So the intersection of all bases of BF is empty: **no individual operation is invariantly fundamental** (VERIFIED_SOURCE for the bases; the empty-intersection corollary is elementary).
-   - Clones, "considered up to term equivalence", are in one-to-one correspondence with fragments of CPC (Jeřábek Def 3.4).
-2. **Basis-independence is already a theorem for Frege systems.**
-   - Cook–Reckhow Thm 2.3: "For any two Frege systems F1 and F2 over K there is a function f in ℒ and constant c" with linear line and size bounds. Cor 2.4: they "p-simulate each other" [S0, VERIFIED].
-   - The simulation substitutes a fixed derivation for each rule, which is exactly a HOM translation. So within a substitution-closed class, *which* finite basis is chosen is invisible up to linear overhead.
-3. **Invariant equivalences that exist:**
-
-   | Equivalence | Source | Notes |
-   |---|---|---|
-   | Synonymy = translational equivalence | Pelletier–Urquhart Thm 2.6, VERIFIED (preprint) | For simple schemes. Invariant: number of reduced algebraic models of each cardinality (Cor 3.2), which separates K, T, B, S4, S5 (Thm 4.5) |
-   | Mutual exact translations | Pelletier–Urquhart 2006 correction | Strictly weaker than synonymy |
-   | Equipollence | Caleiro–Gonçalves Def 4.1 / Prop 4.3 | — |
-   
-   **All of these are at the level of formulas; none addresses proofs or binders.**
-4. **Proposal (CONJECTURE about usefulness, not a theorem).**
-   - *Comparison.* Compare frameworks by the preorder A ≼ A′ ⇔ "A has a D2 representation in A′" (all of A's rules derived in A′). This is SN + ADQ1 with role-(d) environments.
-   - *Invariant objects.* The invariant objects are ≼-equivalence classes, with *minimal elements relative to a class C*. Minimal elements are invariant under re-presentation; primitive counts are not.
-   - *Costs.* Report costs separately as template sizes and translation overhead (polynomial or linear p-simulation) (F09). Do not infer computational efficiency from a small basis.
-   - *Risk.* As in group theory, the minimal size of a presentation may be uncomputable (by analogy with the Adian–Rabin unsolvability of group-theoretic properties; UNVERIFIED-MEMORY; not checked here).
+   - Böhler et al. Ex 1.3: "[nand] = BF". BF also has the base {and, not}. So no operation is in every basis (V for the bases; the corollary is elementary).
+   - Clones, "considered up to term equivalence", are in one-to-one correspondence with fragments of CPC (Jeřábek Def 3.4, V).
+2. **Basis-independence within Frege.**
+   - Cook–Reckhow Thm 2.3 / Cor 2.4: any two Frege systems over the *same* adequate connective set K (finite sets of sound, *implicationally complete* rule schemas; classical propositional) p-simulate each other with linear line and size overhead, via substituted fixed derivations, i.e. HOM translations [S0, V].
+   - The case with different connective sets is Reckhow's thesis (SECONDARY).
+   - **This does not cover** the {nand} versus {∧, ¬} comparison in item 1. That comparison concerns connective bases, not rule bases (critique §E5).
+3. **Invariant equivalences** (all formula-level; none addresses proofs or binders):
+   - **Synonymy = translational equivalence.** Pelletier–Urquhart Thm 2.6, V. Invariant: number of reduced algebraic models per cardinality (Cor 3.2). K, T, B, S4 and S5 are pairwise non-equivalent (Thm 4.5). Mutual exact translatability is strictly weaker (2006 correction).
+   - **Equipollence.** Caleiro–Gonçalves Def 4.1 / Prop 4.3.
+4. **Proposal (CONJECTURE about usefulness).** Compare cores by A ≼ A′ ⇔ A has a D2 translation into A′.
+   - The invariant objects are the ≼-classes, and the minimal classes covering a given C. These are invariant under re-presentation; primitive counts are not.
+   - Translation costs (template size, polynomial versus linear overhead) are reported separately (F09). A small basis does not imply computational efficiency.
+   - *Expected (CONJECTURE):* several known cores fall into one class (ILL with !; adjoint logic with a {W, C} menu; LU; CLL⁻). So "the" fundamental basis is not unique.
 
 ---
 
-## 8. The generic-framework route (problem 4)
+## 8. Generic frameworks: what exists and what remains unproved
 
-**What is established** (VERIFIED_SOURCE unless marked):
+**Established** (VERIFIED_SOURCE unless marked):
 
 - **LSR 2017** (LIPIcs 84, art. 25):
-  - two generic connectives F and U, with cut and identity proved once for every mode theory (Thm 2.1);
-  - §4: one equational theory on derivations, "the βη-laws for F and U", uniform in the mode theory [R];
-  - per-logic data: a mode theory (1-cells, 2-cells, and equations between them).
-- **Equational adequacy (reflection) is open in LSR.**
-  - p. 25:17: "We conjecture that the converse is true … We have sketched a proof of equational adequacy for a simple case (ordered logic products), assuming a lemma …".
-  - Extended version: "CONJECTURE 8.5. Completeness of Permutative Equality. If d ≡ d′ then d↓ ≡p d′↓" (VERIFIED, both texts).
-- **No later proof found.** Search of about 60 Semantic Scholar citers, 2017–2026, found no proof or refutation.
-  - Riley's thesis (2022) does not address it.
-  - Shulman's MATT (MFPS 2023) calls LSR's "definitional equality … ill-behaved", and Remark 2.6 says "L[S†] can fail to have decidable equality even if L does".
-- **Unary analogue proved.** Clarke–Scherer–Zeilberger (arXiv:2511.07314v3, Jan 2026, preprint):
-  - Thm 1.17: the free bifibration on p is presented by the cut-free sequent calculus modulo permutation equivalence.
-  - Thm 3.27: permutation equivalence is undecidable for some base "with locally finite factorizations"; the construction uses a universal Turing machine and infinitely many generating arrows.
-  - Thm 3.28: it is decidable when the base is locally finite or factorization-preordered.
+  - F and U are generic;
+  - cut and identity are proved once for all mode theories (Thm 2.1);
+  - one uniform equational theory, "the βη-laws for F and U" [R].
+- **LSR equational adequacy is open.** p. 25:17: "We conjecture that the converse is true …". Extended version: "CONJECTURE 8.5. Completeness of Permutative Equality".
+  - No proof or refutation was found in about 60 citers, 2017–2026 [gfu].
+  - Shulman (MATT, MFPS 2023) calls LSR's "definitional equality … ill-behaved". His Remark 2.6: "L[S†] can fail to have decidable equality even if L does". He leaves open "which (L, S) are decidable?" [own].
+- **Clarke–Scherer–Zeilberger** (arXiv:2511.07314v3, Jan 2026, preprint), for the *unary* case only:
+  - Thm 1.17: "Λp : Bif(p) → C is the free bifibration on p". The cut-free calculus modulo permutation presents it: the unary analogue of LSR Conj 8.5.
+  - Thm 3.27: permutation equivalence of proofs is undecidable for some base "with locally finite factorizations". That base has infinitely many generating arrows, and the result concerns proof *identity*, not derivability.
+  - Thm 3.28: decidable when the base is locally finite or factorization-preordered [own].
 - **Shulman 2023** (LNL polycategories, LMCS 19(2)):
-  - reaches classical *linear* logic generically;
-  - "We leave cut-elimination for future study" [R];
-  - non-linear objects are single-conclusion.
-- **Adjoint logic** (Pruiksma thesis, CMU-CS-24-103):
-  - the per-mode menu is σ(m) ⊆ {W, C}, monotone in the preorder of modes;
-  - cut elimination and identity expansion are proved by hand;
-  - intuitionistic only.
-- **LK** is not covered natively by any generic type-theoretic framework examined. Miller–Pimentel cover LK with *declared* bipole clauses, adequacy proved at provability level (Thm 6).
+  - reaches classical *linear* logic;
+  - "We leave cut-elimination for future study" [R].
+- **Adjoint logic** (Pruiksma thesis CMU-CS-24-103):
+  - per-mode σ(m) ⊆ {W, C};
+  - "only models intuitionistic logics";
+  - S4's ◇ is not modelled;
+  - cut elimination and identity proved by hand [gfu, own].
+- **No generic type-theoretic framework covers LK natively.** LK reaches generic cores only by translation (Prop 7) or by declared clauses (Miller–Pimentel).
 
-**Is this a meaningful fixed generative mechanism?**
-- **For logical rules, yes (D3).** Connective rules are instances of fixed generic schemas, and β/η is generic.
-- **For the structural layer, no restriction exists.**
-  - Structural data are rule-like (role (c′)), and an unrestricted structural layer can encode computation:
-    - one non-local contraction subexponential makes derivability undecidable (KKNS Thm 8; C = ∅ gives PSPACE, Thm 15);
-    - atomic, cut-admissible non-logical axioms over the Lambek calculus generate every r.e. language (Buszkowski 1982, restated in KKS Thms 9–10; Buszkowski SECONDARY_ONLY, and finiteness of A not verified);
-    - free adjoints make proof identity undecidable for some infinite bases (CSZ Thm 3.27; Dawson–Paré–Pronk).
-  - *My conjecture (UNVERIFIED):* directed 2-cells in a *finite* LSR mode theory behave like string rewriting, so derivability may be undecidable for some finite mode theory. No source proves this.
-  - Rule-shape restrictions (bipoles: MP Def 3/4, Thm 22; MMPV Thms 12–13, 16–17) restrict *form*, not *computational power* (gfu notes, INFERENCE combining Buszkowski).
+**Structural data and computation.** These must be stated carefully:
+- Decidability of *equality* of structural data can fail (Shulman Remark 2.6; CSZ Thm 3.27, infinite base).
+- Undecidability of *derivability* in KKNS and Buszkowski is a property of the *logic*, not evidence that the environment acts as an interpreter (L-b).
+- *My conjecture (UNVERIFIED):* directed 2-cells in a finite LSR mode theory behave like string rewriting, so derivability may be undecidable for some finite mode theory. No source proves this.
 
-**What remains unproved:**
+**Answer to problem 4.** Yes: these frameworks provide a meaningful fixed generative mechanism for *logical* rules (D3). What remains unproved:
 - multi-ary equational adequacy (LSR Conj 8.5);
-- decidability conditions on mode theories in the multi-ary case (Shulman: "which (L, S) are decidable?");
+- decidability criteria for mode theories;
 - cut elimination for Shulman's doctrines;
-- native or adequate generic treatment of LK.
+- a classical non-linear instance.
 
 ---
 
 ## 9. Is PR #2's vacuity–identity dilemma exhaustive?
 
-**No.** Taking PR #2's later corrections seriously:
+**No.**
 
-1. **The supporting lemma stays retracted.** It swapped preservation and reflection, and in corrected form it is a near-tautology (PR #2 review §3.1). I do not cite it.
-2. **Horn (ii)** ("E may extend ≡_A ⇒ vacuous") holds only for equations of kind (α), which SN independently excludes. For (β) and (γ), preservation is by declaration but reflection is substantive (§4.4).
-3. **Horn (iii)** ("A natively contains each foundation's structure ⇒ union, not a basis") is refuted as a dichotomy by two mechanisms:
-   - **D3 generic frameworks.** Connectives are instances of fixed schemas.
-   - **D2 small cores.** Classical, intuitionistic and linear sequent calculi translate componentwise into one calculus:
-     - Yamada 2021 (preprint), Cor 3.18: "a formal proof T!?(p) of the sequent !T!?∗(∆) ⊢ ?T!?∗(Γ) in ILCι" for each LK proof p, with T!?(A ∧ B) := ?T!?(A) & ?T!?(B), etc.;
-     - Cor 3.37: conservativity for the restricted calculi.
-   
-   Girard's LU and Laurent–Regnier are prior "unities" cited there; I did not access them.
-4. **What survives** (INFERENCE, plausibly provable):
-   - Under rule-as-constant, rule-local encodings with fixed ≡_A (literal D1 with role (c) items), only identities generated by *permutations of independent rule instances* can be reflected by ≡_A.
-   - This sharpened form (fresh-context critique N3) belongs to Task 003's domain (R3), and is recorded as conjecture C2 below.
+1. **The lemma stays retracted.** It swapped preservation and reflection, and in corrected form it is a near-tautology (PR #2 review §3.1). It is not cited here.
+2. **Horn (ii) is false for (β) and (γ) equations (§4.3).**
+3. **Horn (iii)** ("A natively contains each foundation's structure, so it is a union, not a basis") is refuted as a dichotomy:
+   - by D2 cores that *derive* other foundations' rules (Prop 7);
+   - by D3 generic frameworks.
+4. **The dilemma also missed a distinction.** The real line between "algebra" and "interpreter" is not about equations at all. It runs between *instance-level* universality (excluded by SN) and *schema-level* universality (B1, B2, B5), which is excluded only by requiring a logical translation (T1–T4).
+5. **What survives** (INFERENCE): under D1 with rule constants and a fixed ≡_A, only identities generated by permutations of independent rule instances can be reflected (fresh-critique N3 of PR #2). Recorded as C2 and handed to Task 003.
 
 ---
 
-## 10. Theorem-shaped formulations, recommendation and next test
+## 10. Formulations, recommendation and next test
 
-### 10.1 Formulations
+### 10.1 Theorem-shaped formulations
 
-**T1 (Schematicity; INFERENCE, plausibly folklore).** For finitely schematic S and a framework with substitution-stable typing and conversion:
-- every SN ∧ HN representation is HOM, with templates M_r = F(r(u⃗)) that are derived rules of A + E_S (Lemmas 1–2);
-- hence representations satisfying SN cannot implement per-instance computation.
+**T1 (Schematic invariance; INFERENCE).** Assume:
+- a finitely schematic S;
+- a framework whose typing and ≡ are stable under substitution;
+- SN at both formula and derivation metavariables.
 
-*Falsifier:* an SN ∧ HN ∧ ADQ1 representation of a finitely schematic S whose rule images are not substitution instances of fixed templates.
+Then F is HOM, with templates F(r(ξ⃗)) (Lemma 1), and acceptance is invariant under formula instantiation (Lemma 2).
 
-**C1 (Collapse; CONJECTURE).** Every SN ∧ HN ∧ ADQ2 representation, in LF, of a pure natural-deduction calculus with intuitionistic hypotheses is a judgments-as-types encoding up to:
+*Falsifier:* an SN representation in which acceptance of some rule instance depends on the instantiating formulas.
+
+**P-D2 (Prop 4 + Prop 6; INFERENCE).** D2 is non-vacuous (no IPC → CPC translation). It excludes every interpreter construction examined, including the schema-level ones.
+
+*Falsifier:* a D2 representation (T1–T5) of a finitely schematic calculus that encodes a universal checker. For example, one whose core A is fixed and whose translated derivations encode certificates of an arbitrary Cook–Reckhow system.
+
+**C1 (Collapse; CONJECTURE).** Every SN ∧ HN ∧ ADQ2 representation in LF of a pure ND calculus with intuitionistic hypotheses is a judgments-as-types encoding, up to:
 - ≡_LF;
-- definitional (role (d)) re-factoring of E_S;
-- a bijective renaming of declarations.
+- definitional re-factoring;
+- renaming.
 
-Evidence and limits:
-- Gardner Thm 6.4.4: an encoding of a logic with an intuitionistic consequence relation "is adequate if and only if" the indexed functor it induces is an indexed isomorphism.
-- Gardner Thm 6.5.7 is the analogue for natural encodings (bnd notes, VERIFIED via OCR).
-- These *characterize* a given encoding; they do not classify all encodings, and Gardner states the converse fails.
-- If C1 holds, the non-vacuous "finite algebras of reasoning" for such sources *are* logical frameworks. That answers the definitional question, and it makes novelty at R1–R2 an F01 matter.
+Gardner Thms 6.4.4 / 6.5.7 characterise a given encoding: adequate (resp. natural) iff the induced indexed functor is an indexed isomorphism. They do *not* classify all encodings [bnd].
 
-**C2 (Permutation-only reflection; CONJECTURE, handed to Task 003).** Under literal D1 with role-(c) rule constants and fixed ≡_A, a nontrivial ~_S is reflected only if it is generated by permutations of independent rule instances.
+**C2 (Permutation-only reflection; CONJECTURE, for Task 003).** See §9.5.
 
-**Q3 (Generativity under a fixed menu; OPEN question).** Is there a finite framework A and an independently motivated finite menu 𝒦 of structural data such that A is D3-generative (with SN, HN, ADQ1) for C = {NJ, ILL, S4 in a dual-context or adjoint presentation, LK}? Known facts:
-- yes for NJ, ILL and adjoint-presentable modal logics with σ ⊆ {W, C} (Pruiksma; LSR);
-- LK only via *declared* clauses (Miller–Pimentel), or via a D2 translation into a linear calculus (Yamada, preprint) that is not a generic type-theoretic framework;
-- with unrestricted 𝒦, the structural layer can encode computation (§8).
+**C3 (Joint fullness; OPEN).** Is there a finite core A, with one fixed ≡_A, admitting D2 + FULL translations of:
+- an intuitionistic calculus (NJ with βη);
+- a classical calculus with a declared identity (cbn λμ with Selinger's Table 6 theory, or LK with a chosen identity);
+- a linear calculus (ILL)?
 
-### 10.2 Decision gate check (`docs/STAGE_0_SYNTHESIS.md`)
+### 10.2 Decision-gate check (`docs/STAGE_0_SYNTHESIS.md`)
 
-| Gate requirement | Status after this report |
+| Requirement | Status |
 |---|---|
-| (i) Exact quantified conjecture with source class fixed independently | **Partly.** The class is finitely schematic calculi (§2.1). T1, C1 and Q3 are stated. The benchmark list for Q3 is named. |
-| (ii) Anti-vacuity test excluding a real interpreter without excluding legitimate encodings by fiat | **Met, with stated loopholes and over-exclusions.** SN excludes I-H, I-J, I-U, I-R, I-S, I-C and I-E. It is independently motivated. Loophole L-a and over-exclusions L-f, L-g remain. |
-| (iii) Testable fidelity specification | **Met at derivability and derivation level** (ADQ1, ADQ2). Identity (ADQ3) is deferred to Task 003. |
-| (iv) Explicit trust and equality boundaries | **Met as a ledger** (§2.2, §6.3). |
-| (v) A concrete unsolved lemma or an independently checked counterexample | **Partly.** LSR Conj 8.5 is a concrete published open lemma, but it is *theirs*. Q3 is open. No counterexample is independently checked. |
+| (i) Exact quantified conjecture, with the source class fixed independently | **Partly.** The class is finitely schematic calculi (§2.1). C3 is stated over a named benchmark. |
+| (ii) Anti-vacuity test that excludes a real interpreter without excluding legitimate structural encodings by fiat | **Partly.** SN excludes the instance-level interpreters. T1–T4 exclude all constructions found, and T1 is the standard notion of translation. But T1 deliberately excludes LF and deep embeddings *as cores* (they remain D1 media), which a reviewer may regard as fiat. HN is optional and over-excludes deep embeddings (L-i). |
+| (iii) Testable fidelity specification | **Met** at derivability and derivation level (ADQ1, ADQ2). FULL is specified; its identity relation belongs to Task 003. |
+| (iv) Trust and equality boundaries | **Met descriptively** (ledger), with one definitional test (logical items). |
+| (v) A concrete unsolved lemma or a checked counterexample | **Partly.** C3 is a concrete open question. LSR Conj 8.5 is a published open lemma, but it is theirs. No counterexample has been independently checked. |
 
 ### 10.3 Recommendation: NARROW
 
 - **Do not PROCEED.**
-  - No restricted theorem is ready that would justify building anything.
-  - The R1–R2 existence question is answered by prior art: LF/LLF (D1), linear-logic unities (D2, preprint), adjoint logic (D3).
+  - At R1–R2, a finite cross-foundation core is prior art: Prop 7, assembled from Kolmogorov, Girard and Pruiksma, pending checking.
+  - Universal *framework* representation is trivial (Prop 5).
+  - Nothing here warrants building anything.
 - **Do not STOP.**
-  - The definitional question has a defensible answer (SN + ADQ, plus the ledger).
-  - Two precise open problems remain, and they bear directly on the charter's "fundamental operations": Q3 (generativity under a fixed structural menu) and C1 (collapse).
+  - The definitional question now has a defensible answer: D2 for fundamentality, D1 with a ledger for representation.
+  - The proof-level question C3 is precise, open as far as found, and bears directly on whether a finite core is fundamental for *proofs*, which is the charter's distinctive ambition.
 - **Narrow the program to:**
-  1. adopting SN + ADQ1 + ledger as the representation definition;
-  2. one pen-and-paper investigation of Q3 at its boundary case.
-- **Any novelty claim** must be measured against LSR, Shulman, Pruiksma–Pfenning, Miller–Pimentel and the linear-logic unity literature.
+  1. adopting D1 (representation) and D2 (fundamentality) as the working definitions, together with the descriptive ledger;
+  2. retiring "a finite framework representing all systems" as a research target (Prop 5);
+  3. the single test below.
 
-### 10.4 Single next test (pen and paper; no implementation)
+**Coordination.** C3 involves proof identity. It should be run jointly with, or after, Task 003's fixing of identity relations.
 
-> **Decide whether LK admits a D3 representation with SN ∧ ADQ1 in adjoint logic with the fixed menu σ(m) ⊆ {W, C}, possibly with multiple conclusions added. Equivalently, determine whether multi-conclusion classical contraction and weakening can be supplied by menu-restricted structural data rather than by declared rules (Miller–Pimentel) or by a dedicated core (Yamada's ILCι).**
+### 10.4 Single next test (literature and pen-and-paper; no implementation)
 
-**Starting points:**
-- Pruiksma's adjoint logic (intuitionistic, single conclusion);
-- Shulman's LNL polycategories (multi-conclusion linear);
-- Yamada Cor 3.18 (the !Δ ⊢ ?Γ decomposition);
-- Girard's LU (to be accessed).
+> **Take ILL with ! as the core, using its standard βη-equality for DILL. Hasegawa 2000, Thm 5.6, makes Girard's translation of STLC into linear λ fully complete (VERIFIED [R]). Determine whether some D2 translation of a classical calculus with a declared identity into the same core is FULL.**
 
-**Outcomes:**
+**Candidates:**
+- linear CPS: full for the *computational* λ-calculus (Hasegawa 2002, Thm 1, VERIFIED [R]). Its extension to λμ is unchecked (Berdine–O'Hearn–Reddy–Thielecke, UNVERIFIED);
+- the Kolmogorov translation composed with Girard's.
 
 | Outcome | Meaning |
 |---|---|
-| **(a) Yes, with a known menu** | Q3 holds for the benchmark at R1. Fundamentality is a prior-art fact; the project's remaining content is R3 (Task 003). |
-| **(b) A proof that every SN ∧ ADQ1 representation of LK needs a structural datum outside every finite menu, or a declared logical rule** | The first genuine obstruction to cross-foundation generativity. |
-| **(c) Neither** | Record the exact missing lemma: whether multi-conclusion structural data can be menu-restricted while keeping cut admissibility. |
+| **(a) A full translation exists** | ILL + ! is a finite core fundamental *for proofs* of one intuitionistic, one classical and one linear calculus. Check whether this is already in the literature. If it is, the charter's core aim at R3 is prior art for this benchmark. |
+| **(b) A proof that no D2 translation of the chosen classical calculus into ILL + ! is full** (for example, an ILL derivation of a translated sequent outside every image class) | A genuine obstruction to proof-level fundamentality with a fixed core. It would be the first one found. |
+| **(c) Neither** | Record the exact missing lemma: the full-completeness step for the classical component. |
 
 ---
 
-## 11. Limitations and unresolved questions
+## 11. Limitations
 
-1. **Lemmas 1–2 and Prop 4 are informal arguments.**
+1. **The results in §3 are informal.**
    - Prop 4 relies on Rieger–Nishimura (UNVERIFIED-MEMORY).
-   - The extension of Σ-monoid morphisms to judgments and hypotheses is my inference.
-2. **SN is relative to the declared sorts and binding structure of S.** An adversarial *presentation* of S (L-d) is outside its scope by design.
-3. **The over-exclusions are real costs.** Conversion-by-computation foundations (L-f) and top-level non-schematic translations (L-g) are partly repaired by wrappers; the general case is UNKNOWN.
-4. **The resource control relies on expected, not extracted, LLF adequacy for MILL.**
-5. **Yamada 2021 is a preprint.** Its conservativity results are for restricted calculi only, and its proof identity is "modulo permutations".
-6. **Independence.** This report shares authorship with PR #2. A fresh-context adversarial read of a draft was used (see `002-source-notes/fresh-critique.md`), but outside review is still required.
-7. **Scope.** Proof identity, causal order and the MLL net example are Task 003's subject. Nothing here claims them.
+   - Prop 5's ADQ2 is unverified.
+   - Prop 7 is an *assembly* of cited results, with a stable-sort repair that has not been checked.
+2. **D2's T1 is a deliberate design choice.** Its acceptability (gate (ii)) needs review by a human proof theorist.
+3. **The trust ledger is descriptive.** An item-wise role classification was found to be ill-defined (§2.2).
+4. **The resource control relies on *expected* LLF adequacy for MILL.** No MILL adequacy theorem was extracted.
+5. **Yamada's results are restricted and not schematic** (§6.3). Girard's LU, which Yamada cites as prior art, was not accessed.
+6. **Independence.** The author also wrote PR #2. A fresh-context critique was used, but outside review is still required.
+7. **Scope.** Proof identity, causal order and the MLL net example belong to Task 003.
 
 ---
 
-## 12. Source table (edition and location)
+## 12. Withdrawn or corrected claims from the first draft (transparency)
 
-Statuses: **V** = VERIFIED_SOURCE in the version stated; **S** = SECONDARY_ONLY; **N** = NOT_ACCESSED. Notes files: own, str, bnd, gfu (this task); [S0] = PR #2 Stage-0 logs; [R] = PR #2 review logs.
+| # | Draft claim | Status now | Why |
+|---|---|---|---|
+| W1 | "SN ∧ HN ⇒ HOM" | **Withdrawn**; replaced by SN at derivation metavariables (Lemma 1) | Weak-normal-form counterexample (critique §A1) |
+| W2 | "No per-instance computation" | **Corrected**: invariance under formula instantiation, not cost (Lemma 2) | Critique §A3 |
+| W3 | "SN excludes every interpreter, including checker-as-proof" | **Withdrawn**; SN excludes only instance-inspecting interpreters | B1, B2 |
+| W4 | "Loophole L-a is isomorphic to the LF image (benign)" | **Withdrawn** | Certificates live in another calculus (critique §B2) |
+| W5 | D2 = "no role-(c) items" | **Replaced** by T1–T5, with a syntactic logical-item test | B1 makes the old D2 vacuous; role classification is ill-defined (critique §B1, §D1) |
+| W6 | Recommendation "adopt SN + ADQ1 + ledger" | **Replaced** by D1/D2 | It dropped HN, the clause doing the excluding (critique §B4) |
+| W7 | "Yamada: LK, LJ, ILL translate connective-wise and conservatively" | **Corrected** | Restricted, non-schematic purity condition; Cor 3.18's target lacks cut elimination (critique §E1, confirmed) |
+| W8 | §0 use of KKNS, Buszkowski and CSZ as "the environment becomes a universal rewriting layer" | **Corrected** | Logic-level undecidability; role (b); infinite base and identity-level (critique §E2–E4) |
+| W9 | Conversion-based foundations as an SN over-exclusion | **Corrected** | They are outside the source class (critique §A4.2) |
+| W10 | Next test "LK in adjoint logic, possibly with multiple conclusions" | **Replaced** by the fullness test | The original test was ill-posed; outcome (a) could be manufactured; the cheaper Kolmogorov route answers it at R1 (critique §F) |
+| W11 | Cook–Reckhow applied to connective bases | **Corrected** (§7.2) | Critique §E5 |
 
-### Logical frameworks and adequacy
+---
+
+## 13. Source table (edition and location)
+
+Statuses: **V** = VERIFIED_SOURCE in the version stated; **S** = SECONDARY_ONLY; **N** = NOT_ACCESSED. Notes: own, str, bnd, gfu, fresh-critique (this task); [S0] = PR #2 Stage-0 logs; [R] = PR #2 review logs.
+
+### Logical frameworks, adequacy and derived rules
 
 | Source | Version | Location used | Status |
 |---|---|---|---|
-| Harper, Honsell, Plotkin, "A Framework for Defining Logics" (JACM 1993) | Author typescript | p. 2 (compositional); p. 17; p. 23; Thm 4.1 p. 21 | V [S0, bnd] |
+| Harper, Honsell, Plotkin (JACM 1993) | Author typescript | p. 2; p. 17; p. 23; Thm 2.6; Thm 4.1 p. 21 | V [S0, bnd] |
 | Pfenning, "Logical Frameworks" (Handbook of Automated Reasoning) | Preprint | Thm 3.2 p. 29; §3.6; p. 47; p. 70 | V [S0, bnd] |
 | Gardner, PhD thesis (1992) | OCR | Def 5.2.1/5.2.3; Cor 5.1.8; Def 6.1.3; Thms 6.4.4, 6.5.7 | V [bnd] |
-| Harper, *Practical Foundations for Programming Languages* | Ch. 3 | Thm 3.1 (Stability) | V [bnd] |
+| Harper, *Practical Foundations for Programming Languages* | Ch. 3 | Thm 3.1 | V [bnd] |
 | UvA lecture handout on admissible rules | — | Prop 8, Thm 9 (Kreisel–Putnam) | S [bnd] |
 | Twelf User's Guide 1.4 | — | §9 | V [bnd] |
 | Cervesato, Pfenning, LLF | Author manuscript | Thm 2.9; p. 53 | V [S0] |
-| Chihani, Miller, Renaud (JAR 2017) | HAL manuscript | p. 13 (soundness by erasure) | V [S0] |
+| Chihani, Miller, Renaud (JAR 2017) | — | p. 13 | V [S0] |
+| Dedukti manuscript | arXiv:2311.07185 | Lemma 4; Thm 8; §3.1 | V [S0] |
 
 ### Syntax with binding
 
 | Source | Version | Location used | Status |
 |---|---|---|---|
 | Fiore, Plotkin, Turi (LICS 1999) | — | Thms 2.1, 4.1, 4.2 | V [bnd] |
-| Fiore, Mahmoud | arXiv:1308.5409 | Lemma 5.1 | V [bnd] |
-| Hofmann (LICS 1999) | — | Prop 4.1 (syntax only) | V [bnd] |
+| Fiore, Mahmoud | arXiv:1308.5409 | Lemma 5.1 | V [bnd, own] |
 
 ### Translations between logics and invariant comparison
 
 | Source | Version | Location used | Status |
 |---|---|---|---|
-| Jeřábek, "The ubiquity of conservative translations" | arXiv:1108.6263v2 | Defs 2.2–2.3; Thm 2.4; Def 3.4; Thms 3.6, 3.10; Rem 2.8; p. 14 | V [str, own] |
-| Pelletier, Urquhart, "Synonymous logics" (+ 2006 correction) | Preprints | Thm 2.6; Cor 3.2; Thm 4.5; correction Thm 2.1 | V [str] |
-| Caleiro, Gonçalves, "Equipollent logical systems" | — | Def 2.4; Def 4.1; Prop 4.3; p. 7 | V [str] |
-| Böhler, Creignou, Reith, Vollmer, "Playing with Boolean blocks" | — | Ex. 1.3; Post's criterion | V [str] |
-| SEP, "Algebraic Propositional Logic" (Jansana) | — | Łoś–Suszko structurality | S [str] |
-| Mossakowski, Diaconescu, Tarlecki, "What is a logic translation?" | Preprint | Prop 2.25; §2.1 (schematic over-exclusion); conclusion | V [S0, own] |
+| Jeřábek, "The ubiquity of conservative translations" | arXiv:1108.6263v2 | Defs 2.2–2.3; Thm 2.4; Def 3.4; Thm 3.6; p. 14 | V [str, own] |
+| Pelletier, Urquhart (+ 2006 correction) | Preprints | Translation definition pp. 6–7; Thm 2.6; Cor 3.2; Thm 4.5 | V [str] |
+| Caleiro, Gonçalves | — | Def 2.4; p. 7; Def 4.1; Prop 4.3 | V [str] |
+| Böhler, Creignou, Reith, Vollmer | — | Ex 1.3 | V [str] |
+| SEP, "Algebraic Propositional Logic" (Jansana) | — | Łoś–Suszko | S [str] |
+| Mossakowski, Diaconescu, Tarlecki | Preprint | Ex 2.4 (Kolmogorov); Prop 2.25; §2.1; conclusion | V [S0, own] |
+| Rabe, "How to identify, translate and combine logics?" | Preprint | Def 3.35 | V [S0] |
 | Cook, Reckhow (JSL 1979) | — | Thm 2.3; Cor 2.4; Lemma 2.5 | V [S0] |
+| Girard, "Linear logic" (TCS 1987) | Scan | §5.1, p. 81 | V [S0] |
 
-### Interpreter constructions and Dedukti
+### Interpreter constructions and Dedukti encodings
 
 | Source | Version | Location used | Status |
 |---|---|---|---|
@@ -566,26 +652,37 @@ Statuses: **V** = VERIFIED_SOURCE in the version stated; **S** = SECONDARY_ONLY;
 | Felicissimo (FSCD 2022) | — | Thm 46 | V [S0] |
 | Felicissimo, Winterhalter (FSCD 2024) | — | Table 1 | V [S0] |
 | Krajíček, *Proof Complexity* (2019) | — | Thm 8.4.3 | S [S0] |
+| Blanqui et al., "Some axioms for mathematics" (FSCD 2021) | — | Thm 9; §4 | V [S0] |
+
+### Proof identity and fullness
+
+| Source | Version | Location used | Status |
+|---|---|---|---|
+| Hasegawa (JFP 2000) | Preprint | Thm 5.6 | V [R] |
+| Hasegawa (FLOPS 2002) | — | Prop 5; Thm 1; §1.3 | V [R] |
+| Selinger (MSCS 2001) | — | Table 6; Thm 6.12; Rem 8.2 | V [R] |
 
 ### Generic frameworks and structural data
 
 | Source | Version | Location used | Status |
 |---|---|---|---|
-| Licata, Shulman, Riley (FSCD 2017, LIPIcs 84, art. 25) + extended version | — | Thm 2.1; §4; p. 25:17; Conj 8.5 | V [R, gfu] |
-| Licata, Shulman (LFCS 2016) | Preprint | Mode-theory equality remark | V [R] |
-| Shulman, "LNL polycategories and doctrines of linear logic" (LMCS 19(2), 2023) | — | Remark 2.7; "cut-elimination for future study" | V [R] |
-| Shulman, "Semantics of multimodal adjoint type theory" (MFPS 2023) | — | Remark 2.6; open question (iv) | V [gfu, own] |
-| Pruiksma, thesis CMU-CS-24-103 | — | σ(m) ⊆ {W, C}; cut elimination; identity | V [gfu] |
-| Clarke, Scherer, Zeilberger, "The free bifibration on a functor" | arXiv:2511.07314v3 | Thms 1.17, 3.27, 3.28 | V [gfu, own] |
-| Kanovich, Kuznetsov, Nigam, Scedrov (MSCS 2019) | arXiv:1709.03607 | Thms 8, 15 | V [gfu, own] |
-| Kanovich, Kuznetsov, Scedrov | arXiv:1608.02254 | Thms 9–10, restating Buszkowski 1982 | V; Buszkowski itself S [gfu] |
-| Miller, Pimentel (TCS 2013) | — | Defs 3, 4, 17, 18; Thms 6, 22 | V [S0, gfu] |
-| Marin, Miller, Pimentel, Volpe (APAL 2022) | — | Thms 4, 6, 12, 13, 16, 17 | V [gfu] |
+| Licata, Shulman, Riley (FSCD 2017) + extended version | — | Thm 2.1; §4; p. 25:17; Conj 8.5 | V [R, gfu] |
+| Shulman (LMCS 2023) | — | Remark 2.7; cut-elimination remark | V [R] |
+| Shulman, MATT (MFPS 2023) | — | Remark 2.6; question (iv) | V [gfu, own] |
+| Pruiksma, thesis CMU-CS-24-103 | — | σ(m) ⊆ {W, C}; Example 4 (judgmental S4); limitations | V [gfu, own] |
+| Clarke, Scherer, Zeilberger | arXiv:2511.07314v3 | Thms 1.17, 3.27, 3.28 | V [gfu, own] |
+| Kanovich, Kuznetsov, Nigam, Scedrov | arXiv:1709.03607 | Thms 8, 15 | V [gfu, own] |
+| Kanovich, Kuznetsov, Scedrov | arXiv:1608.02254 | Thms 9–10, restating Buszkowski | V; Buszkowski S [gfu] |
+| Miller, Pimentel (TCS 2013) | — | Defs 3, 4; Thms 6, 22 | V [S0, gfu] |
+| Marin, Miller, Pimentel, Volpe (APAL 2022) | — | Thms 12, 13, 16, 17 | V [gfu] |
 
-### Unities of logic and other sources
+### Other sources
 
 | Source | Version | Location used | Status |
 |---|---|---|---|
-| Yamada, "Sequent calculi for a unity of logic" | arXiv:2001.06138v3 (preprint) | Cor 3.18; Thm 3.26; Cor 3.37 | V [own] |
+| Yamada, "Sequent calculi for a unity of logic" | arXiv:2001.06138v3 (preprint) | Cor 3.18; Thm 3.26; Cor 3.37; p. ~3 | V [own, fresh-critique] |
 | Holliday, Hoshi, Icard (LORI-III 2011) | Author copy | §§1.1–1.2 | V [own] |
-| Girard, LU; Laurent–Regnier (LICS 2003) unity diagram; Buszkowski 1982; Chvalovský–Horčík 2016; Zolin 2000; Sheffer 1913; Post 1941; Łoś–Suszko 1958 | — | — | N |
+
+### Not accessed (N)
+
+Girard, LU; Laurent–Regnier; Buszkowski 1982; Chvalovský–Horčík; Zolin; Sheffer; Post; Łoś–Suszko; Prawitz–Malmnäs; Berdine–O'Hearn–Reddy–Thielecke; Hofmann–Streicher.
