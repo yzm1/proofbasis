@@ -1,4 +1,4 @@
-PASS SN: ST(phi[theta/p]) == ST(phi)[P := lambda y. ST_y(theta)] syntactically (mod alpha) -- 500 random formula/substitution pairs
+PASS Illustration, SN: ST(phi[theta/p]) == ST(phi)[P := lambda y. ST_y(theta)] syntactically (mod alpha) -- 500 random formula/substitution pairs
 PASS Z3: transitivity |- forall x ST_x([]p -> [][]p) -- z3: unsat
 PASS Z3: reflexivity |- forall x ST_x([]p -> p) -- z3: unsat
 PASS Z3: template Nec: forall x P(x) |- forall x [](P)(x) -- z3: unsat

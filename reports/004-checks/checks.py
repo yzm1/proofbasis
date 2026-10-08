@@ -22,7 +22,10 @@ def record(name, ok, detail=""):
 
 
 # ---------------------------------------------------------------------------
-# 1. Standard translation (ST) and strong substitution naturality (SN).
+# 1. ILLUSTRATION ONLY (not evidence): substitution naturality (SN) for a unary
+#    standard translation over the basis {not, and, box, dia}. This is NOT the C1
+#    translation of report 004 (which uses bottom, ->, and n-ary diamonds); SN holds for
+#    both by construction (induction on formulas), and random testing adds no weight.
 #    Formulas are nested tuples:
 #      ('p', name), ('not', A), ('and', A, B), ('box', A), ('dia', A).
 #    ST maps a formula to a first-order formula (as a string AST), given a world
@@ -125,7 +128,7 @@ def check_sn(trials=500):
 
 
 ok, d = check_sn()
-record("SN: ST(phi[theta/p]) == ST(phi)[P := lambda y. ST_y(theta)] syntactically (mod alpha)", ok, d)
+record("Illustration, SN: ST(phi[theta/p]) == ST(phi)[P := lambda y. ST_y(theta)] syntactically (mod alpha)", ok, d)
 
 # ---------------------------------------------------------------------------
 # 2. Z3: first-order entailments for frame correspondents (one direction of
