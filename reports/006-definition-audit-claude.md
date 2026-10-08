@@ -1,18 +1,28 @@
 # Report 006: Definition audit of H (Stage 0.7, Phase A) — Claude
 
-**Target audited:** `docs/STAGE_0_7_COMMON_CONJECTURE.md`, exactly as it stands in PR #9 at commit `d72ab1f96ebdc0d5125453303a5f946a523ae15f`. Below this is called **H**; its numbered clauses are H.1–H.7.
+## Front matter
 
-**Role:** constructive but skeptical. The question is whether H can be made into a coherent, nontrivial, falsifiable mathematical proposition.
+**Target audited.** `docs/STAGE_0_7_COMMON_CONJECTURE.md` exactly as in PR #9 at commit `d72ab1f96ebdc0d5125453303a5f946a523ae15f`. It is called **H** below, with clauses H.1–H.7.
 
-**Scope (Phase A only):**
-- No proof attempt.
-- No reconciliation with other agents' audits.
-- No edits to PR #9, the charter, or other reports.
-- Every proposed change below is a *recommendation to the owners*. None is a replacement for H.
+**Assignment.** The owner's Stage 0.7 Phase A instruction to Claude (chat assignment; not a file in `tasks/`). It asks for:
+- seven focus questions (§4.1–§4.7 below);
+- a positive and an adversarial example for every proposed definition;
+- the deliverables listed in §9.
 
-**Author / date:** Claude (Claude Code session), 2026-10-08.
+**Role.** Constructive but skeptical.
 
-**Source logs:** `reports/006-source-notes/`.
+**Phase A only.** The following are out of scope:
+- any proof attempt;
+- reconciliation with other agents;
+- edits to PR #9, the charter or other reports.
+
+Every change proposed below is a *recommendation to the owners*, never a replacement for H.
+
+**Author and date.** Claude (Claude Code session), 2026-10-08.
+
+**Supporting material.**
+- `reports/006-source-notes/`: retrieved statements, and the fresh critique of the first draft.
+- §10 lists every change made after the critique.
 
 ---
 
@@ -20,483 +30,485 @@
 
 | Label | Meaning |
 |---|---|
-| **ESTABLISHED** | Published theorem. Source and location given; verified in a retrieved text unless marked (secondary) |
-| **PROVED HERE (informal)** | A complete pen-and-paper argument in this report. Not machine-checked, not refereed |
+| **ESTABLISHED (verified)** | A published result whose statement was read in a retrieved primary text this session; location given |
+| **ESTABLISHED (secondary)** | A published result read only as restated, verbatim, in a retrieved secondary text, which is named |
+| **PROVED HERE (informal)** | A complete pen-and-paper argument in this report. Not machine-checked, not refereed. A fresh critic re-checked it, but that is agreement, not verification |
 | **INFERENCE** | An argument with a named gap |
 | **OPEN** | Not known |
-| **UNVERIFIED-MEMORY** | Not checked against a source in this session |
+| **UNVERIFIED-MEMORY** | Not checked against any source this session |
 
 ---
 
 ## 1. Executive verdict
 
-**H is not yet a coherent nontrivial proposition, and it does not pass its own gate.** By H's acceptance criterion, the correct status is **definition unresolved**.
+**Overall status.** H is not yet a coherent, falsifiable proposition. By H's own acceptance rule its status is **definition unresolved**. H already concedes that H.6 (non-vacuity) and H.7 (causal fidelity) are undefined. This audit adds four findings about *how* they can and cannot be closed, and about what H already forces.
 
-That status is not caused merely by H.6 (non-vacuity) and H.7 (causal fidelity) being left open, as H itself already says. This audit finds three structural facts that constrain *how* they can be closed.
+1. **Every target satisfying H has an undecidable proof congruence** (Proposition A; PROVED HERE, informal).
+   - The proof uses the Novikov–Boone theorem (ESTABLISHED, secondary).
+   - H's source class C contains a one-atom calculus whose proof identity is the word problem of a finitely presented group with unsolvable word problem. Faithfulness (H.2) is then a computable reduction to ≈_A.
+   - **Corollary.** Under the definitional reading of ≈_A, every framework with decidable definitional equality fails H as a fixed target. This covers intensional Martin-Löf type theory, Church-style System F with βη, the simply-typed λ-calculus, and the unit-free free symmetric monoidal (closed) category.
+   - Frameworks with *undecidable* definitional equality (extensional type theory, Lean 4) are not excluded by Proposition A. They raise a separate trust problem (§4.7).
+   - Under the propositional reading (HA-3) the corollary does not apply: an internal identity type need not have decidable provability, which is why E6 survives that reading.
+2. **No H-target has a uniformly computable, enumerable family of models that separates its proofs** (Proposition B; PROVED HERE, informal).
+   - So no non-vacuity criterion for H may *imply* decidable or computably separable proof identity.
+   - Whether some other isomorphism-invariant criterion works is **OPEN**. An earlier draft claimed more, and that claim is withdrawn (§10, F1).
+3. **The gate's D2 check is answered here (§4.8):**
 
-1. **Every solution of H has an undecidable proof congruence** (Proposition A; PROVED HERE, informal, from the established Novikov–Boone theorem).
-   - H's source class C contains a one-atom calculus whose proof identity is the word problem of a finitely presented group with unsolvable word problem.
-   - Because faithfulness (H.2) is a computable reduction, the target A must have an undecidable ≈_A.
-   - Consequences:
-     - No framework with decidable definitional equality can be the fixed A. This includes LF, simply-typed and System-F-like λ-calculi, Martin-Löf-style definitional equality, the free symmetric monoidal closed category, and Dedukti with confluent, terminating rewriting. This answers focus question 7 in the negative for every such framework.
-     - No A satisfying H has a computably enumerable family of computable models that separates its proofs (Proposition B). In particular, finite-model separation is impossible.
-2. **The natural invariants that would mark A as "not an interpreter" are exactly the ones H forces to fail** (§5.3): decidable equality, residual finiteness, separation by finite or computable models.
-   - On the unary-group fragment of C, H.1–H.5 are already satisfied by a target built from **Higman's universal finitely presented group** (Proposition C; it rests on Higman's embedding theorem).
-   - That target is generated by group words, not by a visible interpreter. It still realises computation in algebraic form.
-   - So an *isomorphism-invariant* (encoding-invariant) non-vacuity criterion cannot be consistent with H.2 + C unless it rejects structures that every H-solution must resemble. **H.6 can only be closed by a translation-relative criterion, by fullness, or by restricting C.**
-3. **H.7 presupposes that causal structure is invariant under the source proof congruence. This is false in C.**
-   - Report 005's S_n has the equation rⁿ(ξ) ~ ξ, which identifies an n-step dependency chain with the empty one.
-   - The same happens with βη in any λ-calculus source.
-   - H.7 is definable without a global order only on a separately defined subclass C_causal whose equations are permutations of independent steps (Mazurkiewicz-trace-style; §4.6).
+   > **D2 admits a Higman-type universal construction on the group fragment of C.**
 
-**What is satisfactory or easily repaired** (§3, §4):
-- H.1 (derivability) is mathematically well-defined.
-- H.2 (faithfulness without fullness) is mathematically well-defined.
-- H.3 becomes automatic once translations are defined as morphisms of presentations.
-- H.5 is coherent under the precise reading "the target environment is the translation of the source's own assumptions plus opaque syntax declarations".
-- H.4 is redundant with H.1 read over open judgments, apart from a proof-level residue that belongs to H.7.
+   - The construction is the target A_U, built from a finitely presented group that contains every finitely presented group.
+   - It passes D2's T1–T5, and H.1–H.5, for every finitely presented proof-symmetry calculus.
+   - It does so by fixed group words alone, with no code, no checker and no environment.
+   - It generalises report 005's Thompson-group construction A_V from cyclic groups to all finitely presented groups.
+   - So D2 does not by itself exclude algebraically encoded computation. Whether such constructions extend beyond the group fragment is **OPEN**.
+4. **H.7 presupposes causal structure that is invariant under the source proof congruence. This is false in C.**
+   - The point is already in report 005 §6: rⁿ ~ id. β-reduction is a further instance.
+   - H.7 can be stated without a global order only on a separately defined subclass. §4.6 gives the requirements such a subclass must meet. A coherent definition is **OPEN**.
 
-**Strongest counterexample to my preferred interpretation** (§6). The preferred interpretation combines: translations as presentation morphisms, a type-level componentwise formula translation, an environment equal to translated assumptions, and parametric target generators (no type-case).
-- It is defeated by placing Higman's universal group at a closed *data* sort D.
-- Each atom P is translated to the function type D ⇒ X_P, and each rule acts by precomposition.
-- Every one of these is a parametric, compositional, environment-free operation. The construction still hosts arbitrary finitely presented proof symmetries by algebraically encoded computation.
+**What is satisfactory or repairable (§4).**
+- H.1 and H.2 are mathematically well-defined. Faithfulness without fullness is a meaningful constraint once it is combined with derivability reflection over open judgments.
+- H.3 is automatic once translations are morphisms of presentations.
+- H.5 can be made precise by tying the environment to translations of the source's own assumptions (M3). The caveat in §4.4 applies.
 
-**Minimum changes for a falsifiable conjecture** (§7): six changes, M1–M6. M1–M4 are definitional repairs that keep H's content. M5 forces an owner choice between two routes:
-- **Route F**, relative fullness on generated interfaces. This is H_full without report 005's finite-atomic-profile hypothesis.
-- **Route R**, restricting C's proof equations to an independently defined, target-independent class, and requiring a separating computable semantics for A.
+**Strongest counterexample to my preferred interpretation (§6).**
+- My preferred interpretation is a syntactic anti-interpreter package: presentation morphisms, a type-level formula translation, the M3 environment, and no type-case.
+- A_U defeats it.
+- A semantic strengthening, namely relational parametricity, is defeated by E8: Higman's group at a data sort, acting by precomposition.
 
-Each route yields a falsifiable statement. Route R keeps the charter's "across foundations" ambition better. Route F keeps the "arbitrary proof identity" reading better. **Choosing between them is an owner decision. This report does not make it.**
+**Minimum changes (§7).**
+- **M1–M4 are definitional repairs.** They fix the meta-formalism, the source-class reading, the environment and the translation format.
+- **M5 (non-vacuity) is an owner choice between two routes**, each with stated open problems:
+  - **Route F**, relative fullness;
+  - **Route R**, restricting C's proof equations. Route R also reverses H's "decidable equivalence not required".
+- **Neither route is shown to exclude every universal-algebraic encoding.**
+- **M6 (causality) remains a specification task**, with requirements but no finished definition.
 
 ---
 
 ## 2. H as audited (restatement, no changes)
 
-- **C:** finite-schematic deductive presentations with binding and finite proof-equation schemas (report 002 §2.1), with these clarifications:
-  - local rule applicability is effectively checkable;
-  - finite proofs form typed compositions;
-  - ≈_S is the congruence generated by the explicitly specified equations;
-  - cyclic or infinitary proofs without finite checkable certificates are excluded;
-  - membership is target-independent.
-- **A:** a fixed, finitely presented, typed many-sorted algebra with finite generating operation schemas, fixed typing rules, and fixed proof congruence ≈_A.
-- **For every S ∈ C:** an effective translation F_S of expressions, judgments, contexts and proofs into A, satisfying:
+- **C.** Report 002 §2.1's finite-schematic presentations with binding, plus finite proof-equation schemas, with these clarifications:
+  - effectively checkable local rule applicability;
+  - typed compositions;
+  - ≈_S generated by the stated equations;
+  - no uncertified cyclic or infinitary proofs;
+  - target-independent membership.
+- **A.** A fixed, finitely presented, typed many-sorted algebra, with:
+  - finite generating operation schemas;
+  - fixed typing rules;
+  - a fixed proof congruence ≈_A.
+- **Translations.** For every S ∈ C there is an effective translation F_S satisfying:
 
 | Clause | Requirement |
 |---|---|
-| **H.1** | Derivability preservation and reflection |
-| **H.2** | d ≈_S e ⇔ F_S(d) ≈_A F_S(e), for proofs of a common judgment |
-| **H.3** | Identities, composition/cut/grafting, substitution and binding are preserved modulo equality |
-| **H.4** | Resource integrity |
-| **H.5** | Trust separation |
-| **H.6** | Non-vacuity (OPEN by H's own statement) |
-| **H.7** | Causal fidelity where defined |
+| H.1 | Derivability preserved and reflected |
+| H.2 | d ≈_S e ⇔ F_S(d) ≈_A F_S(e), for d, e of a common judgment |
+| H.3 | Identities, composition, substitution and binding preserved modulo equality |
+| H.4 | Resource integrity |
+| H.5 | Trust separation |
+| H.6 | Non-vacuity (open by H's own statement) |
+| H.7 | Causal fidelity where defined |
 
-**Not required:** fullness, minimality, decidable ≈, polynomial translation, proof search, raw chronology.
+- **Explicitly not required:** fullness, minimality, **decidable proof equivalence**, polynomial translation, proof search, raw chronology.
 
 ---
 
-## 3. Running fixtures (used throughout)
+## 3. Running fixtures
 
-All fixtures are in C as H defines it. Membership was checked clause by clause against H's text.
-
-| ID | Source S | Proof judgments | ≈_S |
+| ID | Source S | Judgments and rules | ≈_S |
 |---|---|---|---|
-| **E1** | NJ(→) | Γ ⊢ M : φ. Rules: hyp; →I (binds x); →E | β: (λx.M)N = M[N/x]; η: λx.Mx = M (x ∉ FV(M)) |
-| **E2** | S_n (report 005 §3.1) | x:P ⊢ d : P. Rule r: from d infer r(d) | rⁿ(ξ) ~ ξ |
-| **E3** | **S_G**, for a finitely presented group G = ⟨g₁…g_k ∣ R₁…R_m⟩ with unsolvable word problem | x:P ⊢ d : P. Rules g_i and g_i⁻¹, each unary as in E2 | g_i(g_i⁻¹(ξ)) ~ ξ ~ g_i⁻¹(g_i(ξ)), and R_j(ξ) ~ ξ, where R_j(ξ) is the relator word applied as rule instances |
-| **E4** | MILL (⊗, ⊸), unit-free | Γ ⊢ M : φ, linear contexts | βη and commuting conversions |
-| **E5** | Checker-rule presentation: one rule "⊢ φ provided check(c, φ)", c a certificate term | ⊢ φ | none |
+| **E1** | NJ(→) | Γ ⊢ M : φ; hyp, →I (binds), →E | β, η |
+| **E2** | S_n (report 005 §3.1) | x:P ⊢ d : P; unary rule r | rⁿ(ξ) ~ ξ |
+| **E3** | **S_G**, for a finitely presented G = ⟨g₁…g_k ∣ R₁…R_m⟩ with unsolvable word problem | x:P ⊢ d : P; unary rules g_i and g_i⁻¹, as in E2 | g_i g_i⁻¹(ξ) ~ ξ ~ g_i⁻¹ g_i(ξ); R_j(ξ) ~ ξ |
+| **E4** | Unit-free MILL (⊗, ⊸) | linear Γ ⊢ M : φ | βη and commuting conversions |
+| **E5** | Checker-shaped presentation | "⊢ φ provided check(c, φ)" | — |
 
-**Why E3 is in C.**
-- It has finitely many rule schemas (2k).
-- It has finitely many equation schemas (2k + m) over a proof hole ξ.
-- Its formulas form one atom sort.
-- Local checking is trivial.
-- Proofs are typed compositions, and there is no side condition.
+### E3 is in C, and its proof classes form exactly G
 
-**What E3 computes.** At the judgment x:P ⊢ P, the proof classes form exactly the group G: words up to the group relations. This is report 005's Lemma for S_n with C_n replaced by G. The argument is the same; INFERENCE at the level of rigour of report 005's Lemma.
+PROVED HERE (informal). The critic's independent check agrees.
 
-**Whether E5 is in C depends on how "effectively checkable" is read.** See §4.3.
+**Membership in C.** E3 has:
+- finitely many rule schemas and equation schemas, written over a proof hole ξ;
+- one atom sort;
+- no side conditions.
+
+**Proof classes at x:P ⊢ P.**
+- A proof is a word in the generators and their inverses.
+- Applying a rule on the outside multiplies on the left. Grafting into ξ multiplies on the right.
+- So ≈_S at this judgment is the Thue congruence generated by g g⁻¹ = 1 = g⁻¹ g and R_j = 1.
+- By the standard fact Mon⟨X ∪ X⁻¹ ∣ xx⁻¹ = x⁻¹x = 1, R⟩ ≅ Grp⟨X ∣ R⟩, the classes form G. Composition may come out reversed, giving G^op, which is isomorphic to G via inversion.
+
+**No other judgment is inhabited.**
+- No rule has zero premises, so there are no closed proofs.
+- No rule relates distinct atoms, so there are no proofs between them.
+
+**Difference from report 005.** This is not report 005's Lemma. That Lemma used normal forms rᵏ; E3 has no normal forms and uses the group-presentation fact instead.
+
+E5 is outside C under report 002 §2.1, which bans side conditions (002 §5 L-d). See §4.3.
 
 ---
 
 ## 4. Focus-by-focus audit
 
-Each subsection gives:
-- the reading(s) of H;
-- a positive example;
-- an adversarial example;
-- a verdict, which is one of *satisfactory*, *needs correction*, or *contradiction / hidden assumption*;
-- the minimal precise version.
-
 ### 4.1 What kind of object is A? (focus 1)
 
-**Readings H admits.**
+| Reading | Content | Problem |
+|---|---|---|
+| (a) Universal algebra | Finitely many sorts and operations | Binding is not expressible. Infinitely many formulas must become *elements* of a sort, i.e. data. This is report 002's B1 shape |
+| (b) Finite presentation in a meta-formalism Φ | Φ has binding and generated types, e.g. second-order generalised algebraic theories or an LF signature. A's types and terms are generated by finitely many schemas | **HA-1:** Φ is unstated, and truth depends on it. If Φ = LF, then report 002's fixed signature Σ_univ (B1) is a legitimate fixed finite A |
+| (c) Finitely presented categorical structure | Multicategory, polycategory or PROP, possibly with binding | Same dependence on the meta-level |
 
-- **(a) Universal algebra.** A many-sorted algebra with finitely many sorts and operations, and equations.
-  - Problem 1: binding cannot be expressed.
-  - Problem 2: infinitely many source formulas must land in a fixed finite set of sorts. So formulas become *elements* of a sort, i.e. data. This is the shape of report 002's B1 (formulas as `tm` data), which every report so far has treated as the interpreter shape.
-- **(b) Finite presentation in a fixed meta-formalism Φ with binding and generated types.** Examples of Φ: Fiore–Hur second-order algebraic theories, generalised algebraic theories, or an LF signature.
-  - A's *types* are generated by finitely many type-former schemas, and its proof terms by finitely many term-former schemas, modulo finitely many equation schemas.
-- **(c) A finitely presented categorical structure** (multicategory, polycategory, PROP, or a doctrine with binding), with proofs as morphisms.
-
-**Hidden assumption HA-1: the meta-formalism Φ is unstated, and H's truth value depends on it.**
-- "Finitely presented" only makes sense relative to Φ.
-- If Φ is LF, then a single fixed LF signature, such as report 002's Σ_univ (B1), *is* a legitimate fixed finite A.
-- If Φ is first-order universal algebra, binding forces encodings.
-
-**Hidden assumption HA-2: generator schemas indexed by declarations.**
-- H says "finite generating operation schemas". A schema such as "for each valid inductive-type declaration, a type former and constructors", as in Coq or Lean kernels, is *one* schema.
-- But it lets each source contribute new generators through a declaration.
-- Unless generator schemas are restricted to be indexed only by A's own types and terms, the environment can supply generators (§4.4, E6).
-
-**Hidden assumption HA-3: which equality is ≈_A.**
-- H says "fixed proof congruence". For type theories this could mean *definitional* equality (the congruence generated by A's equations) or *propositional* equality (an internal identity type provable under the environment).
-- These give different conjectures.
-- Under propositional equality, a Lean-style deep embedding with a quotient type passes H.2 (E6, §4.4).
+**Further hidden assumptions:**
+- **HA-2.** A "finite schema" indexed by *declarations*, such as an inductive-type schema, lets each source contribute generators.
+- **HA-3.** ≈_A may be read as definitional equality (the generated congruence) or as internal propositional equality. The two give different conjectures (E6, §4.4).
 
 | | |
 |---|---|
-| **Positive example** | E1 into A = simply-typed λ-calculus, as a Φ-presentation (Φ = second-order algebraic theories): type formers {→}, term formers {lam (binding), app}, equations {β, η}. F_S is the identity on types and terms. H.1–H.3 hold trivially |
-| **Adversarial example** | Reading (a) with B1 (report 002 §5). A = a fixed first-order presentation of codes with a universal "apply rule from table" operation, plus a fixed finite universal equational theory that identifies codes of ≈_S-equal derivations. The equational theory of a universal finitely presented structure can simulate any r.e. equivalence (Proposition C, for groups). This passes H.1–H.5 under reading (a) |
-| **Verdict** | **Needs correction** |
-| **Minimal version (M1)** | Fix Φ once, for both A and C. Require A to be one finite Φ-presentation whose generator schemas are indexed only by A's own types and terms. Specify ≈_A as the congruence generated by A's equations (definitional), not internal provable equality |
+| **Positive example** | E1 into STLC as a Φ-presentation: type former →; term formers lam (binding) and app; equations β and η. F is the identity. H.1–H.3 hold |
+| **Adversarial example** | Under reading (a), with formulas as data, a fixed finite *universal* equational theory that identifies codes of ≈_S-equal derivations would pass H.1–H.5. **Such a construction is not given here.** The nearest established tool is Bergstra–Tucker's finite equational specifications with hidden functions. That result is per-algebra, but its Thm 2.4 gives one finitely specified group containing every finitely generated semicomputable group (ESTABLISHED, verified; see source notes). Status of the general claim: OPEN |
+| **Verdict** | **Needs correction (M1)** |
 
-### 4.2 Fundamental vs derived operations vs disguised interpreters (focus 2)
+### 4.2 Fundamental vs derived vs disguised interpreter (focus 2)
 
-**What H says.** "Any certified derived macro must include a derivation from the fixed core and declared assumptions."
-- This defines **derived operation** = a term or derivation of A, possibly with metavariables. Under M1 this is precise: a *derived operation* is an element of the clone or derived-signature of the Φ-presentation.
-- **Fundamental operation** = a generator of A. This is presentation-relative: Tietze transformations change which operations are generators. H explicitly does not require minimality, so this is harmless.
+**Definitions.**
+- Under M1, a *derived operation* is a term schema of A, i.e. an element of A's clone.
+- A *fundamental* operation is a generator. Which operations are generators depends on the presentation, and H does not require minimality, so this is harmless.
 
-**Interpreters are the gap.** H gives no property that separates "a generator that is mathematically meaningful" from "a generator that executes a rule table".
+**What H lacks.** H has no property that separates a meaningful generator from one that "executes" something.
 
 | | |
 |---|---|
-| **Positive example** | lam/app in E1. Each source rule maps to a *fixed* derived term schema, parametric in the metavariables: →I ↦ lam, →E ↦ app. This is report 002's HOM |
-| **Adversarial example 1 (a visible interpreter)** | A generator `step(code, state)` of a universal machine. Excluded by report 002's T1, but only because formulas become data. The adversarial point is that H has not adopted T1 |
-| **Adversarial example 2 (an invisible interpreter)** | Proposition C: on the group fragment, all source rules map to fixed *group words* in Higman's universal group U. Every template is a fixed derived term, HOM holds, and there is no code argument anywhere. Yet U's equational theory is a computation-encoding device |
-| **Verdict** | **Contradiction / hidden assumption.** H treats "fundamental, not interpreter" as a property of operations. Proposition C shows it is not visible at the level of individual operations or templates. It can only be a property of the *global* structure of A or of F (§5.3) |
-| **Minimal version** | Drop any operation-level criterion. Put non-vacuity in M5 (§7) |
+| **Positive example** | E1: →I ↦ lam and →E ↦ app. These are fixed templates, parametric in metavariables (report 002's HOM) |
+| **Adversarial example 1** | A `step(code, state)` generator of a universal machine. It is visibly an interpreter, and D2's T1 excludes it because formulas become data |
+| **Adversarial example 2** | A_U (§4.8). Every source rule maps to a fixed word over A_U's generators. There is no code argument and no type-case, and D2 passes. Yet the source proof identities are realised through a finitely presented group whose existence is proved by encoding recursive enumeration (Higman's theorem) |
+| **Verdict** | **Hidden assumption.** "Not an interpreter" is not visible at the level of individual operations or templates. Any criterion must look at global properties of A or F (M5) |
 
 ### 4.3 Is C independently and non-circularly specified? (focus 3)
 
 **Non-circularity.** No clause of C mentions A. **Satisfactory.**
 
-**Independence and well-definedness issues:**
+**C-1. "Effectively checkable".**
+- H imports report 002 §2.1, which already bans side conditions beyond sorts and binding. So E5 is outside C.
+- The phrase "local rule applicability must be effectively checkable" could be misread as allowing any decidable side condition. **Recommendation:** state the strict reading explicitly.
+- **Cost of the strict reading.** Type theories whose rules carry conversion or positivity side conditions are in C only after being re-presented declaratively (report 002 L-f). That is a real narrowing of "across foundations".
 
-- **C-1. "Local rule applicability must be effectively checkable" admits two readings.**
-  - *Strict* (report 002): no side conditions beyond what sorts, binding and schematic matching express.
-  - *Lax*: any decidable side condition.
-  - Under the lax reading, E5 ("⊢ φ provided check(c, φ)") is in C. So C contains every r.e. consequence relation in the guise of a checker.
-  - **This is the "implicit inclusion of arbitrary effective proof checkers" that H asks the audit to check. It is real under the lax reading.**
-  - Under the strict reading, no *logic* is lost (any r.e. consequence relation with a finite schematic presentation is still in). Only checker-shaped *presentations* are lost.
-  - Positive control: NJ(→) is in C under both readings. Adversarial: E5 is in C under the lax reading only.
-- **C-2. The proof-term syntax over which equations are written is left implicit.** Report 002 §2.1 supplies it (schematic derivations with formula metavariables, hypothesis variables and derivation metavariables, closed under metasubstitution and grafting). **Satisfactory if cited explicitly.**
-- **C-3. C contains arbitrary finitely presented proof-symmetry calculi (E2, E3).**
-  - This is target-independent and therefore legitimate under H.
-  - Its consequence (Propositions A–C) is that C contains sources whose proof identity encodes undecidable word problems. Whether the charter's "foundations" should include them is a substantive question, not a technicality (Route R, §7).
-- **C-4. "Cyclic or infinitary derivations without finite checkable certificates are excluded."**
-  - **Satisfactory as an exclusion.** But "certificate" re-imports the checker issue (C-1) for cyclic proofs: a global trace condition is checkable, though not locally.
-  - Recommendation: cyclic proofs with certificates are either in C with an explicitly global correctness judgment, or out. They must not be left to the reading of "local".
+**C-2. Proof-term syntax.** The syntax in which equations are written is implicit. Cite report 002 §2.1's schematic derivations explicitly.
+
+**C-3. Arbitrary proof-symmetry calculi (E2, E3).**
+- These are target-independent and legitimately in C.
+- They force Propositions A and B.
+- Whether "foundations" should include them is a substantive owner question (Route R), not a technicality.
+
+**C-4. Certified cyclic proofs.** A certificate condition is global, not local. Either include cyclic proofs with an explicit global correctness judgment, or exclude them by name.
 
 | | |
 |---|---|
-| **Verdict** | Non-circular. **Needs correction** on C-1 (adopt the strict reading) and C-2 (cite the proof-term syntax). C-3 is a substantive owner choice, not a defect |
-| **Minimal version (M2)** | C = the finite Φ-presentations of report 002 §2.1, strict reading, with report 002's schematic derivation syntax and finitely many equation schemas over it |
+| **Positive example** | NJ, MILL and S_n are in C |
+| **Adversarial example** | E5 is excluded only by the strict reading. E3 is included, with the consequences of §4.5 |
+| **Verdict** | Non-circular. **Needs clarification (M2).** C-3 is an owner choice |
 
-### 4.4 Machinery / environment separation and the trust boundary (focus 4)
+### 4.4 Machinery/environment separation and trust boundary (focus 4)
 
-**What H.5 allows:** "mathematical signatures, definitions, explicit assumptions and independently justified theorems".
+H.5 permits "signatures, definitions, explicit assumptions, independently justified theorems". Two adversarial examples exploit the permitted categories.
 
-**What H.5 forbids:** "new trusted inference rules, arbitrary proof-checking oracles, or source-specific equations for target equality".
+**E6 (definitions as generators).**
+- Take A = a type theory with inductive definitions and quotients (Lean 4).
+- Define Deriv_S inductively, with one constructor per source rule. Set F(d) := Quot.mk d over EqvGen(≈_S).
+- Under *propositional* equality, F(d) = F(e) iff d ≈_S e. This uses `Quot.sound` (a kernel axiom) and Mathlib's `Quot.eq`/`Quot.eqvGen_exact` (ESTABLISHED, verified in Lean 4 core and Mathlib sources; see notes).
+- Definitional equality is unchanged.
+- E6 also fails D2's T1/T4: it is report 002's B5.
 
-The allow-list is not closed under the forbid-list. Two adversarial examples pass the allow-list while doing exactly what the forbid-list targets.
+**E7 (assumption as rule).**
+- The hypothesis ∀φ. Prf φ → Prf □φ is both an "explicit assumption" and the necessitation rule (report 002 §2.2, `raa`).
 
-- **E6 (definitions as generators).**
-  - A = a type theory with an inductive-definition schema and quotients, as in Lean 4.
-  - The environment *defines* the inductive family Deriv_S, with one constructor per source rule, and the quotient Deriv_S / EqvGen(≈_S).
-  - F(d) := Quot.mk d.
-  - Under propositional equality (HA-3), F(d) = F(e) is provable iff d ≈_S e, by soundness and exactness of quotients.
-  - Each environment item is a "definition", conservative over A. Yet it imports every source rule as a constructor.
-  - This is report 002's B5, made faithful by quotients.
-- **E7 (assumptions as rules).**
-  - An "explicit assumption" ∀φ. Prf(φ) → Prf(□φ) is formally a hypothesis, and is also the necessitation rule (report 002 §2.2: `raa`).
+**Proposal M3, tied to M1.** Let Φ fix a designated *proof judgment form*: the judgment whose inhabitants are proofs. Then
 
-H.1 already contains the natural fix: derivability must hold *"under the translated assumptions"*.
+  E_{F(S)} := F(E_S) ∪ D_S.
 
-**Precise reading (M3).** The target environment for S is
+- F(E_S) is the source's own assumptions, as hypotheses of the designated proof judgment.
+- D_S may contain only:
+  - declarations of fresh constants whose type is **not** an instance of the designated proof judgment;
+  - δ-eliminable abbreviations.
+- D_S may not contain inductive definitions, equations, or proof-judgment constants.
 
-  E_{F(S)} := F(E_S) ∪ D_S,
+**How M3 escapes report 002 §2.2's critique of item-by-item ledgers.**
+- That critique was that classifying items by *logical role* is ill-defined.
+- M3 classifies by *Φ-judgment form*, which is a syntactic property fixed once by M1.
+- The residual risk is under propositions-as-types targets, where every type is a proof type. There, D_S may declare only fresh *sorts* and term constants of non-proposition sorts, and Φ must distinguish sorts from propositions.
+- **Caveat:** if Φ does not make this distinction, M3 is ill-defined (critique M12).
 
-where:
-- E_S are the source's own assumptions, which are context hypotheses;
-- D_S consists only of declarations of fresh constants of *non-proof* sorts (syntax: atoms, function symbols), plus δ-eliminable abbreviations;
-- no inductive or recursive definitions, no equations, and no proof-sort constants occur in D_S.
-
-"Independently justified theorems" are permitted only as members of E_S that carry a provenance tag. They are *hypotheses*, never generators.
+**Cost.** Mathematics that needs genuinely new inductive definitions must supply them as source assumptions (hypotheses) or through A's fixed generators. This is a real restriction.
 
 | | |
 |---|---|
-| **Positive example** | First-order group theory over NJ: the group axioms are source assumptions E_S, translated to hypotheses. D_S declares ·, e, ⁻¹. Nothing else is added |
-| **Adversarial example** | E6 and E7 both violate M3: Deriv_S is an inductive definition, and the necessitation hypothesis is not the translation of a source assumption. Report 005's environment attack (g_P with g_Pⁿ = id) violates M3 twice: a proof-sort constant and an equation |
-| **Verdict** | H.5 **needs correction**. Under M3 it is **satisfactory and checkable**: everything in the environment is a hypothesis or a syntax declaration, so the trust ledger is exactly F(E_S) |
-| **Effect** | All per-source freedom moves into F: the images of connectives and atoms, and rule templates. Non-vacuity must therefore be a condition on F and A (M5), not on E |
+| **Positive example** | Group theory over NJ: the axioms are E_S (hypotheses); D_S declares ·, e and ⁻¹ |
+| **Adversarial example** | E6 and E7 are both excluded. Report 005's g_P attack (a proof constant plus an equation) is excluded. Targets with **equality reflection** (extensional MLTT, Nuprl) still break M3: a hypothesis p : Id(w, id) becomes a definitional equation (UNVERIFIED-MEMORY for the standard ETT rule). M3 must therefore also require that **hypotheses do not change ≈_A**, which excludes equality reflection |
+| **Verdict** | H.5 **needs correction**. M3 plus "no equality reflection" is checkable relative to Φ |
 
-### 4.5 Is faithful structural embedding well-defined without fullness? (focus 5)
+### 4.5 Faithful embedding without fullness (focus 5)
 
 **Definition check.**
-- H.2 is well-defined given three things:
-  - F_S is defined on raw derivations;
-  - F_S respects ≈_S (the "only if" direction);
-  - ≈_A is a congruence.
-- It is then a well-defined injective map on proof classes, at each translated judgment.
-- Schematic vs instance level: if source atoms are unrestricted fresh syntax, equality at schematic level is equivalent to equality on all instances (instantiate metavariables by fresh atoms). **Satisfactory.**
+- H.2 is well-defined if F_S is defined on raw derivations and respects ≈_S, and ≈_A is a congruence.
+- It is then an injective map on proof classes at each translated judgment.
+- With fresh atoms for metavariables, the schematic level and the instance level agree. **Satisfactory.**
 
-**Is it meaningful?** Faithfulness alone is weak. A single cartesian model already separates βη-distinct simply-typed proofs (report 004 §5.4). H compensates with H.1 at the level of inhabitation.
+**Faithfulness alone is weak** (report 004 §5.4). Combined with H.1 over open judgments it is a real constraint:
 
 | | |
 |---|---|
-| **Positive example 1** | E1 into STLC: identity, faithful. |
-| **Positive example 2** | E2 (S_n) into the **free symmetric monoidal category** on generating objects {X_P}. Atom P ↦ X_P^{⊗n}; r ↦ the cyclic permutation σ_n. |
-| Why example 2 works | ESTABLISHED (Mac Lane coherence; UNVERIFIED-MEMORY for the exact location): End(X^{⊗n}) in the free SMC on one object is the symmetric group S_n. σ_n has order exactly n, so faithfulness holds. There are no morphisms X_P^{⊗n} → X_Q^{⊗n} for P ≠ Q and none from I, so H.1 holds. Everything is linear. **This is a mathematically meaningful, non-interpreter faithful embedding of the entire family of report 005, in a target with decidable equality.** It fails fullness (\|S_n\| = n! > n), as H allows |
-| **Adversarial example** | E4 (MILL) into STLC. Faithfulness is plausible (UNVERIFIED-MEMORY), but H.1 fails: p ⊢ p⊗p becomes inhabited (λx.⟨x,x⟩). So faithfulness with reflection of inhabitation is a real constraint. H.4 adds nothing here beyond H.1 |
-| **Adversarial example (decisive)** | E3 (S_G, unsolvable word problem). See Proposition A: no target with decidable ≈_A is faithful on it. The free SMC handles E2 but not E3 |
+| **Positive examples** | E1 into STLC. E2 into the unit-free **free symmetric monoidal category** with atom P ↦ X_P^{⊗n} and r ↦ the n-cycle σ_n. This example is already in report 005 §9 ("End(P^⊗m) is S_m"), credited. By elementary reasoning about the free SMC, End(X^{⊗n}) ≅ S_n and there are no morphisms between different generator multisets, so H.1 and H.2 hold. Cost for H.4: one hypothesis becomes n wires. It fails fullness, which H allows |
+| **Adversarial example** | E4 into STLC. x:p ⊢ ⟨x,x⟩ : p⊗p becomes inhabited, so H.1 over open judgments fails |
+| **Decisive adversarial example** | E3: see Proposition A |
 
-**Proposition A (undecidable target congruence) — PROVED HERE (informal); uses Novikov–Boone (ESTABLISHED).**
+**Proposition A (undecidable target congruence) — PROVED HERE (informal).** Uses Novikov–Boone (ESTABLISHED, secondary: Bridson–Nyberg-Brodda, arXiv:2512.10800, §3.1).
 
-*Statement.* If A satisfies H.2 for every S ∈ C, then ≈_A is undecidable. If C contains a group presentation whose word problem is Σ₁-complete, then ≈_A is Σ₁-complete.
+*Statement.* Under M1's reading, where ≈_A is the congruence generated by finitely many schemas (hence r.e.), if A satisfies H.2 for every S ∈ C, then ≈_A is undecidable and r.e.
 
 *Proof.*
-1. By Novikov–Boone, there is a finitely presented G with undecidable word problem. Let S_G ∈ C be as in E3.
-2. For a word w, w =_G 1 iff w(x) ≈_{S_G} x.
-3. By H.2, this holds iff F(w(x)) ≈_A F(x).
-4. F is effective, so this is a many-one reduction of G's word problem to ≈_A.
-5. Hence ≈_A is undecidable.
-6. ≈_A is r.e., because it is generated by finitely many schemas. With a Σ₁-complete word problem it is therefore Σ₁-complete. ∎
+1. Take G finitely presented with undecidable word problem, and S_G ∈ C (§3).
+2. w =_G 1 ⇔ w(x) ≈_{S_G} x ⇔ F(w(x)) ≈_A F(x).
+3. F is effective, so this is a many-one reduction from G's word problem to ≈_A. ∎
 
-**Corollary A1.** LF, the simply-typed λ-calculus, System F, Martin-Löf definitional equality, the free SMC and the free SMCC, and any Dedukti theory whose fixed rewriting is confluent and terminating all have decidable equality. So none of them, *with its fixed equality and no source-specific equations*, satisfies H for all of C. Each satisfies H only by adding per-source signatures, rewrite rules or equations, which H.2 and H.5 forbid.
+**Remark.** If some finitely presented group has a Σ₁-complete word problem, then ≈_A is Σ₁-complete. That follows from degree preservation under Higman's embedding (Clapham, Valiev), as cited in arXiv:2512.10800 §3.3 (SECONDARY). Not needed here.
 
-**Proposition B (no computable separating semantics) — PROVED HERE (informal).**
+**Corollary A1 (scope stated precisely).** Under the definitional reading, each of the following cannot be the fixed A with its fixed equality and no source-specific equations, because its equality is decidable (decidability results UNVERIFIED-MEMORY, standard):
+- intensional Martin-Löf type theory (definitional equality);
+- Church-style System F with βη;
+- STLC with βη;
+- the unit-free free symmetric monoidal and symmetric monoidal closed categories.
 
-*Statement.* Call a family M of models of A **computable and separating** if:
-- (i) the family can be enumerated;
-- (ii) in each model, the denotation of a term is computable and equality of denotations is semi-decidably refutable;
-- (iii) d ≉_A e implies some model in M distinguishes them.
+Under the propositional reading (HA-3), A1 does not apply.
 
-No A satisfying H for all of C has such a family. In particular, separation by finite models (e.g., Statman-style finite standard models) is impossible.
+A1 says nothing about targets with undecidable definitional equality, such as extensional type theory or Lean 4 (UNVERIFIED-MEMORY), or Dedukti with non-terminating fixed rules. Those face the M3/equality-reflection issue of §4.4 instead.
+
+**Proposition B (no uniformly computable separating semantics) — PROVED HERE (informal).**
+
+*Statement.* Call a family (M_i)_{i∈ℕ} of models of A **uniformly computable and separating** if:
+- (i) given i and a term t, the denotation ⟦t⟧_{M_i} is computable uniformly in i;
+- (ii) inequality of denotations is semi-decidable uniformly in i;
+- (iii) d ≉_A e implies there is some i with ⟦d⟧_{M_i} ≠ ⟦e⟧_{M_i}.
+
+No A satisfying H for all of C has such a family.
 
 *Proof.*
-1. Given (i)–(iii), ≉_A is r.e.: search for a model and a witness that distinguishes the two terms.
-2. ≈_A is r.e. as well.
-3. So ≈_A would be decidable, contradicting Proposition A. ∎
+1. Dovetail over i to semi-decide ≉_A.
+2. ≈_A is r.e. (M1).
+3. So ≈_A is decidable, which contradicts Proposition A. ∎
 
-This is the McKinsey–Mal'cev argument (residually finite + finitely presented ⇒ solvable word problem; see source notes) transposed to A.
+**Relation to McKinsey's theorem.** This transposes McKinsey's theorem (finitely presented and residually finite implies solvable word problem; ESTABLISHED, secondary: Rauzy arXiv:2002.02540 and Kharlampovich–Myasnikov–Sapir arXiv:1204.6506). The *uniformity* hypothesis is essential.
 
-**Verdict.** H.2 is **satisfactory as a definition**. Faithfulness without fullness is well-defined and, with H.1, non-trivial (E4). But by Propositions A and B, it has an unstated consequence that conflicts with the project's stated preferences:
-- every H-target has undecidable proof identity;
-- every H-target is not separable by any computable semantics.
+**Finite-model separation is excluded only if the finite models form such a family.** That is not automatic for A with infinitely many generated types and equation schemas.
 
-This in particular conflicts with report 004's proposed P₃ route (finite frames).
+**Verdict.** H.2 is **satisfactory as a definition**. Its consequences are:
+- any H-target has undecidable proof identity under the definitional reading;
+- no H-target has a uniformly computable separating semantics.
 
-### 4.6 Can causality be defined without an artificial global order? (focus 6)
+H itself does not require decidability, so these are **conflicts with likely non-vacuity markers**, not with H's text.
 
-**Contradiction / hidden assumption HA-4.** H.7 says "preserve source dependency, independence and conflict structures". That presupposes a dependency structure on proof **classes**, i.e. one invariant under ≈_S. In C this fails:
-- **E2.** rⁿ(ξ) ~ ξ identifies an n-chain of dependent events with zero events. This is report 005 §6.
-- **E1.** β: (λx.M)N = M[N/x] erases N when x ∉ FV(M), and duplicates N when x occurs twice. Event sets are not invariant: residuals can be zero or many (Lévy's residual theory; UNVERIFIED-MEMORY).
+### 4.6 Causality without an artificial global order (focus 6)
 
-So H.7 is **not definable uniformly on C**. H itself anticipates this ("define a separately motivated subclass C_causal before testing").
+**HA-4.** H.7 presupposes dependency structure on proof **classes**. In C:
+- rⁿ ~ id identifies an n-chain with nothing (report 005 §6, credited);
+- β erases or duplicates subproofs.
 
-**Proposed C_causal and event maps (M6):**
+So H.7 is not definable uniformly on C, which H itself anticipates.
 
-1. **C_causal.** Sources in C whose equation schemas are all *permutation equations*:
-
-   r₁(…r₂(ξ⃗)…) ~ r₂(…r₁(ξ⃗)…)
-
-   where the two instances are independent: neither consumes the other's conclusion. There must be no erasing, duplicating or cancelling equation.
-   - On linear derivation sequences, ≈_S is then Mazurkiewicz trace equivalence.
-   - Each class corresponds to a labelled partial order: its dependence graph (ESTABLISHED; trace theory, see source notes).
-   - The partial order is the dependency structure. Independence = incomparability. No total order is chosen.
-2. **Event map.** Let Ev(d) be the rule instances of d, and <_d the dependency order of d's class. A translation F_S built from templates (HOM) induces a partial map π : Ev(F(d)) → Ev(d), assigning each target instance to the source instance whose template contains it. Glue steps are unassigned.
-3. **Causal fidelity:**
-   - (preservation) e <_d e′ implies some target event over e precedes some target event over e′;
-   - (reflection) the converse;
-   - (independence) e, e′ incomparable in d implies π⁻¹(e) and π⁻¹(e′) are pairwise incomparable in F(d).
-   - These are conditions on partial orders only.
-4. **Conflict.** For branching or additive rules, use event structures (Winskel) with a conflict relation. Conflict is preserved if conflicting source events have conflicting target events. This is stated here without testing; INFERENCE.
+**Requirements a C_causal definition must meet.** These were identified by the fresh critique (M9) and are not yet met by any definition in this report.
+1. **Independence is defined on formula occurrences, not rule names.** In sequent calculi, whether two rules permute depends on their active and principal occurrences.
+2. **Derivations are trees.** Mazurkiewicz trace theory applies to words over a *static* independence alphabet. Its standard correspondence between traces and labelled partial orders (dependence graphs) is ESTABLISHED (secondary, via arXiv:1011.1030; the primary Book of Traces was not accessed). It does not transfer to trees without an explicit construction.
+3. **Equations are permutations.** C_causal's equations must be permutations of adjacent rule instances acting on disjoint active occurrences, including permutations past binary rules. They may not erase, duplicate or cancel.
+4. **Class-level order on both sides.** The source dependency order must be an invariant of the ≈_S-class. Causal fidelity then compares it with an order **invariant under ≈_A** on target image classes, not with the raw order of one representative. Under the raw-order reading, even the identity translation fails. A must therefore carry an ≈_A-invariant order on image classes, at least.
+5. **Quantifiers.** State whether the conditions hold for all representatives or for canonical ones.
+6. **Event maps.** π : Ev(F(d)) ⇀ Ev(d) must handle empty preimages (identity or glue templates). Preservation must be stated pairwise and uniformly ("every event over e precedes every event over e′"), not existentially.
+7. **Conflict.** For additive branching, use event structures with conflict (Winskel; UNVERIFIED-MEMORY).
 
 | | |
 |---|---|
-| **Positive example** | MLL sequent calculus modulo rule permutations, mapped to MLL proof nets (Girard): the net's link order is exactly the dependency order of the permutation class. Chaudhuri–Miller–Saurin multifocusing gives canonical representatives of permutation classes; exact statement in the source notes |
-| **Adversarial example 1** | A target whose only composition is sequential cut, with no permutation equations in ≈_A. Two independent source events map to target events that are ordered differently in different representatives, so reflection fails. The definition correctly rejects this |
-| **Adversarial example 2** | E1/E2 lie outside C_causal. H.7 is then silent on λ-calculi with βη. This is the cost of the definition |
-| **Local vs global** | The event conditions are local: they speak of events and their order. Proof-net *correctness* (acyclicity, connectedness) is a global property of the target structure, not part of causal fidelity. Report 003's distinction between CLF trace adequacy and proof identity applies |
-| **Verdict** | H.7 is **definable without a global order on C_causal**, and not on C. Minimal version: M6 |
+| **Positive example** | Candidate: unit-free MLL sequent proofs modulo permutations, compared with proof nets. Chaudhuri–Miller–Saurin Thm 16 (ESTABLISHED, verified, author PDF): maximally multi-focused unit-free MLL proofs are equivalent iff they have the same proof net. The *focused* quotient differs from the plain permutation quotient. Whether permutation classes are trace-like (single posets) is **OPEN**; disjunctive dependencies in sequentialisation may prevent it (critique, UNVERIFIED-MEMORY). Units must be excluded |
+| **Adversarial example** | A target whose only composition is sequential cut, with no permutation equations. Independent source events receive representative-dependent target orders, which requirement 4 rejects |
+| **Cost** | λ-calculi with βη (E1, E4) lie outside any such C_causal. Report 005's freeze already restricted independence to pure permutations (credited) |
+| **Verdict** | Definable without a global order **only on a subclass, and that subclass's definition is OPEN**. The requirements above are the specification (M6) |
 
-### 4.7 Do established logical frameworks already satisfy H? (focus 7)
+### 4.7 Do established logical frameworks satisfy H? (focus 7)
 
-| Framework | Per-source data it needs | Clause violated | Status |
-|---|---|---|---|
-| LF / Twelf / Isabelle-Pure with per-source signature | rule constants | H.5 (new trusted inference rules) | It is D1, not H |
-| Any fixed framework with decidable ≈_A (STLC, System F, LF with empty signature, MLTT definitional, free SMC/SMCC) | none | H.2 on E3 | **Fails: Corollary A1** |
-| Dedukti / λΠ-modulo | per-source rewrite rules | H.2 / H.5 (source-specific equations) | Fails as stated |
-| Rewriting logic, universal theory U | data codes | H.6 (interpreter); H.2 needs a universal equational theory | Fails H.6 by H's intent; H.6 undefined |
-| LSR / adjoint logic | mode theory with equations | H.5 (are mode equations "source-specific equations"? unclear) | Unclear; Conj 8.5 also open (report 002) |
-| Clarke–Scherer–Zeilberger free bifibration | base category p (arrows and equations) per source | H.5 / H.2 | Fails as stated (report 005 §4.3) |
-| Lean/Coq deep embedding with inductive families and quotients (E6) | inductive definitions | Passes H.5 under the lax reading of "definitions"; fails under M3 | **Depends on HA-3 and M3** |
-| Higman-universal target (Proposition C) | none beyond fixed words per source | none of H.1–H.5 on the group fragment | **Passes H.1–H.5 on that fragment** |
+| Framework (as fixed target) | Per-source data needed | Status under H |
+|---|---|---|
+| LF / Twelf / Isabelle-Pure with per-source signature | Rule constants | Violates H.5 (new trusted rules). It is D1 |
+| LF with empty signature | — | No base types, so H.1 fails trivially |
+| Intensional MLTT, System F βη, STLC βη, unit-free free SMC/SMCC | — | Fails H.2 on E3 (Corollary A1, definitional reading) |
+| Dedukti / λΠ-modulo | Per-source rewrite rules | Violates H.2/H.5 (source-specific equations) |
+| Extensional MLTT / Nuprl; Lean 4 (undecidable definitional equality) | Inductive definitions, or hypotheses that become equations | Not excluded by A1. Passes H.5 only under the lax reading of "definitions" (E6), or through equality reflection. Excluded by M3 + "no equality reflection" |
+| Rewriting logic, universal theory U | Codes | Interpreter by H's intent; H.6 undefined |
+| LSR / adjoint logic | Mode theory with equations | Whether mode equations are "source-specific equations" is unclear. LSR Conj 8.5 is open (report 002) |
+| Clarke–Scherer–Zeilberger free bifibration | Base functor p per source | Violates H.2/H.5 (report 005 §4.3) |
+| A_U (§4.8) | Fixed words per source | **Passes H.1–H.5 and D2 on C_grp.** Not a logical framework |
 
-**Verdict.** Under the readings fixed by M1 and M3, no established *logical framework* satisfies H, and Corollary A1 explains why at a structural level. The only things that satisfy H.1–H.5 on a non-trivial fragment are universal-algebraic constructions of Higman type, which H.6 is meant to exclude.
+**Verdict.** No established *logical framework* satisfies H under M1/M3. The only construction found that passes H.1–H.5 on a non-trivial fragment is universal-algebraic (A_U).
+
+### 4.8 The gate's D2 check (required by H's "Required research gate")
+
+D2 is defined in report 002 §2.4:
+- T1: componentwise formulas;
+- T2: fixed wrapper;
+- T3: SN at metavariables + HOM;
+- T4: no logical environment items;
+- T5: ADQ1.
+
+**Definition of A_U.**
+- U is a finitely presented group containing a copy of every finitely presented group. ESTABLISHED (secondary): Bridson–Nyberg-Brodda §3.3, "there exists a finitely presented group containing an isomorphic copy of every finitely presented group". Higman 1961, Thm 1, as restated verbatim in arXiv:1908.10153 and arXiv:2512.10800.
+- Bergstra–Tucker Thm 2.4 (ESTABLISHED, verified, scanned report) gives a related finitely specified group containing every semicomputable group.
+- For each atom type X_P, A_U has unary generators for U's generators *and their inverses*, with U's relators and the cancellation equations as schemas uniform in X_P. That is a monoid presentation of U.
+- A_U has no generators of arity 0, and none between distinct atoms.
+- F_G: P ↦ X_P; g_i ↦ the word u_i, where g_i ↦ u_i is an embedding G ↪ U; g_i⁻¹ ↦ u_i⁻¹; grafting ↦ composition.
+
+This generalises report 005 §4.1's A_V (Thompson's V, cyclic groups only).
+
+**Effectiveness.** For each fixed G, F_G is given by finitely many words, so it is effective. H does not require uniform synthesis (report 005).
+
+| Construction | T1 | T2 | T3 | T4 | T5 / H.1 | H.2 | Verdict |
+|---|---|---|---|---|---|---|---|
+| **A_U on C_grp** | Pass (atom ↦ atom) | Pass | Pass (fixed words; SN trivial) | Pass (empty E) | Pass (only endomorphisms inhabited; no closed terms, since all generators are unary) | Pass (injective embedding) | **D2 admits it** |
+| A_V on S_n (report 005) | Pass | Pass | Pass | Pass | Pass | Pass | D2 admits it |
+| Free SMC on S_n (P ↦ X^{⊗n}) | **Fail** (atom ↦ compound) | Pass | Pass | Pass | Pass | Pass | Fails T1 only on the literal atom-to-atom reading |
+| E8 (§6) | **Fail** (atom ↦ D → X) | Pass | Pass | Pass | Pass | Pass (§6) | Fails T1 (literal reading) |
+| B1, universal reflected signature (002) | Fail | Fail | Pass | Pass | Pass | Fails H.2 under definitional ≈_A | Excluded |
+| E6, Lean deep embedding | Fail | Pass | — | Fail | Pass | Pass under propositional ≈_A only | Excluded |
+
+**Finding (PROVED HERE, informal, given Higman's universal-group theorem).**
+- **D2 admits a Higman-type universal construction on C_grp.**
+- D2's T1 read literally (atom ↦ atom) excludes the *natural* free-SMC embedding of S_n, while admitting A_U.
+- So on this fragment, D2 discriminates in the wrong direction.
 
 ---
 
-## 5. Hidden assumptions, contradictions, and the non-vacuity problem
+## 5. Hidden assumptions and contradictions
 
-### 5.1 List
+| ID | Item | Evidence |
+|---|---|---|
+| HA-1 | The meta-formalism Φ is unstated | §4.1 |
+| HA-2 | Generator schemas indexed by declarations | E6 |
+| HA-3 | Definitional or propositional ≈_A | E6; Corollary A1 |
+| HA-4 | Causal structure assumed invariant under ≈_S (already in report 005 §6) | E1, E2 |
+| HA-5 | "Effectively checkable" invites a lax reading that contradicts 002 §2.1 | E5 |
+| HA-6 | Likely non-vacuity markers (decidable or separable proof identity) conflict with H on C. This is not a conflict with H's text, which does not require decidability | Propositions A, B |
+| HA-7 | H.4 at the derivability level is subsumed by H.1 over open judgments. Its proof-level content (occurrence and usage tracking) is not stated anywhere else and must be kept | §7 M4 |
+| HA-8 | "Independently justified theorems" have no provenance rule | §4.4 |
+| HA-9 | D2's T1, read literally, excludes compound atom images, which are needed for natural embeddings (free SMC), while admitting A_U | §4.8 |
 
-| ID | Hidden assumption or contradiction | Where | Evidence |
-|---|---|---|---|
-| HA-1 | The meta-formalism Φ is unstated, and the truth value depends on it | A | §4.1 |
-| HA-2 | Generator schemas indexed by declarations let the environment add generators | A, H.5 | E6 |
-| HA-3 | Definitional or propositional ≈_A is unspecified | H.2 | E6 |
-| HA-4 | Causal structure is assumed invariant under ≈_S | H.7 | E1, E2 |
-| HA-5 | The lax reading of "effectively checkable" admits checker-shaped sources | C | E5 |
-| HA-6 | It is implicitly expected that a "meaningful" A has decidable or semantically separable proof identity | H.2 vs C | Propositions A, B |
-| HA-7 | H.4 is stated separately from H.1 although, read over open judgments, it is subsumed by H.1 | H.4 | §4.5 |
-| HA-8 | "Independently justified theorems" have unspecified provenance | H.5 | §4.4 |
-
-### 5.2 Proposition C (Higman-type universality on the group fragment) — PROVED HERE (informal), modulo Higman's theorem (ESTABLISHED; see source notes)
-
-**Statement.** Let C_grp ⊆ C be the one-atom-sort unary calculi S_G (E3) with G finitely presented. There is a fixed finitely presented A_U satisfying H.1–H.5 (and H.7 vacuously, since C_grp ∩ C_causal = ∅) for every S ∈ C_grp.
-
-**Construction.**
-- U is a finitely presented group containing a copy of every finitely presented group (Higman). Each G has an injective homomorphism into U, given on generators by words u_i ∈ U.
-- A_U has, for each atom type X_P, endomorphism generators for U's finitely many generators, U's finitely many relations as equation schemas (uniform in X_P), and no morphisms between distinct atom types.
-- F_G: P ↦ X_P, g_i ↦ u_i (as a word), and grafting ↦ composition.
-
-**Checks.**
-- H.2 holds by injectivity.
-- H.3 holds because F is a homomorphism.
-- H.1 holds: only endomorphisms are inhabited, as in the source.
-- H.4: unary and linear.
-- H.5: the environment is empty and no source equation is added. Each source relator holds in A_U because it holds in U.
-
-**Gap.** Higman's theorem gives an embedding for each G. Effectiveness of F_G needs the words u_i, which are computable from G's presentation by Higman's construction (INFERENCE). Even per-G hardcoding suffices, since H does not require uniform synthesis (as report 005 noted).
-
-### 5.3 Why non-vacuity cannot be encoding-invariant under H
-
-H.6 asks for an "encoding-invariant (or carefully translation-relative)" criterion. Combining Propositions A–C:
-
-1. An **isomorphism-invariant property of A** that would mark it as non-interpretive must not be implied by any of:
-   - decidable equality (excluded by Proposition A for every H-target);
-   - residual finiteness or computable separating semantics (excluded by Proposition B);
-   - "contains no universal finitely presented group".
-
-   For the last one: any H-target contains, among the endomorphisms of translated types, faithful copies of the proof symmetries of *every* finitely presented group, though possibly at different types for different G. So, like A_U, it hosts every finitely presented group. In short, the standard algebraic markers of "this is computation in disguise" are forced on every solution.
-2. Therefore any criterion that excludes A_U while admitting some H-solution must refer to something beyond A's isomorphism type. That means:
-   - **the translation F** (translation-relative), or
-   - **the extra target proofs** at translated judgments (fullness, Route F), or
-   - **a restriction of C** that removes E3-type sources (Route R).
-3. This is not a proof that H.6 is unsatisfiable. It is a proof that the "encoding-invariant" option in H.6 conflicts with H.2 + C unless the criterion rejects properties that every solution has. Status: INFERENCE, with steps 1–2 resting on Propositions A–C.
+**What remains OPEN about non-vacuity.**
+- Propositions A and B exclude any H.6 criterion that implies decidable or uniformly computably separable ≈_A.
+- They do **not** show that every isomorphism-invariant criterion fails.
+  - A_U handles only C_grp, so it is not an H-solution.
+  - "Contains a single universal finitely presented group" is not shown to hold for every H-target, which hosts each G at possibly different types.
+- H.6's "encoding-invariant" most naturally means invariance under re-encoding of source proofs. This report does not reinterpret it as "isomorphism-invariant property of A". An earlier draft did, and that is withdrawn (§10).
 
 ---
 
 ## 6. Strongest counterexample to my preferred interpretation
 
-**Preferred interpretation (P*).** M1 (fixed Φ; generator schemas indexed only by A) + M2 (strict C) + M3 (environment = translated assumptions + syntax declarations), together with these anti-interpreter clauses on F and A:
+**Preferred interpretation P\***, made up of:
+- M1 (fixed Φ; generator schemas indexed by A only; definitional ≈_A);
+- M2 (strict C);
+- M3 (environment = translated hypotheses + syntax declarations; no equality reflection);
+- M4 (presentation morphisms);
+- **(T1⁺)**: formulas ↦ A-types built by A's type formers; atoms ↦ type expressions over fresh atomic type variables;
+- **(Par-syn)**: A has no type-case and no type-indexed recursion.
 
-- **(T1⁺) type-level compositionality.** Source formulas map to A-*types* built by A's fixed type formers. Atoms map to type expressions in fresh atomic type variables. There are no data sorts in the image of formulas.
-- **(Par) parametricity.** Every generator of A is parametric in type variables: A has no type-case and no type-indexed recursion.
+**Counterexample 1 (primary): A_U.**
+- Its generators are schematic unary constants. They do no type-case, so they satisfy Par-syn.
+- Atoms map to atoms, so A_U satisfies T1⁺ (and D2).
+- It satisfies M1–M4 and H.1–H.5 on all of C_grp (§4.8).
+- **So P\* does not exclude Higman-type universality.**
 
-P* blocks:
-- B1 (formulas as data);
-- type-case interpreters, which would have to inspect translated formulas ("stuck at generic X", report 002 L-g and I-C);
-- A_U as stated, since its generators are non-identity polymorphic endomorphisms of a bare type variable. Parametricity forces ∀X.X→X to be trivial in relationally parametric models.
+**Counterexample 2: E8, against the semantic strengthening Par-sem ("A has a relationally parametric model").**
 
-**Counterexample (E8): Higman at a data sort — INFERENCE, construction sketch.**
+A_U fails Par-sem, since a non-trivial ∀X. X → X is impossible in parametric models (UNVERIFIED-MEMORY, standard). E8 survives it:
 
-- **Target A_D.**
-  - A simply-typed λ-calculus with βη (type formers →, ×).
-  - One closed base type D, with constants e, mul and inv, and generator constants c_1…c_k for U's generators, satisfying U's finitely many relations as equations on D.
-- **Translation.**
-  - Atom P ↦ the type (D → X_P), where X_P is a fresh atomic type variable.
-  - Source rule g_i ↦ λf. λd. f(mul(c_{u_i}, d)), where c_{u_i} is the D-term for the word u_i.
-  - Grafting ↦ composition.
-- **Why each clause holds.**
-  - T1⁺: atoms map to type expressions; no formula becomes data.
-  - Par: every operation is parametric in X_P (it acts by precomposition on D).
-  - H.5: the environment is empty.
-  - H.3: the translation is a homomorphism.
-  - H.1: there are no morphisms (D→X_P) → (D→X_Q) for P ≠ Q, and no closed inhabitants of D → X_P.
-  - H.2 needs conservativity: that βη over the algebraic theory of U identifies λf.λd.f(mul(c_w,d)) with λf.λd.f(d) exactly when c_w = e in U.
-- **Status of the H.2 step.** This is the standard conservativity of typed λ-calculus over an algebraic theory. Breazu-Tannen & Meyer / Breazu-Tannen & Gallier; UNVERIFIED-MEMORY. I have not checked this step against a source.
+- **The target A_D:**
+  - STLC with βη;
+  - a closed base type D;
+  - constants e, mul, inv with the **group axioms**;
+  - constants c₁…c_k for U's generators, with U's relators.
+- **The translation:**
+  - P ↦ D → X_P;
+  - g_i ↦ λf.λd. f(mul(c_{u_i}, d)).
+  - Composition is reversed (an anti-homomorphism), which is harmless via inverses.
+- **H.2.** Soundness in the set model D := U ∗ ⟨d₀⟩, X := D, applied at f := id, shows that mul(c_w, d₀) ≠ d₀ whenever c_w ≠ e. This uses an elementary set-model argument (credit: critique), not the conservativity theorem cited in the first draft.
+- **H.1.** There are no terms (D→X_P) → (D→X_Q) for P ≠ Q, and no closed inhabitants of D → X_P.
+- **Par-sem.** Plausibly holds: the operations act by precomposition on D. INFERENCE.
+- **T1⁺.** Holds only if a data sort may occur in the type image of an atom. It fails the literal reading of D2's T1.
 
-**Why this defeats P*.**
-- E8 satisfies every clause P* adds, and handles all of C_grp.
-- It does so by algebraically encoded computation at a data sort, which no reasonable reading of "fundamental proof operation" intends.
+**What blocks each.**
 
-**Excluding E8 would require one of the following:**
-- forbidding closed base types with non-free equations, which also forbids arithmetic and every algebraic structure;
-- fullness: E8 has extra endomorphisms λf.λd.f(mul(c,d)) for every c ∈ U, so it fails fullness at every translated atom;
-- removing E3-type sources from C.
+| Blocker | Effect on A_U | Effect on E8 | Notes |
+|---|---|---|---|
+| Atom-to-atom interface (D2 T1 literal; report 005's interface) | Survives | Blocked | Also blocks the free-SMC embedding (§4.8) |
+| "No data sort in atom images" | Survives | Blocked | |
+| Par-sem | Blocked | Survives | |
+| Fullness (Route F) | Blocked | Blocked | A_U has all of U at each atom; E8 has λf.λd.f(mul(c,d)) for every c. It is *not* shown that every universal construction fails fullness (§7) |
+| Removing E3-type sources (Route R) | Blocked | Blocked | Removes these attacks, not universality in general |
 
-These are exactly Routes F and R below. **So the strongest objection to my preferred interpretation is that, on its own, it is still vacuous on C_grp.**
+**Conclusion.** My preferred syntactic package is defeated by A_U. Its semantic strengthening is defeated by E8. Excluding both together requires fullness, removing E3-type sources, or combining Par-sem with a ban on data sorts in atom images. That last combination would also exclude the natural free-SMC embedding of S_n.
 
 ---
 
 ## 7. Minimum changes for a falsifiable conjecture
 
-Each change is stated as a diff against H. **None is adopted here.** The owners decide.
+**"Falsifiable"** here means that the statement has a definite truth value, so a candidate A or a counterexample source settles it. It does not mean that it is likely to be refuted.
 
-| # | Change | Reason | Positive test | Adversarial test |
+| # | Change (diff against H; recommendation only) | Fixes | Positive test | Adversarial test |
 |---|---|---|---|---|
-| **M1** | Fix one meta-formalism Φ (recommended: second-order generalised algebraic theories with binding). A is one finite Φ-presentation. Generator schemas are indexed only by A's types and terms. ≈_A is the generated (definitional) congruence | HA-1, HA-2, HA-3 | E1 into STLC | E6 is blocked |
-| **M2** | Define C as finite Φ-presentations under the strict reading (no side conditions beyond sorts, binding and schematic matching), with report 002's schematic derivation syntax | HA-5, C-2 | NJ, MILL, S_n | E5 is excluded |
-| **M3** | E_{F(S)} := F(E_S) ∪ {syntax declarations, δ-eliminable abbreviations}. No inductive definitions, equations, or proof-sort constants | HA-2, HA-8, E6, E7 | Group theory as hypotheses | Report 005's g_P attack; E6; E7 |
-| **M4** | Translations are Φ-presentation morphisms: sorts ↦ derived sorts, rules ↦ derived term schemas, equations ↦ derivable equations. Merge H.4 into H.1 by quantifying H.1 over open judgments (hypotheses and proof holes); move H.4's proof-level residue into H.7 | H.3 becomes automatic; HA-7 | E1 | E4 is rejected by H.1 |
-| **M5** | **Non-vacuity, an owner choice.** Route F, or Route R (below), together with T1⁺ | §5.3, §6 | — | — |
-| **M6** | H.7 restricted to C_causal (permutation-only equations), with event maps as in §4.6. Report the effect on H explicitly: H.7 is silent outside C_causal | HA-4 | MLL ↦ proof nets | E1, E2 lie outside C_causal; a sequential-cut target is rejected |
+| **M1** | Fix one meta-formalism Φ, with a designated proof judgment form and a sort/proposition distinction. A is one finite Φ-presentation. Generator schemas are indexed by A's types and terms only. ≈_A is the generated (definitional) congruence | HA-1, HA-2, HA-3 | E1 → STLC | E6 blocked |
+| **M2** | State C's strict reading (002 §2.1: no side conditions) and its derivation syntax. Record the cost: type theories with side conditions need declarative re-presentation | HA-5 | NJ, MILL, S_n | E5 excluded |
+| **M3** | E_{F(S)} := F(E_S) ∪ {non-proof-sort declarations, δ-abbreviations}. Hypotheses may not change ≈_A (no equality reflection) | HA-2, HA-8, E6, E7 | Group theory as hypotheses | E6; E7; report 005's g_P; ETT reflection |
+| **M4** | Translations are Φ-presentation morphisms. H.1 is quantified over open judgments. **Keep a proof-level resource clause**: F preserves the usage count or linearity type of each boundary hypothesis, independently of H.7 | H.3 automatic; HA-7 | E1; E2 → free SMC (usage 1 ↦ n wires is *recorded*, not hidden) | E4 → STLC rejected |
+| **M5** | Non-vacuity: owner choice between Route F and Route R (below), **plus** an explicit decision on T1 (atom ↦ atom vs compound) | §5, §6 | — | A_U, E8 |
+| **M6** | H.7 on a subclass C_causal satisfying requirements 1–7 of §4.6. The definition itself is **OPEN** | HA-4 | — | E1, E2 outside |
+
+**Recorded costs of M4.**
+- Presentation morphisms exclude proof-level negative translations whose RAA template is not uniform at a generic metavariable (002 L-g).
+- They need 002's unverified "stable sort" repair or must be excluded.
 
 ### Route F: relative fullness on generated interfaces
 
-Add: for each translated open judgment F(J), every A-proof of F(J) under F(E_S) is ≈_A to F(d) for some source d. This is H_full, but **without** report 005's finite-native-atomic-profile hypothesis: atoms may map to compound types (as in E2 ↦ X^{⊗n}).
+Requirement: every A-proof of F(J) under F(E_S) is ≈_A to some F(d). Atoms may map to compound types, so report 005's finite-atomic-profile hypothesis is dropped. Proposition A still applies.
 
-- **Falsifiable?** Yes.
-  - E8 and A_U fail it.
-  - The free SMC fails it on S_n, since End(X^{⊗n}) = S_n has n! elements, not n.
-  - Report 005's three-element endomorphism problem becomes a direct test. Fixtures can be checked by classifying the endomorphisms of a type.
-- **Status.** OPEN whether any A satisfies it for E3-type sources. It requires, for every finitely presented G, a type whose full endomorphism monoid is exactly G.
+- **Excludes:** A_U, A_V, E8, and the free SMC on S_n (n! ≠ n).
+- **Makes concrete:** report 005's three-element test.
+- **OPEN.**
+  - Whether any A meets it on E3-type sources: one needs, for every finitely presented G, a type T with End(T) exactly G.
+  - Whether universal constructions can meet it. Algebraically universal categories realise every monoid as a full endomorphism monoid (Hedrlín–Pultr, Pultr–Trnková; UNVERIFIED-MEMORY).
+- **Route F is therefore not shown to be an anti-vacuity route by itself.**
 
-### Route R: restrict C's proof equations independently, and require separating semantics
+### Route R: restrict C's proof equations independently
 
-- Restrict proof-equation schemas to a class 𝓔 fixed independently of A. For example, 𝓔 = the β, η and commuting-conversion equations determined by the declared connectives' universal properties, plus permutation equations.
-- Arbitrary relator equations (E2, E3) are excluded.
-- Then require A to have a computable separating semantics, which Proposition B shows is impossible on unrestricted C.
-- **Falsifiable?** Yes. Propositions A and B no longer apply, and decidability or separation of A's proof identity becomes a checkable property of candidate targets.
-- **Status.**
-  - Whether 𝓔 can be defined uniformly ("determined by universal properties") for all Φ-presentations is OPEN.
-  - It is the analogue of a *doctrine* in categorical logic, which is established per doctrine, not uniformly.
-  - It must be fixed *before* any proof attempt, and it must not mention A.
+Restrict proof-equation schemas to a class 𝓔 fixed before and independently of A. For example: β, η and commuting conversions determined by declared connectives' universal properties, plus permutations. Arbitrary relators (E2, E3) are excluded.
+
+- **Effect.** Proposition A's *proof* no longer applies. Requiring a uniformly computable separating semantics (Proposition B's notion) would then be possible in principle.
+- **This reverses H's "decidable proof equivalence: not required".** That is a change to H's principal question and must be owner-approved explicitly.
+- **OPEN.**
+  - Whether 𝓔 can be defined uniformly over Φ-presentations. This is the analogue of a doctrine, which is established per doctrine, not uniformly.
+  - Whether equality is even decidable inside 𝓔. η for inductive types, such as ℕ in extensional Gödel T, may be undecidable (UNVERIFIED-MEMORY).
 
 ---
 
 ## 8. Do the changes preserve the original ProofBasis ambition?
 
-| Charter requirement | M1–M4, M6 | Route F | Route R |
-|---|---|---|---|
-| Fixed finite primitives (1) | Preserved; made precise by M1 | Preserved | Preserved |
-| Core vs environment (2) | **Strengthened** by M3 | — | — |
-| Composition and substitution (3) | Automatic under M4 | — | — |
-| Binding and resources (4) | Preserved (H.1 over open judgments) | Strengthened: resources become proof-level | Preserved |
-| Explicit proof identity (5) | Preserved (H.2) | **Strengthened to R3-full** | **Narrowed**: only 𝓔-identities |
-| Causality, not chronology (6) | **Narrowed** to C_causal | — | — |
-| Bounded trust (7) | Strengthened | — | — |
-| "Across foundational traditions" | Preserved | Preserved, but includes arbitrary proof-symmetry calculi that are not foundations | **Better aligned**: standard foundations' proof identities are of type 𝓔; arbitrary group relators are not |
+| Charter requirement | M1–M4 | M6 | Route F | Route R |
+|---|---|---|---|---|
+| (1) Fixed finite primitives | Preserved, made precise | — | Preserved | Preserved |
+| (2) Core vs environment | **Strengthened** (M3) | — | — | — |
+| (3) Composition and substitution | Automatic (M4). Costs: L-g negative translations; C requires re-presentation of side conditions (M2) | — | — | — |
+| (4) Binding and resources | Preserved, provided M4's proof-level resource clause is kept | — | Strengthened | Preserved |
+| (5) Explicit proof identity | Preserved (H.2) | — | **Strengthened** to full | **Narrowed** to 𝓔 |
+| (6) Causality, not chronology | — | **Narrowed** to a subclass; definition OPEN | — | — |
+| (7) Bounded trust | Strengthened | — | — | — |
+| "Across foundational traditions" | Narrowed slightly (M2 cost) | — | Keeps maximal C, including non-foundational proof-symmetry calculi | Closer to foundations, but reverses a "Not required" item |
 
 **Assessment.**
-- M1–M4 and M6 are clarifications. They preserve the ambition and make H checkable.
-- M5 is a real fork.
-  - Route F keeps the strongest reading of "proof identity fidelity" and keeps C maximal. It is the version most exposed to report 005-style obstructions.
-  - Route R keeps "across foundations" and gives up arbitrary proof-equation schemas, which arguably were never "foundations".
-- Without M5, H is consistent but **not falsifiable in the intended sense**. Every candidate counterexample to existence is answered by a Higman-type construction (Proposition C, E8). Yet the project would reject those constructions as vacuous, by a criterion it has not stated.
+- M1–M4 preserve the ambition with stated costs.
+- M5 is a real fork, and **neither route is yet shown to secure non-vacuity**.
+- Without M5, H has no stated criterion for rejecting A_U-type constructions. Yet the project's intent is to reject them. On C_grp, every counterexample to existence is answered by such a construction (§4.8). Beyond C_grp, whether universal-algebraic constructions extend is OPEN.
 
 ---
 
@@ -504,34 +516,52 @@ Add: for each translated open judgment F(J), every A-proof of F(J) under F(E_S) 
 
 | Item | Finding |
 |---|---|
-| Satisfactory definitions | H.1, H.2 (as definitions); non-circularity of C; the separation of H from H_full; the "not required" list; the gate rule "definition unresolved" |
-| Needing correction | A's nature (M1); C's checkability reading and proof syntax (M2); H.5 (M3); H.3/H.4 (M4); H.6 (M5); H.7 (M6) |
-| Contradictions / hidden assumptions | HA-1 to HA-8. The decisive ones: undecidable ≈_A forced (Proposition A); no computable separating semantics (Proposition B); operation-level non-vacuity is impossible (Proposition C); causal non-invariance (HA-4) |
-| Strongest counterexample to the preferred interpretation | E8: Higman's universal group at a closed data sort, acting by precomposition. Parametric, type-compositional, environment-free, vacuous |
-| Minimum changes | M1–M4 and M6, plus a choice of Route F or Route R for M5 |
-| Ambition | Preserved by M1–M4. M6 narrows causality. M5 forces a choice between maximal C (F) and foundations-aligned C (R) |
+| Satisfactory | H.1 and H.2 as definitions; non-circularity of C; the separation of H from H_full; the gate rule "definition unresolved" |
+| Needing correction | A's nature (M1); C's reading (M2); H.5 (M3); H.3/H.4 (M4); H.6 (M5); H.7 (M6) |
+| Contradictions / hidden assumptions | HA-1 to HA-9. The decisive ones: undecidable ≈_A is forced (Proposition A); no uniformly computable separating semantics (Proposition B); D2 admits A_U on C_grp (§4.8); causal non-invariance (HA-4) |
+| Strongest counterexample to the preferred interpretation | A_U (syntactic package); E8 (with semantic parametricity) |
+| Minimum changes | M1–M4 (repairs), M5 (an owner fork, with open problems on both routes), M6 (a specification with an open definition) |
+| Ambition | Preserved by M1–M4 with stated costs. Causality narrowed. Non-vacuity unresolved under either route |
 
-**Gate status: definition unresolved** (H's own acceptance rule). No proof attempt was begun.
+**Gate status: definition unresolved.** Phase A stops here. No proof attempt was begun.
+
+---
+
+## 10. Changes after the fresh critique (transparency)
+
+The fresh-context referee's critique of the first draft is in `006-source-notes/fresh-critique.md`.
+
+| Critique | First-draft claim | Action |
+|---|---|---|
+| **F1 (FATAL)** | "H.6 can only be closed by a translation-relative criterion, fullness, or restricting C"; "encoding-invariant" treated as "isomorphism-invariant property of A" | **Withdrawn.** Replaced by the weaker proved claim (Propositions A, B exclude criteria that *imply* decidable or uniformly separable ≈_A). The rest is OPEN. The reinterpretation is withdrawn |
+| M1 | ESTABLISHED labels without source notes | Source notes added. Labels split into verified and secondary. Group-theory results are secondary only |
+| M2 | Corollary A1 overclaimed (MLTT, System-F-like, SMCC with units, LF) | Restricted to named calculi under the definitional reading. ETT/Lean row added. Equality-reflection loophole added to M3 |
+| M3 | Proposition B non-uniform; finite-model corollary | Restated uniformly. The finite-model claim is qualified |
+| M4 | "Conflicts with 004's P₃" | **Deleted** (misattribution) |
+| M5 | E8 presented as the primary counterexample; Par defined syntactically | A_U is primary (syntactic); E8 is for semantic Par. The T1⁺ reading issue and the full blocker table are added |
+| M6 | D2 check not run | §4.8 added: D2 admits A_U |
+| M7 | "Every counterexample answered by Higman-type", universal equational theory, "H is consistent" | Restricted to C_grp. Universal equational theory marked OPEN. "Consistent" deleted |
+| M8 | Resource row "Preserved" despite dropping proof-level H.4 | Proof-level resource clause kept in M4 |
+| M9 | Incoherent C_causal definition; MLL net claim | Replaced by explicit requirements. Definition marked OPEN. MLL example corrected to Chaudhuri–Miller–Saurin's focused statement |
+| M10 | Route R "falsifiable", silent on "Not required" | Reversal flagged. Falsifiability defined. η-for-ℕ caveat added |
+| M11 | Route F implied to exclude universality | Marked OPEN (algebraically universal categories) |
+| M12 | Proof-sort test not intrinsic; reintroduces 002 §2.2's ledger | Tied to Φ's designated judgment. Caveat stated |
+| Minor 1–12 | Σ₁ clause; "same as 005 Lemma"; A_U inverses; E8 details; credit 005 for free SMC and HA-4; HA-6 wording; C-1 wording; L-g cost; E4 witness; focus traceability; E6 vs D2 | All applied |
 
 ---
 
 ## Appendix. Sources
 
-See `reports/006-source-notes/` for retrieved statements and locations.
+Full statements and locations are in `reports/006-source-notes/sources.md`.
 
-**Established results relied on:**
-- Novikov (1955) and Boone (1959): finitely presented groups with unsolvable word problem.
-- Higman (1961): embedding theorem and universal finitely presented group.
-- McKinsey / Mal'cev: finitely presented + residually finite ⇒ solvable word problem.
-- Mazurkiewicz trace theory: traces ↔ dependence graphs.
-- Chaudhuri–Miller–Saurin (2008): multifocusing.
-- Lean 4 quotient primitives.
-- Mac Lane coherence for symmetric monoidal categories.
-
-Each is labelled in the source notes with its verification status.
+| Status | Sources |
+|---|---|
+| **ESTABLISHED (verified)** | Chaudhuri–Miller–Saurin 2008, Thms 7 and 16 (author PDF). Lean 4 core (`Quot`, `Quot.sound`, `Quotient.exact`) and Mathlib (`Quot.eq`, `Quot.eqvGen_exact`). Bergstra–Tucker CWI IW 115/79, Thms 2.4, 3.1, 4.1 (scan). Mazurkiewicz DAIMI PB-78 (1977), the trace-equivalence definition only |
+| **ESTABLISHED (secondary)** | Novikov–Boone, Higman's embedding theorem, and universal finitely presented groups, via Bridson–Nyberg-Brodda arXiv:2512.10800 and Mikaelian arXiv:1908.10153. McKinsey's theorem, via Rauzy arXiv:2002.02540 and KMS arXiv:1204.6506. The trace/dependence-graph correspondence, via arXiv:1011.1030 |
+| **UNVERIFIED-MEMORY** | Decidability of equality for the calculi in Corollary A1. Undecidable definitional equality of ETT and Lean 4. Parametricity facts. Hedrlín–Pultr. Mac Lane coherence (the S_n fact is used only by elementary reasoning) |
 
 **Prior project reports used:**
-- 002 (§2.1, §2.2, §5 B1/B5/L-g/I-C);
-- 003 (CLF traces vs proof identity);
-- 004 (§5.4 faithfulness is cheap; P₃);
-- 005 (S_n family, Thompson V, atomic-profile obstruction, three-element test).
+- 002: §2.1, §2.2, §2.4, §5 B1/B5/L-d/L-f/L-g.
+- 003: traces vs proof identity.
+- 004: §5.4.
+- 005: S_n, A_V, §6 causal non-invariance, §9 free SMC and the three-element test.
