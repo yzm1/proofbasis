@@ -1,0 +1,11 @@
+PASS SN: ST(phi[theta/p]) == ST(phi)[P := lambda y. ST_y(theta)] syntactically (mod alpha) -- 500 random formula/substitution pairs
+PASS Z3: transitivity |- forall x ST_x([]p -> [][]p) -- z3: unsat
+PASS Z3: reflexivity |- forall x ST_x([]p -> p) -- z3: unsat
+PASS Z3: template Nec: forall x P(x) |- forall x [](P)(x) -- z3: unsat
+PASS Z3: |- forall x ST_x(K) with no frame condition -- z3: unsat
+PASS Z3: no frame condition does NOT give axiom 4 (countermodel exists) -- sat
+PASS Bounded: frame validates []p->[][]p  <=>  transitive (all frames <= 3 worlds) -- 530 frames checked
+PASS Z3: ternary semantics, no contraction condition: p |- p o p has a countermodel -- sat
+PASS Z3: contraction condition R3(x,x,x) |- forall x ST_x(p -> p o p) -- z3: unsat
+
+SUMMARY: 9/9 passed
