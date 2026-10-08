@@ -36,6 +36,8 @@ We do **not** assume that the answer is yes. A known theorem that already settle
 
 **Stage 0: specification and adversarial prior-art review.** No existence theorem claimed. No candidate algebra endorsed. See [the initial assignment](tasks/001-existence-and-novelty-audit.md).
 
+Stage-0 audit report, **under review**: [reports/001-existence-and-novelty.md](reports/001-existence-and-novelty.md). It recommends not advancing the program as chartered; at most one bounded literature gate. The verdict is not yet accepted, and the charter is unchanged.
+
 ## Contributing
 
 Critical feedback, primary-source references, decisive counterexamples, and corrections to the mathematical formulation are especially welcome. Open an issue or PR linking the exact affected claim and evidence. See [research protocol](docs/RESEARCH_PROTOCOL.md).
