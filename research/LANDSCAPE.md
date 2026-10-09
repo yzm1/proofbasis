@@ -46,11 +46,16 @@ L0 computation/derivability · L1 generation of syntax with binding · L2 justif
 
 | Area | Why it matters | Proposed priority | Proposed status |
 |---|---|---|---|
-| Canonical Gentzen systems (Avron–Lev), analytic-calculus hierarchy (Ciabattoni–Galatos–Terui), display logic (Belnap) | Decidable "finite rule set is justified" criteria with proved limits | Essential | Partial (011) |
-| Polygraphic presentation of proofs (Guiraud 2006) | Direct prior art: finite 3-polygraph for classical propositional proofs modulo bureaucracy | Essential | Partial (011) |
-| Squier theory / finite derivation type as obstruction theory | Presentation-invariant obstructions to finite coherent bases (Squier's S₁) | Essential | Partial (011) |
-| Finite complete PROP presentations (Lafont circuits, ZX, interacting Hopf algebras) | Method for "finite + complete for a fixed semantics"; Lafont parity non-generation | High | Partial (011) |
-| Type theories as finite presentations / initiality (Uemura, Bauer–Haselwarter–Lumsdaine, Ahrens–Hirschowitz–Lafont–Maggesi) | Already gives "foundation = finite schema presentation with initial semantics" | High | Partial (011) |
+| Generic substructural/modal frameworks: Licata–Shulman–Riley, adjoint logic, MTT, Shulman LNL polycategories | Closest active programme: fixed generic machinery + per-logic structural data; open proof-identity conjecture (LSR Conj 8.5), named in 001-review as the discriminating test but never executed | Essential | Partial (001-review; 011 DD0) |
+| Canonical Gentzen systems (Avron–Lev), analytic-calculus hierarchy (Ciabattoni–Galatos–Terui), display logic (Belnap) | Decidable coherence/analyticity criteria inside fixed structural settings, with proved limits (CGT Cor 7.2, Ex 7.4); originals partly not accessed | High | Partial (011) |
+| Polygraphic presentation of proofs (Guiraud 2006) | Direct prior art: finite 3-polygraph (rules = 3-cells) for classical propositional proofs modulo structural bureaucracy only | High | Partial (011) |
+| Squier theory / finite derivation type as obstruction theory | Presentation-invariant obstructions (S₁; undecidability; dimension-3 failure). Already used for single counterexamples in 001/010; proposed here as a method | High | Partial (001, 010, 011) |
+| Binding-aware 2-dimensional rewriting (Hirschowitz 2013; reduction monads; explicit substitutions) | Addresses the binding gap of polygraphs; finiteness invariants unknown | High | Partial (011) |
+| Equational finite-basis problem (Tarski; McKenzie; Lyndon/Murskiĭ/Perkins) | Canonical theory of obstructions to finite equational bases | High | Unknown (memory only) |
+| First-order proof identity (expansion trees, first-order combinatorial proofs, hyperdoctrines) | All surveyed identity results are propositional | High | Unknown |
+| Logic-translation theory (Mossakowski–Diaconescu–Tarlecki; proof-theoretic institutions) | Whether any morphism notion preserves proof identity | Medium | Unknown |
+| Finite complete PROP presentations (Lafont circuits, ZX, interacting Hopf algebras) | Method for "finite + complete for a fixed semantics"; Lafont non-generation already in 001 as an analogy | Medium | Partial (001, 011) |
+| Type theories as finite presentations / initiality (Uemura, Bauer–Haselwarter–Lumsdaine, Ahrens–Hirschowitz–Lafont–Maggesi) | "Foundation = finite schema presentation with initial semantics" for structural dependent theories; linear/modal excluded (Kaposi–Xie, 001-review) | Medium | Partial (001-review, 011) |
 | Tarski–Givant / relation and cylindric algebra; abstract algebraic logic | Pre-empts finite bases for derivability (ZF in a finite equational calculus) | Medium (boundary) | Partial (011) |
 | Combinatory and illative combinatory logic | Historical finite basis for computation; failure as a basis for logic (Curry) | Low (lesson) | Partial (011) |
 | Admissible-rule bases (Rybakov, Jeřábek, Iemhoff) | IPC admissible rules have no finite basis; derivable vs admissible | Medium | Partial (011) |
@@ -65,12 +70,13 @@ L0 computation/derivability · L1 generation of syntax with binding · L2 justif
 
 | Existing row | Current | Proposed | Evidence (011) |
 |---|---|---|---|
-| General proof theory / identity of proofs | Partial | Partial; deep dive DD3 recommended | Došen §4–5; Straßburger; Selinger Cor 3.8 |
+| General proof theory / identity of proofs | Partial | Partial; deep dive DD3 recommended (narrowed to controls incl. first order) | Došen §4–5; Straßburger; Selinger Cor 3.8; 001 `proof-identity.md` |
 | Proof-theoretic semantics, harmony | Thin | Partial; not a safe sole criterion | §3.3 |
-| Higher-dimensional algebra: polygraphs | Thin | Partial; deep dive DD1 recommended (highest) | Polygraphs book Thms 7.3.5, 8.1.2, 8.2.4; Guiraud 2006 |
+| Higher-dimensional algebra: polygraphs | Thin | Partial (already engaged in 001 notes S6a and 010); DD1 recommended after DD0/DD3 | Polygraphs book Thms 7.3.5, 8.1.2, 8.2.4; Guiraud 2006 |
 | HoTT / cubical | Thin | Partial; narrow question only | HoTT book; Coquand–Huber–Sattler; Sterling–Angiuli |
 | Operads, PROPs | Thin | Partial | Leinster; Lack; Lafont |
 | Homological analogies | Seed | Partial (FDT ⇒ FP₃; S₁ is FP∞ but not FDT); absorbed into DD1 | Polygraphs book Thms 9.3.4, 9.3.15 |
-| Wolfram multiway/ruliad | Seed | Investigated enough to deprioritise: subsumed by polygraphs | review 011 §3.5, Q6 |
+| Wolfram multiway/ruliad | Seed | Investigated enough to deprioritise (subsumption by polygraphs is an inference) | review 011 §3.5, Q6 |
 | Langlands analogies | Seed | Investigated enough to deprioritise: analogy only | review 011 §3.5, Q6 |
+| Concurrency rows | Partial | Deferred under reconciliation D5 (H_causal), not dismissed | D5 |
 | Other candidates | Open | Remains open; the map is **not** complete | review 011 §5, last row |
