@@ -36,4 +36,4 @@ Use append-only dated entries with: proposal; options; evidence; decision status
 
 **Revisit trigger:** an established common construction supplies the agreed explanatory/structural contract; a counterexample defeats every permitted representation under that contract; or current literature/expert review changes the strategic ranking. Returning to universal existence requires independently motivated parameterized scope, explicit trust/substitution interfaces, stable presentation comparisons, positive and negative non-vacuity witnesses, and a theorem-shaped target whose prior-art status has been checked (audit §8).
 
-**PR:** the separate S1 / Task 010 strategy-audit PR containing this proposal; link to be recorded after submission. No earlier decision is erased or silently reversed.
+**PR:** [#18 — S1 / Task 010 strategy audit](https://github.com/yzm1/proofbasis/pull/18). No earlier decision is erased or silently reversed.
