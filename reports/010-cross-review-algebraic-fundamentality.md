@@ -93,6 +93,8 @@ The minimal sufficient extra structure found here is:
 - **(a) A doctrine D.** This is a structure whose operations are determined *up to unique isomorphism* by universal properties (Kelly–Lack property-like structure; Lawvere's adjoint characterization of logical operations). Operations given this way are element properties in P1's sense, so they survive every Tietze move. **Fundamental operation := structure map of a D-universal property.**
 - **(b) The ambient target with probes over all of its objects.** A realization is *fundamental for S's logic* iff it is a D_S-structure-preserving functor into A, or into a D-construction on A such as a (co-)Kleisli category. Universal properties must hold against every ambient object, not only translated ones.
   - **Proposition P6 (COUNTEREXAMPLE, complete).** Two realizations of the same intuitionistic implication have *isomorphic* interfaces (both fully faithful). One preserves the ambient implication; the other realizes the source's implication by a fixed table while the target's own implication disagrees.
+  - **Proposition P6′ (PROVED HERE).** In proof-irrelevant Heyting settings, requiring connective images to be *derived term operations* already forces ambient preservation, provided top and meets are preserved.
+  - **Where the two notions diverge.** Only with proof relevance do "derived operation" and "ambient universal property" come apart. The LF-with-βη case (§5.4″, INFERENCE) is the example.
 - **(c) A provenance ledger for non-logical generators.**
   - **Proposition P7 (PROVED HERE, from the established universal property of free D-structures).** For a source presented as a D-structure on a signature Σ, a D-structure-preserving realization is determined *exactly* by its values on Σ.
   - So, once logical structure is required to be preserved, the **only** remaining interpretive freedom is the interpretation of non-logical generators. That is precisely what a ledger must record.
@@ -344,7 +346,47 @@ This is the simplest case of logical structure: proof-irrelevant (thin) cartesia
    - Equivalently, the ambient universal property fails. For the probe b ∈ B₄ (not in the image): b ∧ F₂(m) = b ∧ a = 0 ≤ F₂(0), but b ≰ F₂(m ⇒ 0) = 0. So F₂(m ⇒ 0) is not the exponential in B₄.
 5. **R₁ satisfies the ambient universal property by construction.** ∎
 
-**Interpretation.**
+**Caveat: what P6 does and does not separate.**
+- In R₂ the table x, y ↦ F₂(x ⇒ y) is **not** a term operation of B₄.
+  - Boolean term functions act coordinatewise on B₄ ≅ 2².
+  - Any binary term t with t(1,0) = 0 and t(0,0) = 1 on the coordinates gives t(a,0) = b.
+- So a criterion that requires connective images to be *derived operations of A* (report 002's T1 / report 008's componentwise clause) also rejects R₂.
+- P6 thus separates **interface criteria** from **ambient criteria** in general. It does not by itself separate "derived operation" from "ambient universal property". That is the job of P6′ and the LF case below.
+
+### 5.4′ Proposition P6′ (in proof-irrelevant settings, derivedness already forces ambient preservation) — PROVED HERE
+
+**Statement.**
+- Let K be a Heyting algebra and H a Heyting algebra (the source).
+- Let F : H → K be monotone, preserve binary meets, and preserve top (F(1) = ⊤).
+- Suppose there is a binary Heyting term t over K such that t(Fx, Fy) = F(x ⇒ y) for all x, y ∈ H.
+- Then F(x ⇒ y) = Fx ⇒_K Fy for all x, y.
+
+**Proof.** Fix x, y and put u = Fx, v = Fy, w = F(x ⇒ y).
+
+1. *(w ≤ u ⇒ v.)* (x ⇒ y) ∧ x ≤ y in H. Applying F (meets and order) gives w ∧ u ≤ v, so w ≤ u ⇒ v by residuation in K.
+2. *(w ≥ u ⇒ v.)*
+   - Let Φ = ↑(u ⇒ v), a filter of K, and let ≡_Φ be its Heyting congruence (a ≡ b iff (a ⇔ b) ∈ Φ; standard).
+   - Modulo Φ, u ⇒ v ≡ ⊤. Therefore u ≡ u ∧ v, since u ⇔ (u ∧ v) = u ⇒ v.
+   - Every term operation respects every congruence, so w = t(u, v) ≡ t(u ∧ v, v).
+   - Since F preserves meets, u ∧ v = F(x ∧ y), so t(u ∧ v, v) = F((x ∧ y) ⇒ y) = F(1) = ⊤.
+   - Hence w ≡ ⊤, i.e. w ∈ Φ, i.e. w ≥ u ⇒ v. ∎
+
+**Meaning.**
+- In thin (proof-irrelevant) cartesian closed settings, a connective image that is a term operation of the ambient Heyting algebra *must be* the ambient implication, once meets and top are preserved.
+- So for derivability-level fidelity, "derived operation" and "ambient universal property" coincide.
+- The hypothesis F(1) = ⊤ is used essentially. Whether a counterexample exists without it was not determined: a bounded search over small Heyting algebras timed out.
+
+### 5.4″ The proof-relevant separation: LF with βη (INFERENCE)
+
+In proof-relevant settings the two notions come apart.
+
+- In report 009's HHP encoding with source βη, the object implication goes to the LF type true(imp φ ψ). That is a *derived* type: a fixed type family applied to the derived term imp φ ψ.
+- The canonical candidate currying maps are imp-i and imp-e. Their composite imp-e(imp-i f) does not reduce to f (009 §7: constants do not compute). So these maps are not mutually inverse up to ≈_A, and the canonical exponential comparison fails.
+- **Gap:** that *no* other natural isomorphism exists is not proved here.
+
+This is the case where "derived operation" (T1-style) holds but "ambient universal property" (N_amb) fails. It is why N_amb, not derivedness, is proposed in §5.6.
+
+**Interpretation of P6.**
 - R₂ is a minimal "rule-table interpretation". It reproduces the source's *consequence relation and proof structure* exactly, through the table F₂(x ⇒ y), while ignoring the target's own logical operation.
 - No criterion that reads only (P_S, B_F, F) can detect this (step 3).
 - A criterion that tests universal properties against **ambient probes** can (step 4).
