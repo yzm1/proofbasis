@@ -21,3 +21,19 @@ Use append-only dated entries with: proposal; options; evidence; decision status
 - Task 008 and cross-reviews: #13–#16.
 
 **Do not reconstruct exact historical commitments from these shorthand pointers alone; consult original reports.**
+
+## 2026-10-09 — Proposed: compare generating theories and limits before a single universal core
+
+**Proposal:** use presentation-invariant generating theories, indexed relations between foundations, and a parallel obstruction/classification program as the next comparison's organizing tracks. Retain the finite-universal-algebra conjecture as one possible later outcome. Keep proof interoperability as a separately labelled supporting/applied outcome. Do not adopt a narrower source class, freeze a conjecture, or change the charter through this entry.
+
+**Options considered:** a fixed finite core; equivalent/hierarchical bases; universal-property structures; fibrational/institutional relations; higher-dimensional transformations; graph/event/multiway processes; obstruction/classification; interoperability; and additional focusing, semantic-definability, adjunction/decomposition and abstract-algebraic-logic alternatives. See [012 strategy audit](reviews/012-strategy-options.md), §§3–4 and its source ledger.
+
+**Evidence:** earlier conditional profile/equality obstructions are not universal finite-generation impossibilities; path/checker interfaces can be isomorphic; N_log's literal presentation verdict changes under a derived-generator extension; fixed interfaces allow table data in closed atom images. Binding-aware algebraic correspondences, verified fragment-specific Girard translation, generic mode cut/identity, Squier coherence results and event/domain representation supply positive alternatives with different exact hypotheses. The audit preserves withdrawals and unknowns, including current resolution of published equational-adequacy conjectures.
+
+**Status:** PROPOSED FOR REVIEW. No priority, budget, stage gate, task status or normative definition is approved by this entry. Proposed backlog sequencing is also explicitly provisional.
+
+**Consequences if approved:** specify versioned comparison contracts and admissible presentation changes before selecting targets; begin paired structural and obstruction dives; commission further specialists only for decision-changing mismatches. Reject checker-only representation as fulfillment of the north star, while retaining it as an adversarial comparison control. Known-theorem identification, a sharp classification, or a mathematically defensible negative result can complete a research objective without a single universal algebra.
+
+**Revisit trigger:** an established common construction supplies the agreed explanatory/structural contract; a counterexample defeats every permitted representation under that contract; or current literature/expert review changes the strategic ranking. Returning to universal existence requires independently motivated parameterized scope, explicit trust/substitution interfaces, stable presentation comparisons, positive and negative non-vacuity witnesses, and a theorem-shaped target whose prior-art status has been checked (audit §8).
+
+**PR:** the separate S1 / Task 010 strategy-audit PR containing this proposal; link to be recorded after submission. No earlier decision is erased or silently reversed.
