@@ -44,3 +44,7 @@ ALG-01 and INST-01: selected S2 work, tasks/012-generators-and-generic-framework
 LOG-01, HOTT-01 and CAUSAL-01: deferred pending exact gaps, not discarded. CONJ-01 and FORM-01: blocked.
 
 This section supersedes older provisional status rows where inconsistent, without deleting their history.
+
+## S2 review — 2026-10-13
+
+CMP-01 / ALG-01 / INST-01 / OBS-01: all submitted, merged as evidence via PRs #21–#25. Independent mathematical certification outstanding. Coordinator critique and synthesis: research/reviews/016-s2-critical-integration.md. S2 **not** cleared for S3. Next work S2-R1: tasks/014-s2-contract-repair.md (two independent checks of source/target equality, intrinsic versus relative reflection, and trust parameters). S3 and implementation remain blocked.
