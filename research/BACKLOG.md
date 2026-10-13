@@ -32,3 +32,15 @@
 | Strengthen SYN-01's gate | CMP-01, paired ALG/INST and OBS evidence; other dives only if decision-changing | Compare exact claim cards, audit priorities independently, retain classical/dependent/cyclic boundaries, and propose a target rather than silently freeze one | Existing theorem subsumption, meaningful classification or defensible stop are successful outcomes |
 
 **Proposed scheduling:** contract comparison first; then an algebra/indexed-structure dive and an independent obstruction/coherence dive; then only the normative, semantic or causal mismatch needed for integration. CONJ-01 and FORM-01 remain blocked. Before any compute-heavy follow-up, name the decision value, witness, and stop condition as required by the operating protocol.
+
+## S1 integration — October 13, 2026
+
+MAP-01 and STRAT-01: completed as research evidence in PR #19 and PR #18. SYN-01: planning selection documented in research/reviews/013-s1-synthesis-and-selection.md; mathematical claims are still subject to independent review.
+
+CMP-01: next active task, tasks/011-common-comparison-contract.md.
+
+ALG-01 and INST-01: selected S2 work, tasks/012-generators-and-generic-frameworks.md, after the shared contract. OBS-01: adversarial classification control, tasks/013-obstruction-classification.md.
+
+LOG-01, HOTT-01 and CAUSAL-01: deferred pending exact gaps, not discarded. CONJ-01 and FORM-01: blocked.
+
+This section supersedes older provisional status rows where inconsistent, without deleting their history.
