@@ -52,3 +52,20 @@ Use append-only dated entries with: proposal; options; evidence; decision status
 **Revisit:** an explicit owner direction, a correctly scoped short mathematical statement, verified subsumption/closure arguments and outside mathematical or formal-checking evidence. No automatic continuation based on another LLM agreement.
 
 **Historical governance gap:** the recent target selections and owner task requests were recorded in chat/reviews/plan but not this log. Do not retroactively invent owner decisions resolving the charter's scope/non-vacuity questions. This entry starts an explicit record rather than erasing those gaps.
+
+
+## 2026-10-14 — APPROVED OWNER DIRECTION: pursue the original common basis
+
+**Owner instruction:** “I want to pursue the original common basis question.” This is an explicit direction decision, not inferred from task launches.
+
+**Decision:** retain the charter's cross-foundation, finite meaningful proof-basis objective as the primary research question. SC is supporting local evidence, not the programme's replacement objective. Do not archive or retire the charter on the external LLM review's recommendation. Do not replace a fixed-core target with a doctrine-indexed family merely because the family is easier to establish.
+
+**Current mathematical status:** unrestricted fixed-core structural K remains unresolved in the existing record; K_dec is obstructed under its additional equality-decision assumptions. Existing encodings and parameterized constructions have different contracts. No universal existence, impossibility or novelty conclusion is approved here. The exact intended source class/explanatory/causal requirements are not silently resolved by this instruction.
+
+**Next bounded action:** [Task 020](../tasks/020-fixed-common-basis-gap.md), reuse the existing K statement and strong prior-art/control record to identify a checkable fixed-core gap, theorem or obstruction. No further SC proof round or generic definition survey. Task 019 remains paused.
+
+**Validation correction:** LLMs may conduct research and produce proofs. Neither human authorship nor an outside human read is a prerequisite for mathematical validity. Separate-session model agreement is not a certificate; confidence must rest on exact arguments, correct source correspondence and appropriate checks. The prior validation/process concerns remain relevant to evidence strength, not a blanket ban on AI research.
+
+**Authority limits:** this instruction does not approve a particular source class, invented non-vacuity criterion, theorem acceptance, human contact, expenses or a deadline. A family/classification alternative can inform the answer; replacing the original goal would need a further explicit decision.
+
+**Revisit trigger:** exact prior-art subsumption of the meaningful structural goal, a genuine all-target obstruction, a validated fixed-core construction, or an owner change of direction. Progress on one fixed framework alone is insufficient.
