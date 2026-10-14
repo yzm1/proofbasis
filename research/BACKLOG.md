@@ -59,3 +59,19 @@ Cross-reviews PR #31 and #32 are integrated as research evidence. The S2-R2 sele
 Task 016 report 022: submitted in PR #34 and reviewed as research evidence. Its pure N→T₀ comparison, unit-extension identification and finite-schema extraction remain informal arguments pending independent verification; they are not certified dependencies. Full mixed SC remains unresolved.
 
 The next bounded investigation is [Task 017](../tasks/017-atomic-endomorphism-test.md): matched constructive/adversarial tests of every mixed endomorphism of one declared linear atom being the identity, with no nonlinear atoms or proof generators. The singleton source atomic hom-set makes this test independent of acceptance of the broader pure bridge. Reports 023/024 are reserved for the two external investigators. Agents have not been launched by this update; independent submissions precede reciprocal review. A negative witness refutes fixed SC; a positive result settles only this instance. No general definition round, implementation or unrestricted universal-existence attempt is authorized.
+
+
+## October 14, 2026 — Both atomic investigations submitted
+
+PR #35/report 023 submits an INFORMAL POSITIVE ARGUMENT; PR #36/report 024 submits UNRESOLVED adversarial evidence with a cancelled typed closed-name attempt and no certified counterexample. Both are submissions, not theorem acceptance. [Coordinator review 025](reviews/025-atomic-submissions-coordinator-review.md) also checks the further status/coherence revision on PR #34. All three remain open at this checkpoint.
+
+Next: [Task 018](../tasks/018-atomic-reciprocal-review.md), reciprocal review at pinned submission commits. Agent B independently attacks the actual auxiliary coverage and mutual cut/substitution lemma; Agent A reconstructs the adversarial name/witness/model calculations and their relation to that lemma. Reports 026/027 are reserved. No agents launched by this entry. The atomic instance, full SC and broader pure prerequisites retain their distinct unaccepted statuses; no implementation or unrestricted universal-existence task is selected.
+
+
+## October 14, 2026 — Atomic reciprocal review complete
+
+Task 018 submissions: PR #38/report 027 independently reconstructs and accepts report 023's atomic argument; PR #39/report 026 independently reconstructs report 024's name/witness/model and cancels its candidate. PR #38's original raw-dual inverse equations were ill typed and have been explicitly withdrawn and corrected at 00cdcc9cf7affe8ae6a47327b6befa474483ce29.
+
+[Coordinator synthesis 028](reviews/028-atomic-reciprocal-synthesis.md) accepts only the frozen B=A*(∅,{p}) atomic statement as an **independently reviewed informal result**, not FORMALIZED or full SC. It records the correction, derived-hom expansion, composition-port swap and direct/indirect trace distinction. Tasks 017/018 are complete at this scope; broader pure bridge/unit-extension, finite-schema and full-fragment/equality obligations remain distinct. PRs are still open at the checkpoint; mathematical acceptance does not imply Git merge.
+
+Proposed next gate: general native pure-boundary recovery from the auxiliary argument, plus independent equality-reflection investigation. No new agents, broader theorem task or implementation have been launched by this update.
