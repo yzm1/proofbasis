@@ -48,3 +48,7 @@ This section supersedes older provisional status rows where inconsistent, withou
 ## S2 review — 2026-10-13
 
 CMP-01 / ALG-01 / INST-01 / OBS-01: all submitted, merged as evidence via PRs #21–#25. Independent mathematical certification outstanding. Coordinator critique and synthesis: research/reviews/016-s2-critical-integration.md. S2 **not** cleared for S3. Next work S2-R1: tasks/014-s2-contract-repair.md (two independent checks of source/target equality, intrinsic versus relative reflection, and trust parameters). S3 and implementation remain blocked.
+
+## October 14, 2026 — S2-R2 selection
+
+Cross-reviews PR #31 and #32 are integrated as research evidence. The S2-R2 selection is documented in research/reviews/021-s2-r2-selection.md. The next bounded task is tasks/016-pure-bridge-prior-art-gate.md: audit N to T_0 pure MLL correspondence and the distinct T_0 to mixed A* conservativity implication. Fixed SC is the selected restricted target; not established. K_dec is refuted under its effective-faithfulness and decidable-target-equality assumptions. Unrestricted K and broad S3 universality remain unresolved/blocked. Further definition surveys are not automatically authorized.
