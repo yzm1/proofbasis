@@ -37,3 +37,18 @@ Use append-only dated entries with: proposal; options; evidence; decision status
 **Revisit trigger:** an established common construction supplies the agreed explanatory/structural contract; a counterexample defeats every permitted representation under that contract; or current literature/expert review changes the strategic ranking. Returning to universal existence requires independently motivated parameterized scope, explicit trust/substitution interfaces, stable presentation comparisons, positive and negative non-vacuity witnesses, and a theorem-shaped target whose prior-art status has been checked (audit §8).
 
 **PR:** [#18 — S1 / Task 010 strategy audit](https://github.com/yzm1/proofbasis/pull/18). No earlier decision is erased or silently reversed.
+
+
+## 2026-10-14 — Enacted coordinator correction: pause Task 019
+
+**Trigger:** owner supplied Claude's programme review on branch claude/project-review-direction-l9y3ck. Evidence and limited check: [review](../docs/EXTERNAL_PROGRAM_REVIEW_2026-10-14.md), [response 031](reviews/031-external-review-response.md).
+
+**Decision status/authority:** operational pause enacted by the LLM coordinator under the existing authorization to maintain research tasks; this is reversal of its own Task 019 launch recommendation. It is not a recorded owner decision to retire the charter, archive the repository, approve a broader theorem or certify mathematics. Prior task-launch authorization is not independent mathematical oversight.
+
+**Decision:** Task 019 must not be launched or continued as written. Withdraw the certification emphasis of synthesis 028; retain its argument as LLM-authored/same-vendor separately cross-reviewed evidence without external validation. Fix README's stale stage description. Preserve the external review as attributed LLM evidence rather than accepting all its mathematical claims wholesale.
+
+**Consequences:** no new theorem-agent round. The immediately useful proposed work is a compact lemma/ledger/Benton comparison, typing-only validation and outside proof-theorist assessment. Actual contacts, any expenses, strategic retirement and a deadline are not enacted here. Existing external agents require the owner to relay the pause.
+
+**Revisit:** an explicit owner direction, a correctly scoped short mathematical statement, verified subsumption/closure arguments and outside mathematical or formal-checking evidence. No automatic continuation based on another LLM agreement.
+
+**Historical governance gap:** the recent target selections and owner task requests were recorded in chat/reviews/plan but not this log. Do not retroactively invent owner decisions resolving the charter's scope/non-vacuity questions. This entry starts an explicit record rather than erasing those gaps.

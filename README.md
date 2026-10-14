@@ -34,9 +34,11 @@ We do **not** assume that the answer is yes. A known theorem that already settle
 
 ## Project progress
 
-**Stage 0: specification and adversarial prior-art review.** No existence theorem claimed. No candidate algebra endorsed. See [the initial assignment](tasks/001-existence-and-novelty-audit.md).
+**Current status — 2026-10-14: Task 019 is paused after an external LLM programme review.** No further paired proof expansion is selected. The recent work concerns a fixed LNL doctrine and two propositional fragments; it does not establish a universal algebra across foundations.
 
-Stage-0 audit report, **under review**: [reports/001-existence-and-novelty.md](reports/001-existence-and-novelty.md). It recommends not advancing the program as chartered; at most one bounded literature gate. The verdict is not yet accepted, and the charter is unchanged.
+The cut/substitution argument and atomic corollary have LLM-authored separate-session cross-review, not external human validation or proof-assistant certification. The former “independently reviewed” headline is superseded. See [the supplied review](docs/EXTERNAL_PROGRAM_REVIEW_2026-10-14.md) and [coordinator response/status correction](research/reviews/031-external-review-response.md).
+
+The immediate priorities are prior-art/obligation reconciliation and deciding whether a concise lemma statement, typing check and outside proof-theorist assessment warrant a small pivot. Retiring the charter, starting a broader theorem task or archiving requires an explicit research-direction decision. Earlier reports and decisions remain available as history.
 
 ## Contributing
 

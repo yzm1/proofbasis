@@ -82,3 +82,10 @@ Proposed next gate: general native pure-boundary recovery from the auxiliary arg
 PRs #34–#39 are merged into main; integrated evidence baseline 53cd1dcf60eb3a3dcb57b15c7576231e41f40ee4. This resolves the stacked-PR integration issue without changing the statuses in synthesis 028: atomic independently reviewed informal result; broader obligations still open.
 
 [Task 019](../tasks/019-native-pure-fragment-fidelity.md) is the next selected bounded SC task. Agent A tests general native NJ/MLL recovery, source equation preservation and structure; Agent B independently tests equality reflection through exactly matching primary results or sound separating models, with counterexample attempts. Reports 029/030 are reserved. No agents launched by this entry. The finite-schema clause, pending bridge identifications and unrestricted universality are not silently accepted.
+
+
+## Current override — October 14, 2026: Task 019 PAUSED
+
+The owner supplied an external Claude programme review. [Response 031](reviews/031-external-review-response.md) withdraws Task 019's launch recommendation and the certification emphasis in synthesis 028. Original proof reports remain LLM-authored/separately cross-reviewed evidence, unvalidated by an outside human or proof assistant. The original Task 019 is preserved as history but must not run as written.
+
+No replacement theorem-agent round is selected. Proposed small pivot: concise exact lemma and obligation ledger, direct Benton/prior-art comparison, typing-only check, and outside proof-theorist assessment. Mathematical closures alleged by the review are provisional until their actual arguments/hypotheses are verified; the charter is not retired by this entry. No contacts, spending, deadline automation or archive action occurred. See the enacted coordinator pause in DECISIONS.md.
