@@ -74,3 +74,10 @@ S1 completes only when the landscape has broad coverage and explicit exclusions,
 ## S1 decision update — 2026-10-13
 
 S1 landscape (PR #19) and alternatives (PR #18) are integrated as **research evidence**. [S1 synthesis 013](research/reviews/013-s1-synthesis-and-selection.md) passes the *planning selection gate*, while independent confirmation of decisive mathematics remains outstanding. **S2 is now the active planned research stage.** Start with [CMP-01 Task 011](tasks/011-common-comparison-contract.md); then paired [ALG-01 and INST-01 Task 012](tasks/012-generators-and-generic-frameworks.md); use [OBS-01 Task 013](tasks/013-obstruction-classification.md) as an adversarial classification track. None authorizes the S3 universal existence claim, software implementation, or removal of the north-star alternatives. This dated entry supersedes the historical table's S1 'Next' label without erasing its context.
+
+
+## Bounded theorem-testing update — 2026-10-14
+
+Tasks 017/018 have yielded one **independently reviewed informal result**: every mixed endomorphism p→p in the exact frozen A*(∅,{p}), with no nonidentity proof generators, equals identity under the full E*. [Synthesis 028](research/reviews/028-atomic-reciprocal-synthesis.md) records the evidence pins, a corrected cross-review typing error and the precise scope. This is not mechanical or external-referee certification, full SC, novelty, or unrestricted universal existence. The general mutual cut/substitution argument supports this atomic acceptance; its possible broader consequences are not silently promoted.
+
+Full SC's all-boundary recovery, source equality preservation/reflection, naturality and finite-schema clauses remain open. The pure bridge/unit-extension comparisons remain separate pending checks if retained as dependencies. The next proposal is a bounded general pure-boundary recovery and equality-reflection gate, not another general definitions round. No broader task or agent is commissioned by this update.
