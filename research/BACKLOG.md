@@ -66,3 +66,12 @@ The next bounded investigation is [Task 017](../tasks/017-atomic-endomorphism-te
 PR #35/report 023 submits an INFORMAL POSITIVE ARGUMENT; PR #36/report 024 submits UNRESOLVED adversarial evidence with a cancelled typed closed-name attempt and no certified counterexample. Both are submissions, not theorem acceptance. [Coordinator review 025](reviews/025-atomic-submissions-coordinator-review.md) also checks the further status/coherence revision on PR #34. All three remain open at this checkpoint.
 
 Next: [Task 018](../tasks/018-atomic-reciprocal-review.md), reciprocal review at pinned submission commits. Agent B independently attacks the actual auxiliary coverage and mutual cut/substitution lemma; Agent A reconstructs the adversarial name/witness/model calculations and their relation to that lemma. Reports 026/027 are reserved. No agents launched by this entry. The atomic instance, full SC and broader pure prerequisites retain their distinct unaccepted statuses; no implementation or unrestricted universal-existence task is selected.
+
+
+## October 14, 2026 — Atomic reciprocal review complete
+
+Task 018 submissions: PR #38/report 027 independently reconstructs and accepts report 023's atomic argument; PR #39/report 026 independently reconstructs report 024's name/witness/model and cancels its candidate. PR #38's original raw-dual inverse equations were ill typed and have been explicitly withdrawn and corrected at 00cdcc9cf7affe8ae6a47327b6befa474483ce29.
+
+[Coordinator synthesis 028](reviews/028-atomic-reciprocal-synthesis.md) accepts only the frozen B=A*(∅,{p}) atomic statement as an **independently reviewed informal result**, not FORMALIZED or full SC. It records the correction, derived-hom expansion, composition-port swap and direct/indirect trace distinction. Tasks 017/018 are complete at this scope; broader pure bridge/unit-extension, finite-schema and full-fragment/equality obligations remain distinct. PRs are still open at the checkpoint; mathematical acceptance does not imply Git merge.
+
+Proposed next gate: general native pure-boundary recovery from the auxiliary argument, plus independent equality-reflection investigation. No new agents, broader theorem task or implementation have been launched by this update.
