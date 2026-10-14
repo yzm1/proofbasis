@@ -60,6 +60,6 @@ Use the same coordinator-supplied main commit containing this task. Record its f
 
 Inspect decisive primary statements and relevant proofs directly, with precise hypotheses/version/equality/translation and verification limits. If matching existing theorems close an obligation, cite and reuse them; no novelty claim or duplicate proof project. Inability to find a theorem is not evidence of openness.
 
-No prover implementation, benchmark/corpus, videos, broad new survey, additional agents, unrestricted S3 work or scope repair. Mechanization is a later option only if a specific decisive lemma warrants it. Stop at the scoped arguments, certified witness or exact unresolved obligations; do not keep producing documentation after reaching a decision-changing result.
+No prover implementation, benchmark/corpus, broad new survey, additional agents, unrestricted S3 work or scope repair. Mechanization is a later option only if a specific decisive lemma warrants it. Stop at the scoped arguments, certified witness or exact unresolved obligations; do not keep producing documentation after reaching a decision-changing result.
 
 No agent may accept full SC itself. The coordinator will combine EP/fullness/ER/structure results, independently review crucial lemmas and retain the finite-schema/trust/scope ledger before any broader acceptance.
