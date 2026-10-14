@@ -1,6 +1,8 @@
 # Task 019 — Native pure-fragment recovery and equality reflection
 
-**Date:** 2026-10-14. **Status:** selected next bounded SC investigation; no agents launched by this document.
+**Date:** 2026-10-14. **Current status: PAUSED after the external LLM programme review. Do not launch or continue this task as written.**
+
+The coordinator withdraws the launch recommendation while reviewing prior-art subsumption, inexpensive model closures, the scope of the general cut/substitution lemma and the lack of independent certification. This is a task pause, not a proof that full SC is settled or a decision to retire the original charter. If an external agent is already running, the owner must deliver this pause; this repository cannot interrupt that process. The original assignment below is retained as history.
 **Integrated evidence baseline:** 53cd1dcf60eb3a3dcb57b15c7576231e41f40ee4 (PRs 34–39 merged into main).
 **Decision value:** determine whether the reviewed auxiliary argument and independently verified separation results establish the remaining all-boundary fidelity of the frozen pure fragments, or expose a precise counterexample/lemma. This is restricted SC work, not an all-foundations existence claim.
 
