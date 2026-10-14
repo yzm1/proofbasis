@@ -52,3 +52,10 @@ CMP-01 / ALG-01 / INST-01 / OBS-01: all submitted, merged as evidence via PRs #2
 ## October 14, 2026 — S2-R2 selection
 
 Cross-reviews PR #31 and #32 are integrated as research evidence. The S2-R2 selection is documented in research/reviews/021-s2-r2-selection.md. The next bounded task is tasks/016-pure-bridge-prior-art-gate.md: audit N to T_0 pure MLL correspondence and the distinct T_0 to mixed A* conservativity implication. Fixed SC is the selected restricted target; not established. K_dec is refuted under its effective-faithfulness and decidable-target-equality assumptions. Unrestricted K and broad S3 universality remain unresolved/blocked. Further definition surveys are not automatically authorized.
+
+
+## October 14, 2026 — Task 016 review and atomic SC instance
+
+Task 016 report 022: submitted in PR #34 and reviewed as research evidence. Its pure N→T₀ comparison, unit-extension identification and finite-schema extraction remain informal arguments pending independent verification; they are not certified dependencies. Full mixed SC remains unresolved.
+
+The next bounded investigation is [Task 017](../tasks/017-atomic-endomorphism-test.md): matched constructive/adversarial tests of every mixed endomorphism of one declared linear atom being the identity, with no nonlinear atoms or proof generators. The singleton source atomic hom-set makes this test independent of acceptance of the broader pure bridge. Reports 023/024 are reserved for the two external investigators. Agents have not been launched by this update; independent submissions precede reciprocal review. A negative witness refutes fixed SC; a positive result settles only this instance. No general definition round, implementation or unrestricted universal-existence attempt is authorized.
