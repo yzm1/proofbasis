@@ -1,6 +1,8 @@
 # Task 018 synthesis — atomic result and exact remaining scope
 
-**Date:** 2026-10-14. **Coordinator decision:** accept the Task 017 atomic argument as an **independently reviewed informal mathematical result** under the frozen contract. This is not FORMALIZED, a claim of novelty, an external referee certification, or acceptance of full SC.
+**Current status correction — 2026-10-14:** the acceptance headline below is superseded by [response 031](031-external-review-response.md). The argument has LLM-authored, separate-session same-vendor cross-review; it is not independently certified by a human or a proof assistant. Task 019 is paused. The original argument and review record are retained as evidence, not declared false.
+
+**Historical date:** 2026-10-14. **Historical coordinator decision:** accept the Task 017 atomic argument as an **independently reviewed informal mathematical result** under the frozen contract. This is not FORMALIZED, a claim of novelty, an external referee certification, or acceptance of full SC.
 
 ## Evidence pins and disposition
 
