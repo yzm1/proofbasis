@@ -32,7 +32,7 @@ Concrete points supported on this pass, still informal:
 - Simultaneous substitution is a necessary response to nonlinear contraction; repeated ordinary cuts cannot silently reuse an original height bound.
 - The proposed measure is lexicographic in type rank and producer/consumer height. Lower-rank recursive problems may grow in height.
 - Report 024 distinguishes definable target terms from arbitrary model arrows, and rejects both illicit promotion of a live p and a self-trace.
-- Report 034's revised raw-dual comparison remains a checklist, not a completed bridge proof.
+- PR 34's revised raw-dual comparison remains a checklist, not a completed bridge proof.
 
 ## Exact acceptance bottleneck
 
