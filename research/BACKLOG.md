@@ -89,3 +89,8 @@ PRs #34–#39 are merged into main; integrated evidence baseline 53cd1dcf60eb3a3
 The owner supplied an external Claude programme review. [Response 031](reviews/031-external-review-response.md) withdraws Task 019's launch recommendation and the certification emphasis in synthesis 028. Original proof reports remain LLM-authored/separately cross-reviewed evidence, unvalidated by an outside human or proof assistant. The original Task 019 is preserved as history but must not run as written.
 
 No replacement theorem-agent round is selected. Proposed small pivot: concise exact lemma and obligation ledger, direct Benton/prior-art comparison, typing-only check, and outside proof-theorist assessment. Mathematical closures alleged by the review are provisional until their actual arguments/hypotheses are verified; the charter is not retired by this entry. No contacts, spending, deadline automation or archive action occurred. See the enacted coordinator pause in DECISIONS.md.
+
+
+## October 14, 2026 — Owner reaffirms original common-basis goal
+
+The fixed meaningful cross-foundation basis is the primary target; SC remains local evidence. Task 019 stays paused. [Task 020](../tasks/020-fixed-common-basis-gap.md) is the next selected bounded investigation: reuse K and existing prior art to identify a precise fixed-core gap/result, without another definition survey or SC extension. Report 032 is reserved; no investigator launched here. LLM research is permitted with argument-based validation, and a family of doctrines is not adopted as a replacement for the owner's goal.

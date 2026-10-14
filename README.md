@@ -34,11 +34,13 @@ We do **not** assume that the answer is yes. A known theorem that already settle
 
 ## Project progress
 
-**Current status — 2026-10-14: Task 019 is paused after an external LLM programme review.** No further paired proof expansion is selected. The recent work concerns a fixed LNL doctrine and two propositional fragments; it does not establish a universal algebra across foundations.
+**Current direction — 2026-10-14: the owner explicitly reaffirms the original common-basis question.** We are investigating a meaningful fixed finite basis across foundations. The local LNL/SC investigation is supporting evidence and does not replace that goal.
 
-The cut/substitution argument and atomic corollary have LLM-authored separate-session cross-review, not external human validation or proof-assistant certification. The former “independently reviewed” headline is superseded. See [the supplied review](docs/EXTERNAL_PROGRAM_REVIEW_2026-10-14.md) and [coordinator response/status correction](research/reviews/031-external-review-response.md).
+The next bounded investigation is [Task 020: fixed common-basis gap](tasks/020-fixed-common-basis-gap.md), using the already specified broad structural candidate K and existing prior-art/control record. It must identify an exact theorem, construction, qualified obstruction or concrete missing lemma; no new generic definition survey or automatic SC extension.
 
-The immediate priorities are prior-art/obligation reconciliation and deciding whether a concise lemma statement, typing check and outside proof-theorist assessment warrant a small pivot. Retiring the charter, starting a broader theorem task or archiving requires an explicit research-direction decision. Earlier reports and decisions remain available as history.
+Task 019 remains paused after the [external LLM programme review](docs/EXTERNAL_PROGRAM_REVIEW_2026-10-14.md). The existing cut/substitution argument has LLM-written separate-session cross-review, without formal or outside certification. LLMs may continue mathematical research; proof validity depends on the argument and checks, not human authorship. No universal existence, impossibility or novelty claim is established.
+
+The [decision log](research/DECISIONS.md) records the owner's choice, the [response](research/reviews/031-external-review-response.md) preserves the process corrections, and historical reports remain available. A family of doctrines can inform the answer but is not an approved replacement objective.
 
 ## Contributing
 
