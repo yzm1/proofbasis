@@ -194,26 +194,48 @@ The output of j remains the explicitly U-derived subproof from §3.1. Both sides
 
 ### 5.1 Both snakes follow from inverse factorization at raw A,A*
 
-Start with the chosen `e_A:L(∅|A,A*;)`, universal in A*. Define `R_A(d)` by its prescribed inverse factorization, so
+**Local correction after coordinator review (2026-10-14).** The initially submitted version of this review incorrectly identified L_A with the inverse of R_A and wrote the generic equations `R_A(L_A(q))=q` and `L_A(R_A(d))=d`. These expressions do not have the stated generic typings: R_A rotates an A **input**, whereas L_A rotates an A **output**. In particular `id_(A*)` is not a permissible q for L_A. This was an error in this cross-review; report 023 is preserved. The corrected derivation below separates the actual inverse pair and rechecks (D). It retains the verdict because both required snakes and (D) follow from the already stipulated universal β/η, without the ill-typed equations.
+
+Start with the chosen `e_A:L(∅|A_e,A*_e;)`, universal in its A* input. Its cut map and genuine inverse have exact types
 
 ```text
-cut_(A*)(R_A(d),e_A)=d,
-R_A(cut_(A*)(z,e_A))=z
+F_e : L(Θ|Γ;Δ,A*) → L(Θ|Γ,A;Δ),
+F_e(z)=cut_(A*)(z,e_A),
+R_A : L(Θ|Γ,A;Δ) → L(Θ|Γ;Δ,A*).
 ```
 
-at the appropriate remaining ambient ports. Put `c_A=R_A(id_A):L(∅|;A,A*)`. Define `L_A(q)=cut_A(q,e_A)`; q's output A becomes e_A's input A, leaving input A*.
+The universal equations are `F_e(R_A(d))=d` and `R_A(F_e(z))=z`. By contrast,
 
-The first displayed β gives the A snake `cut_(A*)(c_A,e_A)=id_A`. Now cutting `cut_A(c_A,d)` with e_A on A* yields d by this snake and associativity/interchange; η therefore gives the useful explicit expression `R_A(d)=cut_A(c_A,d)`. Finally `R_A(L_A(q))=q` is the second displayed reconstruction equation, yielding the A* snake on taking `q=id_(A*)`. Also `L_A(R_A(d))=d` is β. These comparisons occur between two separate arrows along one port. Neither snake performs a second self-cut or identifies A** with A.
+```text
+L_A : L(Θ|Γ;Δ,A) → L(Θ|Γ,A*;Δ),
+L_A(q)=cut_A(q,e_A).
+```
 
-For `d:L(Θ|Γ,A;Δ)` and `q:L(Υ|Σ;Π,A)`, expanding the rotations gives
+It cuts a different type/port; it is not F_e. Put `c_A=R_A(id_A):L(∅|;A_c,A*_c)`. The equation `F_e(R_A(id_A))=id_A` gives the A snake
+
+```text
+cut_(A*)(c_A,e_A) : L(∅|A_e;A_c) = id_A.
+```
+
+For `d:L(Θ|Γ,A_d;Δ)`, set `z_d=cut_A(c_A,d):L(Θ|Γ;Δ,A*_c)`, joining A_c to A_d. Cutting z_d with e_A along A*_c/A*_e and reassociating exposes the preceding A snake; hence `F_e(z_d)=d`. Universal η then gives `R_A(d)=z_d`, the explicit coevaluation expression used in (D).
+
+For the other snake, take `z=id_(A*)`, which has an A* output and is therefore a valid argument of F_e. Its unit-law composite is `F_e(id_(A*))=e_A`, retaining the identity's A* input and the added A input, with their named exchange. Applying the actual inverse equation gives `R_A(e_A)=id_(A*)`. Substituting the just-established expression for R_A gives
+
+```text
+cut_A(c_A,e_A) : L(∅|A*_e;A*_c) = id_(A*).
+```
+
+This is the A* snake. Each snake is one cut between two separate arrows. Neither performs a subsequent self-cut nor identifies A** with A. The raw bidual comparison templates in §2.2 consequently retain their justification by these two correctly typed snakes.
+
+Finally take `d:L(Θ|Γ,A_d;Δ)` and `q:L(Υ|Σ;Π,A_q)`. In R_A(d), join c_A's A_c output to d's A_d input; in L_A(q), join q's A_q output to e_A's A_e input. Their principal A* cut joins c_A's remaining A*_c output to e_A's remaining A*_e input. Associativity/interchange exposes `cut_(A*)(c_A,e_A):A_e→A_c`, the A snake, with q attached to its input and d to its output. Replacing that snake by id_A gives the exact equation
 
 ```text
 cut_(A*)(R_A(d),L_A(q))
- = cut_(A*)(cut_A(c_A,d),cut_A(q,e_A))
- = cut_A(q,d) : L(Θ,Υ|Γ,Σ;Δ,Π),
+ = cut_(A*)(cut_(A_c/A_d)(c_A,d),cut_(A_q/A_e)(q,e_A))
+ = cut_(A_q/A_d)(q,d) : L(Θ,Υ|Γ,Σ;Δ,Π).
 ```
 
-after the named exchange of ambient contexts. Associativity/interchange exposes the A snake while retaining d and q's other ports. This is (D) at raw A,A*, and the replacement type A has strictly smaller rank than A*. It remains valid if A itself is an iterated raw dual or contains modalities/units.
+The slash labels specify the output/input occurrences joined, not a new cut operation. This independently rechecks (D) using the A snake and actual port names. Its lower-rank replacement is still a cut on raw A, and its remaining Θ,Υ,Γ,Σ,Δ,Π ports are retained once. The induction ledger and atomic classification do not depend on either withdrawn generic equation.
 
 ### 5.2 Modal equations retain all their zone restrictions
 
