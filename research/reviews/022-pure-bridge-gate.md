@@ -6,9 +6,9 @@
 
 ## 1. Executive mathematical verdict
 
-**The frozen SC conjunction is unresolved by this investigation.** No well-typed counterexample was established, and the inspected published theorems do not close it. The pure prerequisite has a concrete comparison proof: tensor/par factorization is root-par insertion/removal, and dual factorization rotates an unchanged labeled forest. These operations model the entire specified pure Shulman quotient, giving inverse interpretations at the original boundaries. This proof uses existing net/sequent results and is an informal bounded transport argument, not a novel universal-existence theorem.
+**The frozen SC conjunction is unresolved by this investigation.** No well-typed counterexample was established, and the inspected published theorems do not close it. The pure prerequisite has a concrete candidate comparison argument: tensor/par factorization is root-par insertion/removal, and dual factorization rotates an unchanged labeled forest. These operations model the entire specified pure Shulman quotient, giving inverse interpretations at the original boundaries. This proof uses existing net/sequent results and is an informal bounded transport argument, not a novel universal-existence theorem.
 
-The mixed assertion remains separate. Pure linear unit conservativity also follows from Shulman's envelope theorem after the explicit universal-property comparison below. Neither result supplies recovery of all mixed-target proofs or invariance under all mixed equations. An adjunction triangle cancels one actual modal/unit detour; a finite-vector-space LNL model separates two actual axiom matchings. These are proved instances, not a mixed conservativity theorem.
+The mixed assertion remains separate. Pure linear unit conservativity also follows from Shulman's envelope theorem after the explicit universal-property comparison below. Neither result supplies recovery of all mixed-target proofs or invariance under all mixed equations. An adjunction triangle cancels one actual modal/unit detour; a finite-vector-space LNL model separates two actual axiom matchings. These are informal instance arguments, not an independently certified mixed conservativity theorem.
 
 All seven original texts in §4 were obtained and their relevant passages inspected. No theorem matching the whole mixed SC conjunction was identified in those texts. This bounded finding does not prove that SC is open in the mathematical literature, and makes no novelty claim. The precise unresolved obligations are mixed linear and nonlinear pure-boundary conservativity under E*.
 
@@ -115,7 +115,7 @@ For independent par/tensor commutations, naturality of inverse factorization on 
 
 On source nets `Ri=id`: all leaf links are retained, and sequentialization supplies the constructors. On generated target proofs `iR=id` follows by induction on the **full** generator list: identities/structural actions/cuts are fixed; universal morphisms are the interpreted axiom/tensor/par nets; inverse factorization is fixed because cutting it with that same universal morphism recovers its premise, and the target η rule cancels that cut map. For raw dual expressions compare the functors using the canonical boundary isomorphisms, not a new strict double-dual equation. These isomorphisms fix atoms and are determined recursively by universal uniqueness (Shulman Prop. 2.9); they are natural under cut, and induce the specified De Morgan comparisons. On the translated, De-Morgan-normalized source grammar, the comparison fixes the reference boundaries. This is why no ∂-strictness axiom is imposed on T₀ to apply the net argument.
 
-Consequently i is bijective on the original pure hom-sets, including the empty profile. R reflects equality by retained labeled matching; `iR=id` supplies intrinsic fullness. Atom substitution replaces each link with the expanded compound identity; the factorization/cut descriptions commute with that replacement, using the same canonical dual comparisons. Certified definitional extensions transport these equations through their supplied inverse expansions. This discharges the pure bridge as an informal transport proof built from existing results. It contains no F/U recovery and consequently proves nothing about j by cancellation.
+Consequently i is bijective on the original pure hom-sets, including the empty profile. R reflects equality by retained labeled matching; `iR=id` supplies intrinsic fullness. Atom substitution replaces each link with the expanded compound identity; the factorization/cut descriptions commute with that replacement, using the same canonical dual comparisons. Certified definitional extensions transport these equations through their supplied inverse expansions. This supplies a candidate informal transport proof built from existing results; acceptance of the pure bridge remains pending independent verification of the full equation and boundary comparison. It contains no F/U recovery and consequently proves nothing about j by cancellation.
 
 ### 5.4 Finite schemas
 
@@ -127,7 +127,7 @@ The quotient's conditional η uniqueness can be replaced by reconstruction: a pr
 
 Apply Shulman 2021 Thm. 10.1 to P=T₀ with J its binary tensors and cotensors. T₀ is small. Polycategory functors preserve duals (the paper's §2), so a J-preserving map from T₀ to a star-autonomous target already preserves its chosen dual data up to the canonical isomorphisms.
 
-T₁ has the theorem's universal property: a J-preserving map T₀→Q is determined by its atom interpretation; the free unital tensor/par/dual completion extends it uniquely up to the specified coherent isomorphism. Conversely restricting an interpretation of T₁ gives that map. Thus u is identified with the theorem's universal map and is fully faithful **polycategorically**, including empty profiles. This is an INFERENCE application of the VERIFIED_SOURCE theorem. It settles the linear-unit extension and has no nonlinear CCC/F/U hypothesis: v_X is still another map.
+T₁ has the theorem's universal property: a J-preserving map T₀→Q is determined by its atom interpretation; the free unital tensor/par/dual completion extends it uniquely up to the specified coherent isomorphism. Conversely restricting an interpretation of T₁ gives that map. Thus u is identified with the theorem's universal map and is fully faithful **polycategorically**, including empty profiles. This is an INFERENCE application of the VERIFIED_SOURCE theorem. It supports the linear-unit extension, conditional on verification of this universal-property identification, and has no nonlinear CCC/F/U hypothesis: v_X is still another map.
 
 ## 6. Typed tests in the full mixed congruence
 
@@ -193,7 +193,7 @@ The source forests `⊢p^⊥,p⊗p` (unbalanced leaves) and `⊢p^⊥,p,q^⊥,q`
 
 ## 7. Strongest positive argument and strongest obstruction
 
-The strongest positive argument is the explicit net model with inverse universal factorizations in §5, supported by the original sequentialization, commutation, and cut statements. It proves the bounded N→T₀ comparison including named occurrences, full pure cut/dual detours, virtual units, and the empty boundary. The source matching identity is independently fixed, not defined to equal the target congruence. The separately verified pure unit-extension theorem proves u fully faithful. For A*, the genuine modal triangle and separating model are the strongest verified instances in this task.
+The strongest positive argument is the explicit net model with inverse universal factorizations in §5, supported by the original sequentialization, commutation, and cut statements. It proposes the bounded N→T₀ comparison including named occurrences, full pure cut/dual detours, virtual units, and the empty boundary; the full inverse and boundary-coherence checks still require independent verification. The source matching identity is independently fixed, not defined to equal the target congruence. The inspected pure unit-extension theorem would establish u fully faithful after verification that u has its precise universal property. For A*, the genuine modal triangle and separating model are the strongest verified instances in this task.
 
 The strongest obstruction is **an unproved mixed recovery/equality-conservativity step**, not a counterexample. An arbitrary target representative can alternate nonlinear hom/product factorization, F/U, duality, and unit operations. The triangle calculation covers one family of detours. Neither that calculation nor the pure net model reduces every such representative or checks every ambient equation relating representatives.
 
@@ -210,7 +210,7 @@ Red-team checks reject the following proposed shortcuts:
 
 ## 8. Exact remaining obligations and next test
 
-The pure bridge and pure unit extension are discharged by §5's informal arguments from the inspected results. The remaining SC obligations are:
+The pure bridge and identification of the pure unit extension remain verification obligations: §5 supplies informal candidate arguments, not independently accepted dependencies. In particular, check the inverse interpretation against every pure equation schema, raw dual-type boundary comparisons, composition/substitution naturality, and the universal-property identification of u. The mixed SC obligations are:
 
 1. **Mixed linear conservativity:** for every original X,Y and pure MLL boundary b, prove that `j_X:T₀(i b)→A*(i b)` is bijective, with cut/substitution naturality, under E₀/E*. Equivalently, after §5.5, prove v_X bijective on these old hom-sets. Alternatively refute it by a typed nonimage class or equality witness. The pure arguments do not discharge this.
 2. **Mixed nonlinear conservativity:** prove the frozen native NJ bijection against all E* interiors. A theorem for the implicational Girard translation is insufficient without an exact comparison preserving products and the complete ambient doctrine. The standard free-CCC/unit-type comparison is only a pure starting point, not the mixed recovery theorem.
@@ -241,3 +241,10 @@ Repository instructions, the canonical plan, the S2 comparison/integration repor
 Primary PDFs and extracted text are scratch evidence outside the repository. The seven sources were read directly rather than promoting previous reports' evidence labels. Verification of published statements and a bounded informal comparison proof are distinguished from a mechanically checked or independently refereed new result. The surviving uncertainty is mathematical: full mixed pure-boundary recovery/equality conservativity.
 
 **Decision: UNRESOLVED FROZEN CLAIM.**
+
+
+## 10. Coordinator review supplement — 2026-10-14
+
+Status: **reviewed as research evidence; pure prerequisite arguments pending independent verification**. This supplement and the status corrections above do not change the frozen SC, D*, E*, source equality, or canonical maps. The independent-check obligation is not a requirement to mechanize every argument. The pure bridge, the unit-extension identification, and finite-schema extraction must retain their INFERENCE status until accepted on their actual arguments.
+
+The next bounded investigation is [Task 017](../../tasks/017-atomic-endomorphism-test.md). Its atomic source hom-set is independently the singleton identity class; testing the mixed target at that boundary does not depend on accepting N≅T₀ or full faithfulness of u. A certified negative instance refutes SC for the fixed doctrine; a positive result settles only the displayed instance, not full SC. No unrestricted universal-existence work or implementation is authorized.
