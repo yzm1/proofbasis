@@ -1,6 +1,6 @@
 # ProofBasis research program — spine v1 (proposal)
 
-**Status:** proposed plan, not an approved theorem or a commitment to implementation. **Last revision:** 2026-10-09. This file is the **canonical entry point** for research planning. Past reports are evidence; they do not silently replace the plan.
+**Status:** original common-basis direction explicitly approved by the owner; mathematical claims remain unestablished. **Last revision:** 2026-10-14. This file is the **canonical entry point** for research planning. Past reports are evidence; they do not silently replace the plan.
 
 ## North star
 
@@ -25,7 +25,9 @@ Investigate whether the structural machinery of mathematical proving admits a **
 7. No unbounded surveys; no premature survey cutoff either. Breadth first **as a map of relevant directions**, then selective depth by decision value.
 8. No software implementation until a mathematical experiment and its falsifiable outcome justify it.
 
-## Status and stages
+## Historical status and stages
+
+The table below records the earlier sequence. Current direction is given in the final dated override and Task 020; historical labels do not authorize an SC continuation.
 
 | Stage | Gate/question | Status | Deliverable |
 |---|---|---|---|
@@ -95,3 +97,12 @@ The reviewed evidence in PRs #34–#39 is now integrated on main. [Task 019](tas
 See [external review](docs/EXTERNAL_PROGRAM_REVIEW_2026-10-14.md), [response 031](research/reviews/031-external-review-response.md) and [explicit decision entry](research/DECISIONS.md). Benton 1994's cut-elimination, subformula and semantic-soundness template was missed; simple model closures materially change task sizing. Those closure arguments and the generic/classical comparison must be written and verified, not automatically accepted from either LLM review.
 
 No further paired theorem task is selected. A concise exact lemma/obligation packet, typing-only check and outside proof-theorist assessment are the proposed small pivot. There is no owner decision here to retire the charter, send messages, spend money, impose the review's fourteen-day deadline or archive. External running agents must receive the pause from the owner. The historical chronology is retained.
+
+
+## Current direction — 2026-10-14: original common basis explicitly reaffirmed
+
+The owner states: “I want to pursue the original common basis question.” This supersedes the pending choice between that goal and an SC-specific note. The charter's meaningful finite cross-foundation basis remains the north star; SC is one local diagnostic, not its definition. Task 019 remains paused. No archive or retirement is selected.
+
+The next investigation is [Task 020](tasks/020-fixed-common-basis-gap.md). Reuse the already specified broad K candidate and existing prior-art/control record; find an exact fixed-core-versus-parameterization gap, theorem correspondence, construction or qualified obstruction. Do not produce another generic definition round or merely extend the pure LNL fragment result. The broad C_fin is a provisional envelope, not an owner-approved characterization of all mathematics; the source scope and omitted explanatory/causal properties remain explicit.
+
+LLM mathematical work remains permitted. Correctness and usefulness depend on the argument, contract, prior-art status and suitable checks; outside human participation is a possible validation method, not a required source of discovery. Same-vendor review remains uncertified evidence. A family of doctrines may be comparative evidence or a demonstrated fallback, not an unapproved replacement objective. See the explicit owner-direction entry in research/DECISIONS.md.
