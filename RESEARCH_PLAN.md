@@ -86,3 +86,12 @@ Full SC's all-boundary recovery, source equality preservation/reflection, natura
 ## Next restricted SC gate — 2026-10-14
 
 The reviewed evidence in PRs #34–#39 is now integrated on main. [Task 019](tasks/019-native-pure-fragment-fidelity.md) selects the proposed next gate from synthesis 028: native pure-boundary recovery/equation preservation/structure, independently paired with source equality-reflection and adversarial investigation. It quantifies over the original arbitrary finite X,Y and all source boundaries, retains full mixed interiors and fixes the original D*, E* and canonical maps. No broader definition change, implementation or all-foundations existence task is authorized. Both agents submit independently and decisive arguments receive reciprocal review; none is launched by this planning update.
+
+
+## Current override — 2026-10-14: programme pause after external review
+
+**This entry supersedes Task 019's selected/ready status and the certification emphasis of the preceding atomic entries.** Task 019 is PAUSED and its launch recommendation withdrawn. Synthesis 028 records an LLM-authored argument with separate-session same-vendor cross-review, not external human or formal certification. The coordinator is also an LLM.
+
+See [external review](docs/EXTERNAL_PROGRAM_REVIEW_2026-10-14.md), [response 031](research/reviews/031-external-review-response.md) and [explicit decision entry](research/DECISIONS.md). Benton 1994's cut-elimination, subformula and semantic-soundness template was missed; simple model closures materially change task sizing. Those closure arguments and the generic/classical comparison must be written and verified, not automatically accepted from either LLM review.
+
+No further paired theorem task is selected. A concise exact lemma/obligation packet, typing-only check and outside proof-theorist assessment are the proposed small pivot. There is no owner decision here to retire the charter, send messages, spend money, impose the review's fourteen-day deadline or archive. External running agents must receive the pause from the owner. The historical chronology is retained.
